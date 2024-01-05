@@ -636,7 +636,7 @@
         }
 
         function getMedicacion() {
-            let url = "http://control.lacasanostra.com.mx/dao/patient.php";
+            const url = "http://control.lacasanostra.com.mx/dao/patient.php";
             const formData = new FormData();
             formData.append('paciente', getIdPaciente());
             formData.append('action', '6');
@@ -644,6 +644,7 @@
                 .then((response) => response.json())
                 .then((medicaciones) => {
                     //console.log(myJson)
+                    // console.log("creando tabla ---------------------");
                     let table = $('#table-medicacion').DataTable();
                     table.destroy();
                     table = $('#table-medicacion').DataTable({
@@ -658,6 +659,7 @@
                                 render: (data, type) => {
                                     const btnaeditar = `<a href='#' class='btn btn-outline-info btn-rounded' onclick='mostrarMedicacion(${data})'><i class='fa-solid fa-eye' style='font-size:1.5em;'></i></a>`;
                                     //return btnagregar+"&nbsp;"+btnsacar+"&nbsp;"+btnhistorico;
+                                    condole.log(data);
                                     return btnaeditar;
                                 }
                             }
@@ -668,6 +670,7 @@
                         searching: true,
                         ordering: true
                     });
+                    // console.log("tabla reada >>>>>>>>>>>>>>>>>>>>>");
                 });
         }
 
@@ -678,7 +681,11 @@
             if (!required.includes(false)) {
                 const formData = new FormData(form);
                 let date = new Date();
+                let inicio = new Date(document.querySelector("#inicio").value);
+                let termina = new Date(document.querySelector("#termina").value);
                 formData.append('fecha', date.toISOString().slice(0, 19).replace('T', ' '));
+                formData.set('inicio', inicio.toISOString().slice(0, 19).replace('T', ' '));
+                formData.set('termina', termina.toISOString().slice(0, 19).replace('T', ' '));
                 formData.append('paciente', getIdPaciente());
                 formData.append('action', '5');
                 fetch(url, { method: "post", body: formData })
@@ -689,7 +696,7 @@
                         getMedicacion();
                         swal({
                             title: 'Guardado',
-                            text: 'La medicamento fue agregado',
+                            text: 'El medicamento fue agregado',
                             icon: 'success',
                             buttons: {
                                 cancel: false,
@@ -741,14 +748,14 @@
         function getNotas() {
             const url = "http://control.lacasanostra.com.mx/dao/patient.php";
             const formData = new FormData();
-            formData.append('paciente', getIdPaciente());
+            formData.append('patient', getIdPaciente());
             formData.append('action', '11');
             fetch(url, { method: "post", body: formData })
                 .then((response) => response.json())
                 .then((notas) => {
-                    let table = $('#table-condicionesmedicas').DataTable();
+                    let table = $('#table-notas').DataTable();
                     table.destroy();
-                    table = $('#table-condicionesmedicas').DataTable({
+                    table = $('#table-notas').DataTable({
                         data: notas,
                         columns: [
                             { data: "fecha" },
@@ -779,14 +786,14 @@
                 const formData = new FormData(form);
                 let date = new Date();
                 formData.append('fecha', date.toISOString().slice(0, 19).replace('T', ' '));
-                formData.append('idpaciente', getIdPaciente());
-                formData.append('action', '9');
+                formData.append('patient', getIdPaciente());
+                formData.append('action', '12');
                 fetch(url, { method: "post", body: formData })
                     .then((response) => response.json())
                     .then((condicion) => {
-                        resetform("form-condicionmedica");
-                        $('#condicionesmodal').modal('hide');
-                        getCondicionesMedicas();
+                        resetform("form-nota");
+                        $('#notamodal').modal('hide');
+                        getNotas();
                         swal({
                             title: 'Guardado',
                             text: 'La nota fue guardada',
