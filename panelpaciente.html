@@ -174,18 +174,18 @@
                                         role="tab" aria-controls="general" aria-selected="true">Generales</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="system-tab" data-bs-toggle="tab" href="#system" role="tab"
-                                        aria-controls="system" aria-selected="false"
-                                        onclick="getTratamientoPaciente();">Medicamentos</a>
+                                    <a class="nav-link" id="medicacion-tab" data-bs-toggle="tab" href="#medicaion"
+                                        role="tab" aria-controls="medicacion" aria-selected="false"
+                                        onclick="getMedicacion();">Medicamentos</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="email-tab" data-bs-toggle="tab" href="#email" role="tab"
-                                        aria-controls="email" aria-selected="false"
+                                    <a class="nav-link" id="condiciones-tab" data-bs-toggle="tab" href="#condiciones"
+                                        role="tab" aria-controls="condiciones" aria-selected="false"
                                         onclick="getCondicionesMedicas();">Condiciones</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="appearance-tab" data-bs-toggle="tab" href="#appearance"
-                                        role="tab" aria-controls="appearance" aria-selected="false">Notas</a>
+                                    <a class="nav-link" id="notas-tab" data-bs-toggle="tab" href="#notas" role="tab"
+                                        aria-controls="notas" aria-selected="false" onclick="getNotas()">Notas</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="attributions-tab" data-bs-toggle="tab" href="#attributions"
@@ -306,18 +306,19 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div class="tab-pane fade" id="system" role="tabpanel" aria-labelledby="system-tab">
+                                <div class="tab-pane fade" id="medicaion" role="tabpanel"
+                                    aria-labelledby="medicaion-tab">
                                     <div class="col-md-12">
                                         <a href="" class="btn btn-sm btn-outline-primary float-end"
                                             data-bs-toggle="modal" data-bs-target="#medicacionmodal"><i
                                                 class="fas fa-plus-circle"></i> Nuevo</a>
-                                        <table width="100%" class="table table-hover" id="table-materialmedico">
+                                        <table width="100%" class="table table-hover" id="table-medicacion">
                                             <thead>
                                                 <tr>
                                                     <th>Medicamento</th>
-                                                    <th>Dosis</th>
-                                                    <th>Frecuencia</th>
-                                                    <th>Termina</th>
+                                                    <th>Dosis (ML)</th>
+                                                    <th>Frecuencia (HR)</th>
+                                                    <th>Fecha de Terminacion</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -358,10 +359,14 @@
                                                             </div>
                                                         </div>
                                                         <div class="row g-2">
-                                                            <div class="input-group mb-3 col-6">
+                                                            <div class=" mb-3 col-6">
                                                                 <label for="dosis" class="form-label">Dosis</label>
-                                                                <input type="number" id="dosis" name="dosis"
-                                                                    class="form-control" required /><span class="input-group-text">ml</span>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="number" id="dosis" name="dosis"
+                                                                        class="form-control" required /><span
+                                                                        class="input-group-text">ml</span>
+                                                                </div>
+
                                                             </div>
                                                             <div class="mb-3 col-6">
                                                                 <label for="frecuencia"
@@ -390,7 +395,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="email" role="tabpanel" aria-labelledby="email-tab">
+                                <div class="tab-pane fade" id="condiciones" role="tabpanel"
+                                    aria-labelledby="condiciones-tab">
                                     <div class="col-md-12">
                                         <a href="" class="btn btn-sm btn-outline-primary float-end"
                                             data-bs-toggle="modal" data-bs-target="#condicionesmodal"><i
@@ -411,7 +417,8 @@
                                     <div class="modal fade" id="condicionesmodal" role="dialog" tabindex="-1">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <form id="form-condicionmedica" accept-charset="utf-8">
+                                                <form id="form-condicionmedica" accept-charset="utf-8"
+                                                    onsubmit="event.preventDefault();">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title">Nueva Condicion</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -421,17 +428,17 @@
                                                         <div class="mb-3">
                                                             <label for="titulo" class="form-label">Titulo</label>
                                                             <input type="text" name="titulo" id="titulo"
-                                                                class="form-control">
+                                                                class="form-control" required>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="descripcion"
                                                                 class="form-label">Descripcion</label>
                                                             <textarea rows="4" id="descripcion" name="descripcion"
-                                                                class="form-control"></textarea>
+                                                                class="form-control" required></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button id="btn-gusrdarcondicion" type="button"
+                                                        <button id="btn-guardarcondicion" type="button"
                                                             class="btn btn-success">Aceptar</button>
                                                     </div>
                                                 </form>
@@ -439,45 +446,48 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="appearance" role="tabpanel"
-                                    aria-labelledby="appearance-tab">
-                                    <div class="col-md-6">
-                                        <p class="text-muted">Settings about appearance such as themes, icon and color
-                                            scheme.</p>
-                                        <div class="mb-3">
-                                            <label for="" class="form-label">Theme</label>
-                                            <select name="" class="form-select">
-                                                <option value="">Select theme</option>
-                                                <option value="">Dark</option>
-                                                <option value="">Light</option>
-                                                <option value="">Classic</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="" class="form-label">Display colored icons</label>
-                                            <select name="" class="form-select">
-                                                <option value="">Enabled</option>
-                                                <option value="">Disabled</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="" class="form-label">Set default font size</label>
-                                            <select name="" class="form-select">
-                                                <option value="">10</option>
-                                                <option value="">12</option>
-                                                <option value="">13</option>
-                                                <option value="">14</option>
-                                                <option value="">15</option>
-                                                <option value="">16</option>
-                                                <option value="">17</option>
-                                                <option value="">18</option>
-                                                <option value="">19</option>
-                                                <option value="">20</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-3 text-end">
-                                            <button class="btn btn-success" type="submit"><i class="fas fa-check"></i>
-                                                Save</button>
+                                <div class="tab-pane fade" id="notas" role="tabpanel" aria-labelledby="notas-tab">
+                                    <div class="col-md-12">
+                                        <a href="" class="btn btn-sm btn-outline-primary float-end"
+                                            data-bs-toggle="modal" data-bs-target="#notamodal"><i
+                                                class="fas fa-plus-circle"></i> Nuevo</a>
+                                        <table width="100%" class="table table-hover" id="table-notas">
+                                            <thead>
+                                                <tr>
+                                                    <th>Fecha</th>
+                                                    <th>Nota</th>
+                                                    <th></th>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal fade" id="notamodal" role="dialog" tabindex="-1">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form id="form-nota" accept-charset="utf-8"
+                                                    onsubmit="event.preventDefault();">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Nueva Nota</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body text-start">
+                                                      
+                                                        <div class="mb-3">
+                                                            <label for="nota"
+                                                                class="form-label">Nota</label>
+                                                            <textarea rows="4" id="nota" name="nota"
+                                                                class="form-control" required></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button id="btn-guardarNota" type="button"
+                                                            class="btn btn-success">Aceptar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -520,7 +530,7 @@
             const idpaciente = getIdPaciente();
             getPaciente(idpaciente);
 
-            $("#btn-gusrdarcondicion").on("click", function () {
+            $("#btn-guardarcondicion").on("click", function () {
                 guardarCondicion();
             });
             $("#btn-guardarmedicacion").on("click", () => {
@@ -529,6 +539,9 @@
             $("#btn-guardarpaciente").on("click", function (evt) {
                 //evt.preventDefault();
                 guardarPaciente();
+            });
+            $("#btn-guardarNota").on("click", ()=>{
+                guardarNota();
             });
         });
 
@@ -593,19 +606,68 @@
         }
 
         function guardarCondicion() {
-            var url = "http://control.lacasanostra.com.mx/dao/patient.php";
-            const formData = new FormData(document.querySelector("#form-condicionmedica"));
-            let date = new Date();
-            formData.append('fecha', date.toISOString().slice(0, 19).replace('T', ' '));
-            formData.append('idpaciente', getIdPaciente());
-            formData.append('action', '7');
+            const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+            const form = document.querySelector("#form-condicionmedica");
+            const required = validarFormulario(form);
+            if (!required.includes(false)) {
+                const formData = new FormData(form);
+                let date = new Date();
+                formData.append('fecha', date.toISOString().slice(0, 19).replace('T', ' '));
+                formData.append('idpaciente', getIdPaciente());
+                formData.append('action', '9');
+                fetch(url, { method: "post", body: formData })
+                    .then((response) => response.json())
+                    .then((condicion) => {
+                        resetform("form-condicionmedica");
+                        $('#condicionesmodal').modal('hide');
+                        getCondicionesMedicas();
+                        swal({
+                            title: 'Guardado',
+                            text: 'La condicion fue guardada',
+                            icon: 'success',
+                            buttons: {
+                                cancel: false,
+                                conform: 'Aceptar'
+                            }
+                        });
+                    });
+            }
+
+        }
+
+        function getMedicacion() {
+            let url = "http://control.lacasanostra.com.mx/dao/patient.php";
+            const formData = new FormData();
+            formData.append('paciente', getIdPaciente());
+            formData.append('action', '6');
             fetch(url, { method: "post", body: formData })
-                .then(function (response) {
-                    return response.json();
-                }).then(function (myJson) {
-                    resetform("form-condicionmedica");
-                    $('#condicionesmodal').modal('hide');
-                    getCondicionesMedicas();
+                .then((response) => response.json())
+                .then((medicaciones) => {
+                    //console.log(myJson)
+                    let table = $('#table-medicacion').DataTable();
+                    table.destroy();
+                    table = $('#table-medicacion').DataTable({
+                        data: medicaciones,
+                        columns: [
+                            { data: "medicamento" },
+                            { data: "dosis" },
+                            { data: "frecuencia" },
+                            { data: "termina" },
+                            {
+                                data: "id",
+                                render: (data, type) => {
+                                    const btnaeditar = `<a href='#' class='btn btn-outline-info btn-rounded' onclick='mostrarMedicacion(${data})'><i class='fa-solid fa-eye' style='font-size:1.5em;'></i></a>`;
+                                    //return btnagregar+"&nbsp;"+btnsacar+"&nbsp;"+btnhistorico;
+                                    return btnaeditar;
+                                }
+                            }
+                        ],
+                        responsive: true,
+                        pageLength: 20,
+                        lengthChange: false,
+                        searching: true,
+                        ordering: true
+                    });
                 });
         }
 
@@ -620,17 +682,19 @@
                 formData.append('paciente', getIdPaciente());
                 formData.append('action', '5');
                 fetch(url, { method: "post", body: formData })
-                    .then(function (response) {
-                        return response.json();
-                    }).then(function (myJson) {
-                        resetform("form-condicionmedica");
-                        $('#condicionesmodal').modal('hide');
-                        getCondicionesMedicas();
+                    .then((response) => response.json())
+                    .then((medicacion) => {
+                        resetform("form-medicacion");
+                        $('#medicacionmodal').modal('hide');
+                        getMedicacion();
                         swal({
                             title: 'Guardado',
-                            text: 'La medicacion fue guardada',
+                            text: 'La medicamento fue agregado',
                             icon: 'success',
-                            buttons: [{conform: 'Aceptar'}]
+                            buttons: {
+                                cancel: false,
+                                conform: 'Aceptar'
+                            }
                         });
                     });
             }
@@ -638,7 +702,7 @@
         }
 
         function getCondicionesMedicas() {
-            var url = "http://control.lacasanostra.com.mx/dao/patient.php";
+            const url = "http://control.lacasanostra.com.mx/dao/patient.php";
             const formData = new FormData();
             formData.append('idpaciente', getIdPaciente());
             formData.append('action', '8');
@@ -648,7 +712,7 @@
                 })
                 .then(function (myJson) {
                     console.log(myJson)
-                    var table = $('#table-condicionesmedicas').DataTable();
+                    let table = $('#table-condicionesmedicas').DataTable();
                     table.destroy();
                     table = $('#table-condicionesmedicas').DataTable({
                         data: myJson,
@@ -659,7 +723,7 @@
                             {
                                 data: "id",
                                 render: function (data, type) {
-                                    var btnaeditar = "<a href='#' class='btn btn-outline-info btn-rounded' onclick=''><i class='fas fa-trash' style='font-size:1.5em;'></i></a>";
+                                    var btnaeditar = `<a href='#' class='btn btn-outline-info btn-rounded' onclick='getCondicion(${data})'><i class='fas fa-trash' style='font-size:1.5em;'></i></a>`;
                                     //return btnagregar+"&nbsp;"+btnsacar+"&nbsp;"+btnhistorico;
                                     return btnaeditar;
                                 }
@@ -672,6 +736,68 @@
                         ordering: true
                     });
                 });
+        }
+
+        function getNotas() {
+            const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+            const formData = new FormData();
+            formData.append('paciente', getIdPaciente());
+            formData.append('action', '11');
+            fetch(url, { method: "post", body: formData })
+                .then((response) => response.json())
+                .then((notas) => {
+                    let table = $('#table-condicionesmedicas').DataTable();
+                    table.destroy();
+                    table = $('#table-condicionesmedicas').DataTable({
+                        data: notas,
+                        columns: [
+                            { data: "fecha" },
+                            { data: "nota" },
+                            {
+                                data: "id",
+                                render: function (data, type) {
+                                    var btnaeditar = `<a href='#' class='btn btn-outline-info btn-rounded' onclick='getNota(${data})'><i class='fas fa-trash' style='font-size:1.5em;'></i></a>`;
+                                    //return btnagregar+"&nbsp;"+btnsacar+"&nbsp;"+btnhistorico;
+                                    return btnaeditar;
+                                }
+                            }
+                        ],
+                        responsive: true,
+                        pageLength: 20,
+                        lengthChange: false,
+                        searching: true,
+                        ordering: true
+                    });
+                });
+        }
+
+        function guardarNota() {
+            const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+            const form = document.querySelector("#form-nota");
+            const required = validarFormulario(form);
+            if (!required.includes(false)) {
+                const formData = new FormData(form);
+                let date = new Date();
+                formData.append('fecha', date.toISOString().slice(0, 19).replace('T', ' '));
+                formData.append('idpaciente', getIdPaciente());
+                formData.append('action', '9');
+                fetch(url, { method: "post", body: formData })
+                    .then((response) => response.json())
+                    .then((condicion) => {
+                        resetform("form-condicionmedica");
+                        $('#condicionesmodal').modal('hide');
+                        getCondicionesMedicas();
+                        swal({
+                            title: 'Guardado',
+                            text: 'La nota fue guardada',
+                            icon: 'success',
+                            buttons: {
+                                cancel: false,
+                                conform: 'Aceptar'
+                            }
+                        });
+                    });
+            }
         }
 
         function getIdPaciente() {
