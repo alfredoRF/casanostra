@@ -474,10 +474,9 @@
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body text-start">
-                                                      
+
                                                         <div class="mb-3">
-                                                            <label for="nota"
-                                                                class="form-label">Nota</label>
+                                                            <label for="nota" class="form-label">Nota</label>
                                                             <textarea rows="4" id="nota" name="nota"
                                                                 class="form-control" required></textarea>
                                                         </div>
@@ -525,8 +524,8 @@
             return required;
         }
 
-        $(function () {
-            console.log("Cargando panel-paciente");
+        $(() => {
+            // console.log("Cargando panel-paciente");
             const idpaciente = getIdPaciente();
             getPaciente(idpaciente);
 
@@ -540,7 +539,7 @@
                 //evt.preventDefault();
                 guardarPaciente();
             });
-            $("#btn-guardarNota").on("click", ()=>{
+            $("#btn-guardarNota").on("click", () => {
                 guardarNota();
             });
         });
@@ -575,7 +574,7 @@
         }
 
         function getPaciente(id) {
-            var url = "http://control.lacasanostra.com.mx/dao/patient.php";
+            const url = "http://control.lacasanostra.com.mx/dao/patient.php";
             const formData = new FormData();
             formData.append('action', '4');
             formData.append('id', id);
@@ -657,9 +656,9 @@
                             {
                                 data: "id",
                                 render: (data, type) => {
-                                    const btnaeditar = `<a href='#' class='btn btn-outline-info btn-rounded' onclick='mostrarMedicacion(${data})'><i class='fa-solid fa-eye' style='font-size:1.5em;'></i></a>`;
+                                    const btnaeditar = `<a href='#' class='btn btn-outline-info btn-rounded' onclick='mostrarMedicacion(${data})'><i class='fas fa-eye' style='font-size:1.5em;'></i></a>`;
                                     //return btnagregar+"&nbsp;"+btnsacar+"&nbsp;"+btnhistorico;
-                                    condole.log(data);
+                                    // console.log(data);
                                     return btnaeditar;
                                 }
                             }
@@ -712,7 +711,7 @@
             const url = "http://control.lacasanostra.com.mx/dao/patient.php";
             const formData = new FormData();
             formData.append('idpaciente', getIdPaciente());
-            formData.append('action', '8');
+            formData.append('action', '10');
             fetch(url, { method: "post", body: formData })
                 .then(function (response) {
                     return response.json();
@@ -730,7 +729,7 @@
                             {
                                 data: "id",
                                 render: function (data, type) {
-                                    var btnaeditar = `<a href='#' class='btn btn-outline-info btn-rounded' onclick='getCondicion(${data})'><i class='fas fa-trash' style='font-size:1.5em;'></i></a>`;
+                                    var btnaeditar = `<a href='#' class='btn btn-outline-info btn-rounded' onclick='getCondicion(${data})'><i class='fas fa-eye' style='font-size:1.5em;'></i></a>`;
                                     //return btnagregar+"&nbsp;"+btnsacar+"&nbsp;"+btnhistorico;
                                     return btnaeditar;
                                 }
@@ -748,7 +747,7 @@
         function getNotas() {
             const url = "http://control.lacasanostra.com.mx/dao/patient.php";
             const formData = new FormData();
-            formData.append('patient', getIdPaciente());
+            formData.append('paciente', getIdPaciente());
             formData.append('action', '11');
             fetch(url, { method: "post", body: formData })
                 .then((response) => response.json())
@@ -763,7 +762,7 @@
                             {
                                 data: "id",
                                 render: function (data, type) {
-                                    var btnaeditar = `<a href='#' class='btn btn-outline-info btn-rounded' onclick='getNota(${data})'><i class='fas fa-trash' style='font-size:1.5em;'></i></a>`;
+                                    var btnaeditar = `<a href='#' class='btn btn-outline-info btn-rounded' onclick='getNota(${data})'><i class='fas fa-eye' style='font-size:1.5em;'></i></a>`;
                                     //return btnagregar+"&nbsp;"+btnsacar+"&nbsp;"+btnhistorico;
                                     return btnaeditar;
                                 }
@@ -810,8 +809,8 @@
         function getIdPaciente() {
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
-            var idpaciente = urlParams.get('paciente');
-            console.log("regreando", idpaciente)
+            let idpaciente = urlParams.get('paciente');
+            // console.log("regreando", idpaciente)
             return idpaciente;
         }
 
@@ -820,7 +819,7 @@
         }
 
         function getListaMedicamentos() {
-            var url = "http://control.lacasanostra.com.mx/dao/materialmedico.php";
+            const url = "http://control.lacasanostra.com.mx/dao/materialmedico.php";
             const formData = new FormData();
             formData.append('action', '1');
             fetch(url, { method: "post", body: formData })
@@ -835,9 +834,21 @@
                     $("#listamedicamentos").html(items);
                 });
         }
+        
+        function mostrarMedicacion(){} 
+        function getCondicion() {} 
+        function getNota(){}
 
         function resetform(form) {
             $("#" + form)[0].reset();
+        }
+        function loadForm(data) {
+            Object.keys(data).forEach(key => {
+                // console.log(key, obj[key]);
+                $("#" + key).val(data[key]);
+            });
+
+            // $("#" + )
         }
     </script>
 </body>
