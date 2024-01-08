@@ -255,25 +255,25 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css
                             </center>
                             <hr />
                             <form id="form-materialmedico" class="needs-validation" accept-charset="utf-8"
-                                onsubmit="event.preventDefault();">
+                                onsubmit="return false;">
                                 <input type="hidden" name="materialmedico" id="materialmedico" class="form-control">
                                 <div class="row g-2">
                                     <div class="mb-3 col-4">
                                         <label for="cantidad" class="form-label">Cantidad</label>
                                         <input type="number" name="cantidad" class="form-control" required>
-                                        
+
                                     </div>
                                     <div class="mb-3 col-8">
                                         <label for="caducidad" class="form-label">Caducidad</label>
                                         <input type="date" name="caducidad" class="form-control" required>
-                                        
+
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="proveedor" class="form-label">Proveedor</label>
                                     <input type="text" type="date" name="proveedor" id="proveedor" class="form-control"
                                         list="proveedores" required />
-                                    
+
                                 </div>
                                 <div class="row g-2">
                                     <div class="mb-3 col-5">
@@ -282,7 +282,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css
                                             <span class="input-group-text">$</span>
                                             <input type="number" class="form-control" name="precio" id="precio"
                                                 aria-label="Amount (to the nearest dollar)" required>
-                                            
+
                                         </div>
                                     </div>
                                     <div class="mb-3 col-7">
@@ -292,7 +292,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css
                                             <option value="m">Bodega Medicamento</option>
                                             <option value="f">Farmacia</option>
                                         </select>
-                                        
+
                                     </div>
                                 </div>
                                 <div class="mb-3">
@@ -306,7 +306,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button id="btn-guardarmaterialmedico" type="submit"
+                            <button id="btn-guardarmaterialmedico" type="button"
                                 class="btn btn-success">Aceptar</button>
                         </div>
                     </div>
@@ -377,48 +377,8 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css
 
     <script>
         //const Swal = require('sweetalert2');
-        $(function () {
+        function validarForm(form) {
 
-            console.log("LOAD MATERIAL MEDICO");
-
-            getMaterialMedico();
-
-            $("#btn-guardarmaterialmedico").on("click", function () {
-
-                guardarMaterialMedico();
-            });
-
-            $("#btn-retirarmaterialmedico").on("click", function () {
-                sacarMaterialMedico();
-            });
-
-            $("#form-nuevomaterialmedico").on("submit", function (evt) {
-                evt.preventDefault();
-                nuevoMaterialMedico();
-            });
-
-        });
-
-        function nuevoMaterialMedico() {
-            var url = "http://control.lacasanostra.com.mx/dao/materialmedico.php";
-            const formData = new FormData(document.querySelector("#form-nuevomaterialmedico"));
-            formData.append('action', '3');
-            fetch(url, { method: "post", body: formData })
-                .then(function (response) {
-                    return response.json();
-                }).then(function (myJson) {
-                    console.log(myJson);
-
-                    resetform("form-nuevomaterialmedico");
-                    $('#nuevomaterialmodal').modal('hide');
-                    getMaterialMedico();
-                });
-        }
-
-        function guardarMaterialMedico() {
-
-            const url = "http://control.lacasanostra.com.mx/dao/materialmedico.php";
-            const form = document.querySelector("#form-materialmedico");
             const required = [];
             Array.prototype.slice.call(form).forEach((elm) => {
                 if (elm.hasAttribute('required')) {
@@ -431,6 +391,65 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css
                     }
                 }
             });
+            return required;
+        }
+        $(function () {
+
+            //console.log("LOAD MATERIAL MEDICO");
+
+            getMaterialMedico();
+
+            $("#btn-guardarmaterialmedico").on("click", function () {
+                guardarMaterialMedico();
+            });
+
+            $("#btn-retirarmaterialmedico").on("click", function () {
+                sacarMaterialMedico();
+            });
+
+            $("#form-nuevomaterialmedico").on("submit", function (evt) {
+                evt.preventDefault();
+                //nuevoMaterialMedico();
+            });
+            $("#btn-nuevomaterialmedico").on("click", () => {
+                nuevoMaterialMedico();
+            });
+
+        });
+
+        function nuevoMaterialMedico() {
+            const url = "http://control.lacasanostra.com.mx/dao/materialmedico.php";
+            const form = document.querySelector("#form-nuevomaterialmedico");
+            const required = validarForm(form);
+            if (!required.includes(false)) {
+                const formData = new FormData(form);
+                formData.append('action', '3');
+                fetch(url, { method: "post", body: formData })
+                    .then((response) => response.json())
+                    .then((myJson) => {
+                        //console.log(myJson);
+                        resetform("form-nuevomaterialmedico");
+                        $('#nuevomaterialmodal').modal('hide');
+                        getMaterialMedico();
+                        swal({
+                            title: 'Guardado',
+                            text: `El nuevo medicamento a sido agregado`,
+                            icon: 'success',
+                            buttons: {
+                                cancel: false,
+                                confirm: 'Aceptar'
+                            }
+                        });
+                    });
+            }
+
+        }
+
+        function guardarMaterialMedico() {
+
+            const url = "http://control.lacasanostra.com.mx/dao/materialmedico.php";
+            const form = document.querySelector("#form-materialmedico");
+            const required = validarForm(form);
             if (!required.includes(false)) {
                 const formData = new FormData(form);
 
