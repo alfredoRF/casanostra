@@ -188,8 +188,9 @@
                                         aria-controls="notas" aria-selected="false" onclick="getNotas()">Notas</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="attributions-tab" data-bs-toggle="tab" href="#attributions"
-                                        role="tab" aria-controls="attributions" aria-selected="false">Signos Vitales</a>
+                                    <a class="nav-link" id="signos_vitales-tab" data-bs-toggle="tab"
+                                        href="#signos_vitales" role="tab" aria-controls="signos_vitales"
+                                        aria-selected="false" onclick="getSignosVitales()">Signos Vitales</a>
                                 </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
@@ -490,10 +491,131 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="attributions" role="tabpanel"
+                                <div class="tab-pane fade" id="signos_vitales" role="tabpanel"
                                     aria-labelledby="attributions-tab">
-                                    <h4 class="mb-0">Legal Notice</h4>
 
+                                    <!--
+                                        Latinos por minuto (LPM)
+
+                                        Respiraciones por minuto (RPM)
+
+                                        Paesion arterial Sistolica maxima (SYS)
+
+                                        PResion arterial Diastolica minima (DIA)
+
+                                        Temperatura
+
+                                        Estado de anima (EVA)
+                                    -->
+                                    <div class="col-md-12">
+                                        <a href="" class="btn btn-sm btn-outline-primary float-end"
+                                            data-bs-toggle="modal" data-bs-target="#signovitalModal"><i
+                                                class="fas fa-plus-circle"></i> Nuevo</a>
+                                        <table width="100%" class="table table-hover" id="table-signosVitales">
+                                            <thead>
+                                                <tr>
+                                                    <th>Latinos por minuto (LPM)</th>
+                                                    <th>Respiraciones por minuto (RPM)</th>
+                                                    <th>Presion arterial Sistolica maxima (SYS)</th>
+                                                    <th>Presion arterial Diastolica minima (DIA)</th>
+                                                    <th>Temperatura</th>
+                                                    <th>Estado de animia (EVA)</th>
+                                                    <th></th>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal modal-lg fade" id="signovitalModal" role="dialog" tabindex="-1">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form id="form-signovital" accept-charset="utf-8"
+                                                    onsubmit="event.preventDefault();">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Nuevo Signo Vital</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body text-start">
+                                                        <div class="col-12">
+                                                            <div class="row g-2">
+                                                                <div class="mb-3 col-4">
+                                                                    <label for="lpm" class="form-label">Latinos por
+                                                                        minuto</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="number" name="lpm" id="lpm"
+                                                                            class="form-control" required><span
+                                                                            class="input-group-text">LPM</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="mb-3 col-4">
+                                                                    <label for="rpm" class="form-label">Respiraciones
+                                                                        por minuto</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="number" class="form-control"
+                                                                            name="rpm" id="rpm" required /><span
+                                                                            class="input-group-text">RPM</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="mb-3 col-4">
+                                                                    <label for="sys" class="form-label">Presion arterial
+                                                                        Sistolica maxima </label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="number" class="form-control"
+                                                                            name="sys" id="sys" required /><span
+                                                                            class="input-group-text">SYS</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row g-2">
+                                                                <div class="mb-3 col-5">
+                                                                    <label for="dia" class="form-label">Presion arterial
+                                                                        Diastolica minima</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="number" class="form-control"
+                                                                            name="dia" id="dia" required>
+                                                                        <span class="input-group-text">DIA</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="mb-3 col-2">
+                                                                    <label for="temperatura"
+                                                                        class="form-label">Temperatura</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="number" class="form-control"
+                                                                            name="temperatura" step="0.1"
+                                                                            id="temperatura" required>
+                                                                        <span class="input-group-text">&#176;
+                                                                            C</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="mb-3 col-5">
+                                                                    <label for="eva" class="form-label">Estado de animia
+                                                                        (EVA)</label>
+                                                                    <select class="form-control" name="eva" id="eva"
+                                                                        required>
+                                                                        <option value="" selected disabled>Selecciona
+                                                                            una (EVA)</option>
+                                                                        <option value="1">Sin dolor</option>
+                                                                        <option value="2">Dolor leve</option>
+                                                                        <option value="3">Dolor moderado</option>
+                                                                        <option value="4">Dolor severo</option>
+                                                                        <option value="5">Dolor muy severo</option>
+                                                                        <option value="6">Maximo dolor</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button id="btn-guadarSignoVital" type="button"
+                                                            class="btn btn-success">Aceptar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -541,6 +663,9 @@
             });
             $("#btn-guardarNota").on("click", () => {
                 guardarNota();
+            });
+            $("#btn-guadarSignoVital").on("click", () => {
+                gaurdaSignoVital();
             });
         });
 
@@ -834,10 +959,90 @@
                     $("#listamedicamentos").html(items);
                 });
         }
-        
-        function mostrarMedicacion(){} 
-        function getCondicion() {} 
-        function getNota(){}
+
+        function getSignosVitales() {
+            const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+            const formData = new FormData();
+            formData.append('paciente', getIdPaciente());
+            formData.append('action', '13');
+            fetch(url, { method: "post", body: formData })
+                .then((response) => response.json())
+                .then((signos) => {
+                    let table = $('#table-signosVitales').DataTable();
+                    table.destroy();
+                    table = $('#table-signosVitales').DataTable({
+                        data: signos,
+                        columns: [
+                            { data: "lpm" },
+                            { data: "rpm" },
+                            { data: "sys" },
+                            { data: "dia" },
+                            { data: "temperatura" },
+                            {
+                                data: "eva", render: (data, type) => {
+                                    data = parseInt(data);
+                                    let info;
+                                    switch (data) {
+                                        case 1: info = "Sin dolor"; break;
+                                        case 2: info = "Dolor leve"; break;
+                                        case 3: info = "Dolor moderado"; break;
+                                        case 4: info = "Dolor severo"; break;
+                                        case 5: info = "Dolor muy severo"; break;
+                                        case 6: info = "Maximo dolor"; break;
+                                    }
+                                    return info;
+                                }
+                            },
+                            {
+                                data: "id",
+                                render: (data, type) => {
+                                    let btnaeditar = `<a href='#' class='btn btn-outline-info btn-rounded' onclick='getSignoVital(${data})'><i class='fas fa-eye' style='font-size:1.5em;'></i></a>`;
+                                    //return btnagregar+"&nbsp;"+btnsacar+"&nbsp;"+btnhistorico;
+                                    return btnaeditar;
+                                }
+                            }
+                        ],
+                        responsive: true,
+                        pageLength: 20,
+                        lengthChange: false,
+                        searching: true,
+                        ordering: true
+                    });
+                });
+        }
+
+
+        function gaurdaSignoVital() {
+            const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+            const form = document.querySelector("#form-signovital");
+            const required = validarFormulario(form);
+            if (!required.includes(false)) {
+                const formData = new FormData(form);
+                let date = new Date();
+                formData.append('fecha', date.toISOString().slice(0, 19).replace('T', ' '));
+                formData.append('paciente', getIdPaciente());
+                formData.append('action', '14');
+                fetch(url, { method: "post", body: formData })
+                    .then((response) => response.json())
+                    .then((signovital) => {
+                        resetform("form-signovital");
+                        $('#signovitalModal').modal('hide');
+                        getSignosVitales();
+                        swal({
+                            title: 'Guardado',
+                            text: 'Los signos vitales fueron guardados',
+                            icon: 'success',
+                            buttons: {
+                                cancel: false,
+                                conform: 'Aceptar'
+                            }
+                        });
+                    });
+            }
+        }
+        function mostrarMedicacion() { }
+        function getCondicion() { }
+        function getNota() { }
 
         function resetform(form) {
             $("#" + form)[0].reset();
