@@ -350,12 +350,12 @@
                                                         <div class="row g-2">
                                                             <div class="mb-3 col-6">
                                                                 <label for="inicio" class="form-label">Inico</label>
-                                                                <input type="date" id="inicio" name="inicio"
+                                                                <input type="datetime-local" id="inicio" name="inicio"
                                                                     class="form-control" required />
                                                             </div>
                                                             <div class="mb-3 col-6">
                                                                 <label for="termina" class="form-label">Termina</label>
-                                                                <input type="date" id="termina" name="termina"
+                                                                <input type="datetime-local" id="termina" name="termina"
                                                                     class="form-control" required />
                                                             </div>
                                                         </div>
@@ -481,6 +481,13 @@
                                                             <textarea rows="4" id="nota" name="nota"
                                                                 class="form-control" required></textarea>
                                                         </div>
+                                                        <div class="mb-3">
+                                                            <label for="archivo_nota" class="form-label">Archivos <span
+                                                                    id="archivo_text">0 de 5</span></label>
+                                                            <input type="file" id="archivo_nota"
+                                                                accept="image/*, .pdf, .doc, .docx" name="archivo_nota"
+                                                                class="form-control" multiple />
+                                                        </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button id="btn-guardarNota" type="button"
@@ -514,10 +521,10 @@
                                         <table width="100%" class="table table-hover" id="table-signosVitales">
                                             <thead>
                                                 <tr>
-                                                    <th>Latinos por minuto (LPM)</th>
+                                                    <th>Latidos por minuto (LPM)</th>
                                                     <th>Respiraciones por minuto (RPM)</th>
-                                                    <th>Presion arterial Sistolica maxima (SYS)</th>
-                                                    <th>Presion arterial Diastolica minima (DIA)</th>
+                                                    <th>SYS</th>
+                                                    <th>DIA</th>
                                                     <th>Temperatura</th>
                                                     <th>Estado de animia (EVA)</th>
                                                     <th></th>
@@ -541,7 +548,7 @@
                                                         <div class="col-12">
                                                             <div class="row g-2">
                                                                 <div class="mb-3 col-4">
-                                                                    <label for="lpm" class="form-label">Latinos por
+                                                                    <label for="lpm" class="form-label">Latidos por
                                                                         minuto</label>
                                                                     <div class="input-group mb-3">
                                                                         <input type="number" name="lpm" id="lpm"
@@ -667,6 +674,14 @@
             $("#btn-guadarSignoVital").on("click", () => {
                 gaurdaSignoVital();
             });
+            $("#archivo_nota").on("change", () => {
+                let archivos = $("#archivo_nota").get(0).files.length;
+                document.querySelector("#archivo_text").innerHTML = `${archivos} de 5`;
+                if (parseInt(archivos) > 5) {
+                    document.querySelector("#archivo_nota").disabled = true;
+                }
+
+            });
         });
 
         function guardarPaciente() {
@@ -678,6 +693,14 @@
                 const formData = new FormData(form);
                 formData.append('id', $("#formidpaciente").val());
                 formData.append('action', '3');
+                swal({
+                    title: "Guardando...",
+                    text: "Porfavor espere",
+                    //content: sweet_loader,
+                    buttons: false,
+                    closeOnClickOutside: false,
+                    closeOnEsc: false,
+                });
                 fetch(url, { method: "post", body: formData })
                     .then(function (response) {
                         return response.json();

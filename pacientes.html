@@ -249,6 +249,14 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="row g-2">
+                                                        <div class="mb-3 col-6">
+                                                            <label class="form-label" for="expediente">Expediente
+                                                                médico</label>
+                                                            <input type="file" accept="image/*, .pdf, .doc, .docx"
+                                                                name="expediente" id="expediente" class="form-control">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="col-12">
                                                     <h5><strong>Datos responsable 1</strong></h5>
@@ -387,7 +395,7 @@
                     }
                 }
             });
-            
+
             if (!required.includes(false)) {
                 const formData = new FormData(form);
                 formData.append('action', '3');

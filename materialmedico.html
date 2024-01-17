@@ -178,7 +178,6 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css
                                         <th>Nombre</th>
                                         <th>Compuesto</th>
                                         <th>Unidades</th>
-                                        <th>Codigo Barras</th>
                                         <th>Stock</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -518,7 +517,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css
                             { data: "nombre" },
                             { data: "compuesto" },
                             { data: "unidades" },
-                            { data: "codigobarras" },
+
                             { data: "stock" },
                             {
                                 data: "id",
@@ -530,6 +529,13 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css
                                     return btnagregar + "&nbsp;" + btnhistorico;
                                 }
                             }
+                        ],
+                        "columnDefs": [
+                            { "width": "35%", "targets": 0 },
+                            { "width": "35%", "targets": 1 },
+                            { "width": "10%", "targets": 2 },
+                            { "width": "10%", "targets": 3 },
+                            { "width": "10%", "targets": 4 }
                         ],
                         responsive: true,
                         pageLength: 20,
