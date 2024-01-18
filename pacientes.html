@@ -400,10 +400,12 @@
                 const formData = new FormData(form);
                 formData.append('action', '3');
                 $('#registromodal').modal('hide');
+                let html = document.createElement('div');
+                html.innerHTML = '<div class="spinner-border" style="width: 5rem; height: 5rem;" role="status"><span class="visually-hidden">Loading...</span></div>';
                 swal({
                     title: "Guardando...",
                     text: "Porfavor espere",
-                    //content: sweet_loader,
+                    content: html,
                     buttons: false,
                     closeOnClickOutside: false,
                     closeOnEsc: false,

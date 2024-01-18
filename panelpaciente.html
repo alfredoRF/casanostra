@@ -230,7 +230,7 @@
                                                     <input type="date" class="form-control" name="fecnac" id="fecnac"
                                                         required>
                                                 </div>
-                                                <div class="mb-3 col-3">
+                                                <div class="mb-3 col-2">
                                                     <label for="peso" class="form-label">Peso</label>
                                                     <div class="input-group mb-3">
                                                         <input type="number" class="form-control" name="peso" id="peso"
@@ -238,7 +238,7 @@
                                                         <span class="input-group-text">kg</span>
                                                     </div>
                                                 </div>
-                                                <div class="mb-3 col-3">
+                                                <div class="mb-3 col-2">
                                                     <label for="estatura" class="form-label">Estatura</label>
                                                     <div class="input-group mb-3">
                                                         <input type="number" class="form-control" name="estatura"
@@ -246,10 +246,8 @@
                                                         <span class="input-group-text">cm</span>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row g-2">
-                                                <div class="mb-3 col-6">
-                                                    <label for="expediente">Expediente</label>
+                                                <div class="mb-3 col-2">
+                                                    <label for="expediente" class="form-label">Expediente</label>
                                                     <div id="dwl_expediente" style="display:none;">
                                                         <div class="row">
                                                             <div class="mb-3 col-6">
@@ -509,7 +507,7 @@
                                                             <div id="archivos_nota"></div>
                                                             <input type="file" id="archivo_nota"
                                                                 accept="image/*, .pdf, .doc, .docx" name="archivo_nota"
-                                                                class="form-control" multiple />
+                                                                class="form-control" />
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -700,10 +698,12 @@
                 const formData = new FormData(form);
                 formData.append('id', $("#formidpaciente").val());
                 formData.append('action', '3');
+                let html = document.createElement('div');
+                html.innerHTML = '<div class="spinner-border" style="width: 5rem; height: 5rem;" role="status"><span class="visually-hidden">Loading...</span></div>';
                 swal({
                     title: "Guardando...",
                     text: "Porfavor espere",
-                    //content: sweet_loader,
+                    content: html,
                     buttons: false,
                     closeOnClickOutside: false,
                     closeOnEsc: false,
@@ -950,10 +950,12 @@
                 formData.append('fecha', date.toISOString().slice(0, 19).replace('T', ' '));
                 formData.append('patient', getIdPaciente());
                 formData.append('action', '12');
+                let html = document.createElement('div');
+                html.innerHTML = '<div class="spinner-border" style="width: 5rem; height: 5rem;" role="status"><span class="visually-hidden">Loading...</span></div>';
                 swal({
                     title: "Guardando...",
                     text: "Porfavor espere",
-                    //content: sweet_loader,
+                    content: html,
                     buttons: false,
                     closeOnClickOutside: false,
                     closeOnEsc: false,
@@ -1145,6 +1147,7 @@
             $('#id_nota').val('');
             document.querySelector("#archivo_nota").disabled = false;
             document.querySelector("#archivos_nota").innerHTML = "";
+            document.querySelector("#archivo_text").innerHTML = "0 de 5";
         }
         function resetform(form) {
             $("#" + form)[0].reset();
