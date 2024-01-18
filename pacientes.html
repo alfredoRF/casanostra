@@ -399,14 +399,24 @@
             if (!required.includes(false)) {
                 const formData = new FormData(form);
                 formData.append('action', '3');
+                $('#registromodal').modal('hide');
+                swal({
+                    title: "Guardando...",
+                    text: "Porfavor espere",
+                    //content: sweet_loader,
+                    buttons: false,
+                    closeOnClickOutside: false,
+                    closeOnEsc: false,
+                });
                 fetch(url, { method: "post", body: formData })
                     .then(function (response) {
                         return response.json();
                     }).then(function (myJson) {
-                        console.log(myJson);
+                        // console.log(myJson);
                         resetform("form-datospaciente");
-                        $('#registromodal').modal('hide');
+                        // $('#registromodal').modal('hide');
                         getPacientes();
+                        swal.close();
                         swal({
                             title: "Guardado",
                             text: "La informacion del paciente fue guardada",

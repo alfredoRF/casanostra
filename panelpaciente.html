@@ -247,6 +247,26 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="row g-2">
+                                                <div class="mb-3 col-6">
+                                                    <label for="expediente">Expediente</label>
+                                                    <div id="dwl_expediente" style="display:none;">
+                                                        <div class="row">
+                                                            <div class="mb-3 col-6">
+                                                                <a href="http://" class="btn btn-primary"
+                                                                    id="link_expediente"><i
+                                                                        class="fas fa-file-download"></i></a>
+                                                                <button type="button" class="btn btn-danger"
+                                                                    onclick="borrarExpediente()"><i
+                                                                        class="fas fa-trash-alt"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <input type="file" name="expediente" id="expediente"
+                                                        class="form-control" accept="image/*, .pdf, .doc, .docx"
+                                                        style="display:none;">
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-12">
                                             <h5><strong>Datos responsable 1</strong></h5>
@@ -450,7 +470,8 @@
                                 <div class="tab-pane fade" id="notas" role="tabpanel" aria-labelledby="notas-tab">
                                     <div class="col-md-12">
                                         <a href="" class="btn btn-sm btn-outline-primary float-end"
-                                            data-bs-toggle="modal" data-bs-target="#notamodal"><i
+                                            data-bs-toggle="modal" data-bs-target="#notamodal"
+                                            onclick="prepararFormNota();"><i
                                                 class="fas fa-plus-circle"></i> Nuevo</a>
                                         <table width="100%" class="table table-hover" id="table-notas">
                                             <thead>
@@ -469,6 +490,7 @@
                                             <div class="modal-content">
                                                 <form id="form-nota" accept-charset="utf-8"
                                                     onsubmit="event.preventDefault();">
+                                                    <input type="hidden" value="0" id="id_nota" name="id" />
                                                     <div class="modal-header">
                                                         <h5 class="modal-title">Nueva Nota</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -484,6 +506,7 @@
                                                         <div class="mb-3">
                                                             <label for="archivo_nota" class="form-label">Archivos <span
                                                                     id="archivo_text">0 de 5</span></label>
+                                                            <div id="archivos_nota"></div>
                                                             <input type="file" id="archivo_nota"
                                                                 accept="image/*, .pdf, .doc, .docx" name="archivo_nota"
                                                                 class="form-control" multiple />
@@ -500,20 +523,6 @@
                                 </div>
                                 <div class="tab-pane fade" id="signos_vitales" role="tabpanel"
                                     aria-labelledby="attributions-tab">
-
-                                    <!--
-                                        Latinos por minuto (LPM)
-
-                                        Respiraciones por minuto (RPM)
-
-                                        Paesion arterial Sistolica maxima (SYS)
-
-                                        PResion arterial Diastolica minima (DIA)
-
-                                        Temperatura
-
-                                        Estado de anima (EVA)
-                                    -->
                                     <div class="col-md-12">
                                         <a href="" class="btn btn-sm btn-outline-primary float-end"
                                             data-bs-toggle="modal" data-bs-target="#signovitalModal"><i
@@ -675,11 +684,9 @@
                 gaurdaSignoVital();
             });
             $("#archivo_nota").on("change", () => {
-                let archivos = $("#archivo_nota").get(0).files.length;
-                document.querySelector("#archivo_text").innerHTML = `${archivos} de 5`;
-                if (parseInt(archivos) > 5) {
-                    document.querySelector("#archivo_nota").disabled = true;
-                }
+                //let archivos = $("#archivo_nota").get(0).files.length;
+                //document.querySelector("#archivo_text").innerHTML = `${archivos} de 5`;
+                guardarNota();
 
             });
         });
@@ -703,8 +710,9 @@
                 });
                 fetch(url, { method: "post", body: formData })
                     .then(function (response) {
-                        return response.json();
+                        return response.json()
                     }).then(function (myJson) {
+                        swal.close();
                         swal({
                             title: "Guardado",
                             text: "La informacion del paciente fue guardada",
@@ -727,27 +735,34 @@
             formData.append('action', '4');
             formData.append('id', id);
             fetch(url, { method: "post", body: formData })
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (myJson) {
-                    console.log(myJson);
-                    $("#formidpaciente").val(myJson.id);
-                    $("#nombre").val(myJson.nombre);
-                    $("#nacionalidad").val(myJson.nacionalidad);
-                    $("#fechaingreso").val(myJson.fechaingreso);
-                    $("#sexo").val(myJson.sexo);
-                    $("#fecnac").val(myJson.fecnac);
-                    $("#peso").val(myJson.peso);
-                    $("#estatura").val(myJson.estatura);
-                    $("#responsable1").val(myJson.responsable1);
-                    $("#telefono1").val(myJson.telefono1);
-                    $("#email1").val(myJson.email1);
-                    $("#direccion1").val(myJson.direccion1);
-                    $("#responsable2").val(myJson.responsable2);
-                    $("#telefono2").val(myJson.telefono2);
-                    $("#email2").val(myJson.email2);
-                    $("#direccion2").val(myJson.direccion2);
+                .then((response) => response.json())
+                .then((myJson) => {
+                    //console.log(myJson);
+                    let paciente = myJson.paciente
+                    $("#formidpaciente").val(paciente.id);
+                    $("#nombre").val(paciente.nombre);
+                    $("#nacionalidad").val(paciente.nacionalidad);
+                    $("#fechaingreso").val(paciente.fechaingreso);
+                    $("#sexo").val(paciente.sexo);
+                    $("#fecnac").val(paciente.fecnac);
+                    $("#peso").val(paciente.peso);
+                    $("#estatura").val(paciente.estatura);
+                    $("#responsable1").val(paciente.responsable1);
+                    $("#telefono1").val(paciente.telefono1);
+                    $("#email1").val(paciente.email1);
+                    $("#direccion1").val(paciente.direccion1);
+                    $("#responsable2").val(paciente.responsable2);
+                    $("#telefono2").val(paciente.telefono2);
+                    $("#email2").val(paciente.email2);
+                    $("#direccion2").val(paciente.direccion2);
+                    if (myJson.expediente.length == 0) {
+                        document.querySelector("#dwl_expediente").style.display = "none";
+                        document.querySelector("#expediente").style.display = "block";
+                    } else {
+                        document.querySelector("#dwl_expediente").style.display = "block";
+                        document.querySelector("#expediente").style.display = "none";
+                        document.querySelector("#link_expediente").href = "http://control.lacasanostra.com.mx" + myJson.expediente[0].replace("..", "");
+                    }
 
                 });
         }
@@ -910,7 +925,7 @@
                             {
                                 data: "id",
                                 render: function (data, type) {
-                                    var btnaeditar = `<a href='#' class='btn btn-outline-info btn-rounded' onclick='getNota(${data})'><i class='fas fa-eye' style='font-size:1.5em;'></i></a>`;
+                                    var btnaeditar = `<a href='#' class='btn btn-outline-primary btn-rounded' onclick='getNota(${data})'><i class='fas fa-eye' style='font-size:1.5em;'></i></a>`;
                                     //return btnagregar+"&nbsp;"+btnsacar+"&nbsp;"+btnhistorico;
                                     return btnaeditar;
                                 }
@@ -935,21 +950,48 @@
                 formData.append('fecha', date.toISOString().slice(0, 19).replace('T', ' '));
                 formData.append('patient', getIdPaciente());
                 formData.append('action', '12');
+                swal({
+                    title: "Guardando...",
+                    text: "Porfavor espere",
+                    //content: sweet_loader,
+                    buttons: false,
+                    closeOnClickOutside: false,
+                    closeOnEsc: false,
+                });
+                $('#notamodal').modal('hide');
                 fetch(url, { method: "post", body: formData })
                     .then((response) => response.json())
-                    .then((condicion) => {
+                    .then((res_nota) => {
+                        swal.close();
+                        //$('#notamodal').modal('hide');
                         resetform("form-nota");
-                        $('#notamodal').modal('hide');
-                        getNotas();
-                        swal({
-                            title: 'Guardado',
-                            text: 'La nota fue guardada',
-                            icon: 'success',
-                            buttons: {
-                                cancel: false,
-                                conform: 'Aceptar'
-                            }
-                        });
+                        if (res_nota.file_upload) {
+                            swal({
+                                title: 'Guardado',
+                                text: 'La nota fue guardada',
+                                icon: 'success',
+                                buttons: {
+                                    cancel: false,
+                                    confirm: 'Aceptar'
+                                }
+                            }).then(() => {
+                                getNota(res_nota.nota.id);
+                            });
+
+                        } else {
+                            $("#id_nota").val("");
+
+                            swal({
+                                title: 'Guardado',
+                                text: 'La nota fue guardada',
+                                icon: 'success',
+                                buttons: {
+                                    cancel: false,
+                                    confirm: 'Aceptar'
+                                }
+                            });
+                        }
+
                     });
             }
         }
@@ -1057,7 +1099,7 @@
                             icon: 'success',
                             buttons: {
                                 cancel: false,
-                                conform: 'Aceptar'
+                                confirm: 'Aceptar'
                             }
                         });
                     });
@@ -1065,8 +1107,45 @@
         }
         function mostrarMedicacion() { }
         function getCondicion() { }
-        function getNota() { }
-
+        function getNota(id) {
+            const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+            // let idPaciente = getIdPaciente();
+            const formData = new FormData();
+            formData.append('id', id);
+            formData.append('action', '16');
+            fetch(url, { method: "post", body: formData })
+                .then((response) => response.json())
+                .then((res_nota) => {
+                    const nota = res_nota.nota;
+                    const archivos = res_nota.archivos;
+                    $("#id_nota").val(nota.id);
+                    $("#nota").val(nota.nota);
+                    let panelArchivos = '<div class="row">';
+                    document.querySelector("#archivo_text").innerHTML = `${archivos.length} de 5`;
+                    if (archivos.length > 0) {
+                        archivos.forEach((archivo) => {
+                            archivo = archivo.replace("..", "");
+                            let path = "http://control.lacasanostra.com.mx" + archivo;
+                            panelArchivos += `<div class="mb-3 col-2"><label><strong>${archivo.split("/")[2]}</strong> <a href="${path}" class="btn btn-primary"><i class="fas fa-file-download"></i></a></label></div>`;
+                        });
+                    }
+                    panelArchivos += '</div>';
+                    if (archivos.length == 5) {
+                        document.querySelector("#archivo_nota").disabled = true;
+                    } else {
+                        document.querySelector("#archivo_nota").disabled = false;
+                    }
+                    document.querySelector("#archivos_nota").innerHTML = panelArchivos;
+                    $("#notamodal").modal("show");
+                });
+        }
+        
+        function prepararFormNota() {
+            resetform('form-nota');
+            $('#id_nota').val('');
+            document.querySelector("#archivo_nota").disabled = false;
+            document.querySelector("#archivos_nota").innerHTML = "";
+        }
         function resetform(form) {
             $("#" + form)[0].reset();
         }
@@ -1077,6 +1156,61 @@
             });
 
             // $("#" + )
+        }
+
+        function borrarExpediente() {
+            swal({
+                title: "Eliminar Expediente",
+                text: "El expediente sera borrado",
+                icon: "warning",
+                buttons: ["Cancelar", "Borrar"],
+                dangerMode: true,
+            }).then((res) => {
+                if (res) {
+                    const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+                    let idPaciente = getIdPaciente();
+                    const formData = new FormData();
+                    formData.append('id', idPaciente);
+                    formData.append('action', '15');
+                    fetch(url, { method: "post", body: formData })
+                        .then((response) => response.json())
+                        .then((eliminar) => {
+                            if (eliminar.status) {
+                                swal({
+                                    title: 'Expediente eliminado',
+                                    icon: 'success',
+                                    buttons: {
+                                        cancel: false,
+                                        confirm: 'Aceptar'
+                                    }
+                                });
+                                getPaciente(idPaciente);
+                            } else {
+                                swal({
+                                    title: 'A ocurrido un error!',
+                                    text: "Revise su conexión de internet e inténtelo nuevamente",
+                                    icon: 'error',
+                                    buttons: {
+                                        cancel: false,
+                                        confirm: 'Aceptar'
+                                    }
+                                });
+                            }
+                        })
+                        .catch(error => {
+
+                            swal({
+                                title: 'A ocurrido un error!',
+                                text: "Revise su conexión de internet e inténtelo nuevamente",
+                                icon: 'error',
+                                buttons: {
+                                    cancel: false,
+                                    confirm: 'Aceptar'
+                                }
+                            });
+                        });
+                }
+            });
         }
     </script>
 </body>
