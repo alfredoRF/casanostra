@@ -368,7 +368,9 @@
                             {
                                 data: "id",
                                 render: function (data, type) {
-                                    return "<a href='panelpaciente.html?paciente=" + data + "' class='btn btn-outline-default btn-rounded' style='float:right'><i class='fas fa-eye'></i></a>";
+                                    //<i class="fas fa-syringe"></i>
+                                    return `<a href='panelpaciente.html?paciente=${data}' class='btn btn-outline-primary btn-rounded' style='float:right'><i class='fas fa-eye'></i></a>
+                                    <a href='panelenfermera.html?paciente=${data}' class='btn btn-outline-primary btn-rounded' style='float:right'><i class="fas fa-syringe"></i></a>`;
                                 }
                             }
                         ],

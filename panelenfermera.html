@@ -1,21 +1,16 @@
-<!doctype html>
-<!-- 
-* Bootstrap Simple Admin Template
-* Version: 2.1
-* Author: Alexis Luna
-* Website: https://github.com/alexis-luna/bootstrap-simple-admin-template
--->
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Blank Page | Bootstrap Simple Admin Template</title>
+    <title>Panel Enfermera</title>
     <link href="assets/vendor/fontawesome/css/fontawesome.min.css" rel="stylesheet">
     <link href="assets/vendor/fontawesome/css/solid.min.css" rel="stylesheet">
     <link href="assets/vendor/fontawesome/css/brands.min.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/datatables/datatables.min.css" rel="stylesheet">
     <link href="assets/css/master.css" rel="stylesheet">
 </head>
 
@@ -43,7 +38,8 @@
                     <a href="icons.html"><i class="fas fa-icons"></i>Icons</a>
                 </li>
                 <li>
-                    <a href="#uielementsmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down"><i class="fas fa-layer-group"></i>UI Elements</a>
+                    <a href="#uielementsmenu" data-bs-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle no-caret-down"><i class="fas fa-layer-group"></i>UI Elements</a>
                     <ul class="collapse list-unstyled" id="uielementsmenu">
                         <li>
                             <a href="ui-buttons.html"><i class="fas fa-angle-right"></i>Buttons</a>
@@ -66,7 +62,8 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#authmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down"><i class="fas fa-user-shield"></i>Authentication</a>
+                    <a href="#authmenu" data-bs-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle no-caret-down"><i class="fas fa-user-shield"></i>Authentication</a>
                     <ul class="collapse list-unstyled" id="authmenu">
                         <li>
                             <a href="login.html"><i class="fas fa-lock"></i>Login</a>
@@ -80,7 +77,8 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#pagesmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down"><i class="fas fa-copy"></i>Pages</a>
+                    <a href="#pagesmenu" data-bs-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle no-caret-down"><i class="fas fa-copy"></i>Pages</a>
                     <ul class="collapse list-unstyled" id="pagesmenu">
                         <li>
                             <a href="blank.html"><i class="fas fa-file"></i>Blank page</a>
@@ -112,34 +110,46 @@
                     <ul class="nav navbar-nav ms-auto">
                         <li class="nav-item dropdown">
                             <div class="nav-dropdown">
-                                <a href="#" id="nav1" class="nav-item nav-link dropdown-toggle text-secondary" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-link"></i> <span>Quick Links</span> <i style="font-size: .8em;" class="fas fa-caret-down"></i>
+                                <a href="#" id="nav1" class="nav-item nav-link dropdown-toggle text-secondary"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-link"></i> <span>Quick Links</span> <i style="font-size: .8em;"
+                                        class="fas fa-caret-down"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end nav-link-menu" aria-labelledby="nav1">
                                     <ul class="nav-list">
-                                        <li><a href="" class="dropdown-item"><i class="fas fa-list"></i> Access Logs</a></li>
+                                        <li><a href="" class="dropdown-item"><i class="fas fa-list"></i> Access Logs</a>
+                                        </li>
                                         <div class="dropdown-divider"></div>
-                                        <li><a href="" class="dropdown-item"><i class="fas fa-database"></i> Back ups</a></li>
+                                        <li><a href="" class="dropdown-item"><i class="fas fa-database"></i> Back
+                                                ups</a></li>
                                         <div class="dropdown-divider"></div>
-                                        <li><a href="" class="dropdown-item"><i class="fas fa-cloud-download-alt"></i> Updates</a></li>
+                                        <li><a href="" class="dropdown-item"><i class="fas fa-cloud-download-alt"></i>
+                                                Updates</a></li>
                                         <div class="dropdown-divider"></div>
-                                        <li><a href="" class="dropdown-item"><i class="fas fa-user-shield"></i> Roles</a></li>
+                                        <li><a href="" class="dropdown-item"><i class="fas fa-user-shield"></i>
+                                                Roles</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
                             <div class="nav-dropdown">
-                                <a href="#" id="nav2" class="nav-item nav-link dropdown-toggle text-secondary" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-user"></i> <span>John Doe</span> <i style="font-size: .8em;" class="fas fa-caret-down"></i>
+                                <a href="#" id="nav2" class="nav-item nav-link dropdown-toggle text-secondary"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user"></i> <span>John Doe</span> <i style="font-size: .8em;"
+                                        class="fas fa-caret-down"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end nav-link-menu">
                                     <ul class="nav-list">
-                                        <li><a href="" class="dropdown-item"><i class="fas fa-address-card"></i> Profile</a></li>
-                                        <li><a href="" class="dropdown-item"><i class="fas fa-envelope"></i> Messages</a></li>
-                                        <li><a href="" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a></li>
+                                        <li><a href="" class="dropdown-item"><i class="fas fa-address-card"></i>
+                                                Profile</a></li>
+                                        <li><a href="" class="dropdown-item"><i class="fas fa-envelope"></i>
+                                                Messages</a></li>
+                                        <li><a href="" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a>
+                                        </li>
                                         <div class="dropdown-divider"></div>
-                                        <li><a href="" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                                        <li><a href="" class="dropdown-item"><i class="fas fa-sign-out-alt"></i>
+                                                Logout</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -147,19 +157,566 @@
                     </ul>
                 </div>
             </nav>
+
+
             <!-- end of navbar navigation -->
             <div class="content">
-                <div class="container-fluid">
+                <div class="container">
                     <div class="page-title">
-                        <h3>Blank Page</h3>
+                        <h3 id="nombrepaciente">Panel Enfermera
+                            <a href="pacientes.html" class="btn btn-sm btn-outline-primary float-end"><i
+                                    class="fas fa-angle-left"></i> Regresar</a>
+                        </h3>
+                    </div>
+                    <div class="box box-primary">
+                        <div class="box-body">
+
+                            <!-- Piletas panel enfermeras -->
+                            <div class="d-flex align-items-start container-fluid">
+                                <div class="nav flex-column nav-pills me-3 col-md-2" id="v-pills-tab" role="tablist"
+                                    aria-orientation="vertical">
+                                    <button class="nav-link active" id="v-pills-general-tab" data-bs-toggle="pill"
+                                        data-bs-target="#general" type="button" role="tab" aria-controls="v-pills-home"
+                                        aria-selected="true">General</button>
+                                    <button class="nav-link" id="v-pills-medicacion-tab" data-bs-toggle="pill"
+                                        data-bs-target="#medicacion" type="button" role="tab"
+                                        aria-controls="#medicacion" aria-selected="false"
+                                        onclick="getTratamientoPaciente(); getMedicacion();">Medicacion</button>
+                                    <button class="nav-link" id="v-pills-condiciones-tab" data-bs-toggle="pill"
+                                        data-bs-target="#condiciones" type="button" role="tab"
+                                        aria-controls="v-pills-disabled" aria-selected="false"
+                                        onclick="getCondicionesMedicas();">Condiciones</button>
+                                    <button class="nav-link" id="v-pills-notas-tab" data-bs-toggle="pill"
+                                        data-bs-target="#notas" type="button" role="tab"
+                                        aria-controls="v-pills-messages" aria-selected="false"
+                                        onclick="getNotas()">Notas</button>
+                                    <button class="nav-link" id="v-pills-signos_vitales-tab" data-bs-toggle="pill"
+                                        data-bs-target="#signos_vitales" type="button" role="tab"
+                                        aria-controls="v-pills-settings" aria-selected="false" onclick="getSignosVitales()">Signos Vitales</button>
+                                </div>
+                                <div class="tab-content container-fluid" id="content_paciente">
+                                    <div class="tab-pane fade show active" id="general" role="tabpanel"
+                                        aria-labelledby="v-pills-home-tab" tabindex="0">
+                                        <form id="form-datospaciente" accept-charset="utf-8" onsubmit="return false;">
+                                            <input type="hidden" name="formidpaciente" id="formidpaciente">
+                                            <h5><strong>Datos personales</strong></h5>
+                                            <div class="col-12">
+                                                <div class="row g-2">
+                                                    <div class="mb-3 col-6">
+                                                        <label for="nombre" class="form-label">Nombre Completo</label>
+                                                        <input type="text" name="nombre" id="nombre"
+                                                            class="form-control" required>
+                                                    </div>
+                                                    <div class="mb-3 col-3">
+                                                        <label for="nacionalidad"
+                                                            class="form-label">Nacionalidad</label>
+                                                        <input type="text" class="form-control" name="nacionalidad"
+                                                            id="nacionalidad" required />
+                                                    </div>
+                                                    <div class="mb-3 col-3">
+                                                        <label for="fechaingreso" class="form-label">Fecha
+                                                            ingreso</label>
+                                                        <input type="date" class="form-control" name="fechaingreso"
+                                                            id="fechaingreso" required />
+                                                    </div>
+                                                </div>
+                                                <div class="row g-2">
+                                                    <div class="mb-3 col-3">
+                                                        <label for="genero" class="form-label">Sexo biologico</label>
+                                                        <select class="form-control" name="genero" id="genero" required>
+                                                            <option value="h">Hombre</option>
+                                                            <option value="m">Mujer</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-3 col-3">
+                                                        <label for="fecnac" class="form-label">Fecha Nacimiento</label>
+                                                        <input type="date" class="form-control" name="fecnac"
+                                                            id="fecnac" required>
+                                                    </div>
+                                                    <div class="mb-3 col-3">
+                                                        <label for="peso" class="form-label">Peso</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="number" class="form-control" name="peso"
+                                                                id="peso" required>
+                                                            <span class="input-group-text">kg</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3 col-3">
+                                                        <label for="estatura" class="form-label">Estatura</label>
+                                                        <div class="input-group mb-3">
+                                                            <input type="number" class="form-control" name="estatura"
+                                                                id="estatura" required>
+                                                            <span class="input-group-text">cm</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row g-2">
+                                                    <div class="mb-3 col-6">
+                                                        <label for="expediente">Expediente</label>
+                                                        <div id="dwl_expediente" style="display:none;">
+                                                            <div class="row">
+                                                                <div class="mb-3 col-6">
+                                                                    <a href="http://" class="btn btn-primary"
+                                                                        id="link_expediente" target="_blank"><i
+                                                                            class="fas fa-file-download"></i></a>
+                                                                    <button type="button" class="btn btn-danger"
+                                                                        onclick="borrarExpediente()"><i
+                                                                            class="fas fa-trash-alt"></i></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <input type="file" name="expediente" id="expediente"
+                                                            class="form-control" accept=".pdf"
+                                                            style="display:none;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <h5><strong>Datos responsable 1</strong></h5>
+                                                <div class="row g-2">
+                                                    <div class="mb-3 col-8">
+                                                        <label for="responsable1" class="form-label">Nombre</label>
+                                                        <input type="text" class="form-control" name="responsable1"
+                                                            id="responsable1" required />
+                                                    </div>
+                                                    <div class="mb-3 col-4">
+                                                        <label for="telefono1" class="form-label">Telefono</label>
+                                                        <input type="text" class="form-control" name="telefono1"
+                                                            id="telefono1" required />
+                                                    </div>
+                                                </div>
+                                                <div class="row g-2">
+                                                    <div class="mb-3 col-6">
+                                                        <label for="direccion1" class="form-label">Direccion</label>
+                                                        <input type="text" class="form-control" name="direccion1"
+                                                            id="direccion1" required />
+                                                    </div>
+                                                    <div class="mb-3 col-6">
+                                                        <label for="email1" class="form-label">Email</label>
+                                                        <input type="text" class="form-control" name="email1"
+                                                            id="email1" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <h5><strong>Datos responsable 2</strong></h5>
+                                                <div class="row g-2">
+                                                    <div class="mb-3 col-8">
+                                                        <label for="responsable2" class="form-label">Nombre</label>
+                                                        <input type="text" class="form-control" name="responsable2"
+                                                            id="responsable2" />
+                                                    </div>
+                                                    <div class="mb-3 col-4">
+                                                        <label for="telefono2" class="form-label">Telefono</label>
+                                                        <input type="text" class="form-control" name="telefono2"
+                                                            id="telefono2" />
+                                                    </div>
+                                                </div>
+                                                <div class="row g-2">
+                                                    <div class="mb-3 col-6">
+                                                        <label for="direccion2" class="form-label">Direccion</label>
+                                                        <input type="text" class="form-control" name="direccion2"
+                                                            id="direccion2" />
+                                                    </div>
+                                                    <div class="mb-3 col-6">
+                                                        <label for="email2" class="form-label">Email</label>
+                                                        <input type="text" class="form-control" name="email2"
+                                                            id="email2" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 text-end">
+                                                <button id="btn-guardarpaciente" class="btn btn-success"
+                                                    type="submit"><i class="fas fa-check"></i> Guardar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="tab-pane fade" id="medicacion" role="tabpanel"
+                                        aria-labelledby="v-pills-profile-tab" tabindex="0">
+                                        <div class="col-md-12 col-xl-12">
+                                            <a href="#" class="btn btn-sm btn-outline-primary float-end"
+                                                data-bs-toggle="modal" data-bs-target="#medicacionmodal"><i
+                                                    class="fas fa-plus-circle"></i> Nuevo</a>
+                                            <table width="100%" class="table table-hover" id="table-medicacion">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Medicamento</th>
+                                                        <th>Dosis (ML)</th>
+                                                        <th>Frecuencia (HR)</th>
+                                                        <th>Fecha de Terminacion</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="modal fade" id="medicacionmodal" role="dialog" tabindex="-1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <form id="form-medicacion" accept-charset="utf-8"
+                                                        onsubmit="event.preventDefault();">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Nuevo medicamento</h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body text-start">
+                                                            <div class="mb-3">
+                                                                <label for="medicamento" class="
+                                                                        form-label">Medicamento</label>
+                                                                <input type="text" name="medicamento" id="medicamento"
+                                                                    class="form-control" list="listamedicamentos"
+                                                                    required>
+                                                                <datalist id="listamedicamentos">
+                                                                </datalist>
+                                                            </div>
+                                                            <div class="row g-2">
+                                                                <div class="mb-3 col-6">
+                                                                    <label for="inicio" class="form-label">Inico</label>
+                                                                    <input type="datetime-local" id="inicio"
+                                                                        name="inicio" class="form-control" required />
+                                                                </div>
+                                                                <div class="mb-3 col-6">
+                                                                    <label for="termina"
+                                                                        class="form-label">Termina</label>
+                                                                    <input type="datetime-local" id="termina"
+                                                                        name="termina" class="form-control" required />
+                                                                </div>
+                                                            </div>
+                                                            <div class="row g-2">
+                                                                <div class=" mb-3 col-6">
+                                                                    <label for="dosis" class="form-label">Dosis</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="number" id="dosis" name="dosis"
+                                                                            class="form-control" required /><span
+                                                                            class="input-group-text">ml</span>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="mb-3 col-6">
+                                                                    <label for="frecuencia"
+                                                                        class="form-label">Frecuencia</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="number" id="frecuencia"
+                                                                            name="frecuencia" class="form-control"
+                                                                            required />
+                                                                        <span class="input-group-text">hrs</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="descripcion"
+                                                                    class="form-label">Descripcion</label>
+                                                                <textarea rows="4" id="descripcion" name="descripcion"
+                                                                    class="form-control"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button id="btn-guardarmedicacion" type="button"
+                                                                class="btn btn-success">Aceptar</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="condiciones" role="tabpanel"
+                                        aria-labelledby="v-pills-disabled-tab" tabindex="0">
+                                        <div class="col-md-12">
+                                            <a href="" class="btn btn-sm btn-outline-primary float-end"
+                                                data-bs-toggle="modal" data-bs-target="#condicionesmodal"><i
+                                                    class="fas fa-plus-circle"></i> Nuevo</a>
+                                            <table width="100%" class="table table-hover" id="table-condicionesmedicas">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Fecha</th>
+                                                        <th>Condicion</th>
+                                                        <th>Detalles</th>
+                                                        <th></th>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="modal fade" id="condicionesmodal" role="dialog" tabindex="-1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <form id="form-condicionmedica" accept-charset="utf-8"
+                                                        onsubmit="event.preventDefault();">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Nueva Condicion</h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body text-start">
+                                                            <div class="mb-3">
+                                                                <label for="titulo" class="form-label">Titulo</label>
+                                                                <input type="text" name="titulo" id="titulo"
+                                                                    class="form-control" required>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="descripcion"
+                                                                    class="form-label">Descripcion</label>
+                                                                <textarea rows="4" id="descripcion" name="descripcion"
+                                                                    class="form-control" required></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button id="btn-guardarcondicion" type="button"
+                                                                class="btn btn-success">Aceptar</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="notas" role="tabpanel"
+                                        aria-labelledby="v-pills-messages-tab" tabindex="0">
+                                        <div class="col-md-12">
+                                            <a href="" class="btn btn-sm btn-outline-primary float-end"
+                                                data-bs-toggle="modal" data-bs-target="#notamodal"
+                                                onclick="prepararFormNota();"><i class="fas fa-plus-circle"></i>
+                                                Nuevo</a>
+                                            <table width="100%" class="table table-hover" id="table-notas">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Fecha</th>
+                                                        <th>Nota</th>
+                                                        <th></th>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="modal fade" id="notamodal" role="dialog" tabindex="-1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <form id="form-nota" accept-charset="utf-8"
+                                                        onsubmit="event.preventDefault();">
+                                                        <input type="hidden" value="0" id="id_nota" name="id" />
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Nueva Nota</h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body text-start">
+
+                                                            <div class="mb-3">
+                                                                <label for="nota" class="form-label">Nota</label>
+                                                                <textarea rows="4" id="nota" name="nota"
+                                                                    class="form-control" required></textarea>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="archivo_nota" class="form-label">Archivos
+                                                                    <span id="archivo_text">0 de 5</span></label>
+                                                                <div id="archivos_nota"></div>
+                                                                <input type="file" id="archivo_nota"
+                                                                    accept="image/*, .pdf, .doc, .docx"
+                                                                    name="archivo_nota" class="form-control" multiple />
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button id="btn-guardarNota" type="button"
+                                                                class="btn btn-success">Aceptar</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="signos_vitales" role="tabpanel"
+                                        aria-labelledby="v-pills-settings-tab" tabindex="0">
+                                        <div class="col-md-12">
+                                            <a href="" class="btn btn-sm btn-outline-primary float-end"
+                                                data-bs-toggle="modal" data-bs-target="#signovitalModal"><i
+                                                    class="fas fa-plus-circle"></i> Nuevo</a>
+                                            <table width="100%" class="table table-hover" id="table-signosVitales">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Latidos por minuto (LPM)</th>
+                                                        <th>Respiraciones por minuto (RPM)</th>
+                                                        <th>SYS</th>
+                                                        <th>DIA</th>
+                                                        <th>Temperatura</th>
+                                                        <th>Estado de animia (EVA)</th>
+                                                        <th></th>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="modal modal-lg fade" id="signovitalModal" role="dialog"
+                                            tabindex="-1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <form id="form-signovital" accept-charset="utf-8"
+                                                        onsubmit="event.preventDefault();">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Nuevo Signo Vital</h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body text-start">
+                                                            <div class="col-12">
+                                                                <div class="row g-2">
+                                                                    <div class="mb-3 col-4">
+                                                                        <label for="lpm" class="form-label">Latidos por
+                                                                            minuto</label>
+                                                                        <div class="input-group mb-3">
+                                                                            <input type="number" name="lpm" id="lpm"
+                                                                                class="form-control" required><span
+                                                                                class="input-group-text">LPM</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mb-3 col-4">
+                                                                        <label for="rpm"
+                                                                            class="form-label">Respiraciones
+                                                                            por minuto</label>
+                                                                        <div class="input-group mb-3">
+                                                                            <input type="number" class="form-control"
+                                                                                name="rpm" id="rpm" required /><span
+                                                                                class="input-group-text">RPM</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mb-3 col-4">
+                                                                        <label for="sys" class="form-label">Presion
+                                                                            arterial
+                                                                            Sistolica maxima </label>
+                                                                        <div class="input-group mb-3">
+                                                                            <input type="number" class="form-control"
+                                                                                name="sys" id="sys" required /><span
+                                                                                class="input-group-text">SYS</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row g-2">
+                                                                    <div class="mb-3 col-5">
+                                                                        <label for="dia" class="form-label">Presion
+                                                                            arterial
+                                                                            Diastolica minima</label>
+                                                                        <div class="input-group mb-3">
+                                                                            <input type="number" class="form-control"
+                                                                                name="dia" id="dia" required>
+                                                                            <span class="input-group-text">DIA</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mb-3 col-2">
+                                                                        <label for="temperatura"
+                                                                            class="form-label">Temperatura</label>
+                                                                        <div class="input-group mb-3">
+                                                                            <input type="number" class="form-control"
+                                                                                name="temperatura" step="0.1"
+                                                                                id="temperatura" required>
+                                                                            <span class="input-group-text">&#176;
+                                                                                C</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mb-3 col-5">
+                                                                        <label for="eva" class="form-label">Estado de
+                                                                            animia
+                                                                            (EVA)</label>
+                                                                        <select class="form-control" name="eva" id="eva"
+                                                                            required>
+                                                                            <option value="" selected disabled>
+                                                                                Selecciona
+                                                                                una (EVA)</option>
+                                                                            <option value="1">Sin dolor</option>
+                                                                            <option value="2">Dolor leve</option>
+                                                                            <option value="3">Dolor moderado</option>
+                                                                            <option value="4">Dolor severo</option>
+                                                                            <option value="5">Dolor muy severo</option>
+                                                                            <option value="6">Maximo dolor</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button id="btn-guadarSignoVital" type="button"
+                                                                class="btn btn-success">Aceptar</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fin piletas  panel enfermeras -->
+
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade active show" id="generalt" role="tabpanel"
+                                aria-labelledby="general-tab">
+
+                            </div>
+                            <div class="tab-pane fade" id="medicaiont" role="tabpanel" aria-labelledby="medicaion-tab">
+
+                            </div>
+                            <div class="tab-pane fade" id="condicionest" role="tabpanel"
+                                aria-labelledby="condiciones-tab">
+
+                            </div>
+                            <div class="tab-pane fade" id="notast" role="tabpanel" aria-labelledby="notas-tab">
+
+                            </div>
+                            <div class="tab-pane fade" id="signos_vitalest" role="tabpanel"
+                                aria-labelledby="attributions-tab">
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
     <script src="assets/vendor/jquery/jquery.min.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/datatables/datatables.min.js"></script>
     <script src="assets/js/script.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="assets/js/paciente.js"></script>
+    <script>
+        
+
+        $(() => {
+            // console.log("Cargando panel-paciente");
+            const idpaciente = getIdPaciente();
+            getPaciente(idpaciente);
+
+            $("#btn-guardarcondicion").on("click", function () {
+                guardarCondicion();
+            });
+            $("#btn-guardarmedicacion").on("click", () => {
+                guardarMedicacion();
+            });
+            $("#btn-guardarpaciente").on("click", function (evt) {
+                //evt.preventDefault();
+                guardarPaciente();
+            });
+            $("#btn-guardarNota").on("click", () => {
+                guardarNota();
+            });
+            $("#btn-guadarSignoVital").on("click", () => {
+                gaurdaSignoVital();
+            });
+            $("#archivo_nota").on("change", () => {
+                //let archivos = $("#archivo_nota").get(0).files.length;
+                //document.querySelector("#archivo_text").innerHTML = `${archivos} de 5`;
+                guardarNota();
+
+            });
+        });
+
+        
+    </script>
 </body>
 
 </html>
