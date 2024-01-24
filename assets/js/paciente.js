@@ -1,3 +1,5 @@
+const urlStar = "https://controlcasanostra.develobit.com.mx"
+
 function validarFormulario(form) {
     const required = [];
     Array.prototype.slice.call(form).forEach((elm) => {
@@ -15,7 +17,8 @@ function validarFormulario(form) {
 }
 
 function guardarPaciente() {
-    const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    const url = urlStar + "/dao/patient.php";
     let form = document.querySelector("#form-datospaciente");
 
     const required = validarFormulario(form);
@@ -53,7 +56,8 @@ function guardarPaciente() {
 }
 
 function getPaciente(id) {
-    const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    const url = urlStar + "/dao/patient.php"; 
     const formData = new FormData();
     formData.append('action', '4');
     formData.append('id', id);
@@ -84,14 +88,16 @@ function getPaciente(id) {
             } else {
                 document.querySelector("#dwl_expediente").style.display = "block";
                 document.querySelector("#expediente").style.display = "none";
-                document.querySelector("#link_expediente").href = "http://control.lacasanostra.com.mx" + myJson.expediente[0].replace("..", "");
+                // document.querySelector("#link_expediente").href = "http://control.lacasanostra.com.mx" + myJson.expediente[0].replace("..", "");
+                document.querySelector("#link_expediente").href = urlStar + myJson.expediente[0].replace("..", "");
             }
 
         });
 }
 
 function guardarCondicion() {
-    const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    const url = urlStar + "/dao/patient.php";
     const form = document.querySelector("#form-condicionmedica");
     const required = validarFormulario(form);
     if (!required.includes(false)) {
@@ -121,7 +127,8 @@ function guardarCondicion() {
 }
 
 function getMedicacion() {
-    const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    const url = urlStar + "/dao/patient.php";
     const formData = new FormData();
     formData.append('paciente', getIdPaciente());
     formData.append('action', '6');
@@ -160,11 +167,22 @@ function getMedicacion() {
 }
 
 function guardarMedicacion() {
-    const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    const url = urlStar + "/dao/patient.php";
     const form = document.querySelector("#form-medicacion");
+    let dias = "";
+    document.getElementsByName("dia").forEach(el =>{
+        if(el.checked){
+            dias += el.value+",";
+        }
+        el.checked = false;
+        
+    });
+    dias = dias.length > 0 ? dias.substring(0, dias.length - 1) : "";
     const required = validarFormulario(form);
     if (!required.includes(false)) {
         const formData = new FormData(form);
+        let horarios = (document.querySelector("#horarios").innerHTML).replace(/:/g, "").replace(/ /g, ",");
         let date = new Date();
         let inicio = new Date(document.querySelector("#inicio").value);
         let termina = new Date(document.querySelector("#termina").value);
@@ -172,7 +190,10 @@ function guardarMedicacion() {
         formData.set('inicio', inicio.toISOString().slice(0, 19).replace('T', ' '));
         formData.set('termina', termina.toISOString().slice(0, 19).replace('T', ' '));
         formData.append('paciente', getIdPaciente());
+        formData.append("horarios", horarios);
+        formData.append("dias", dias);
         formData.append('action', '5');
+        document.querySelector("#seccion_dias").style.display = "none";
         fetch(url, { method: "post", body: formData })
             .then((response) => response.json())
             .then((medicacion) => {
@@ -194,7 +215,8 @@ function guardarMedicacion() {
 }
 
 function getCondicionesMedicas() {
-    const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    const url = urlStar + "/dao/patient.php";
     const formData = new FormData();
     formData.append('idpaciente', getIdPaciente());
     formData.append('action', '10');
@@ -231,7 +253,8 @@ function getCondicionesMedicas() {
 }
 
 function getNotas() {
-    const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    const url = urlStar + "/dao/patient.php";
     const formData = new FormData();
     formData.append('paciente', getIdPaciente());
     formData.append('action', '11');
@@ -264,7 +287,8 @@ function getNotas() {
 }
 
 function guardarNota() {
-    const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    const url = urlStar + "/dao/patient.php";
     const form = document.querySelector("#form-nota");
     const required = validarFormulario(form);
     if (!required.includes(false)) {
@@ -331,8 +355,19 @@ function getTratamientoPaciente() {
     getListaMedicamentos();
 }
 
+function getTratamientos(){
+    // const url="http://control.lacasanostra.com.mx/dao/patient.dao";
+    const url = urlStar + "/dao/patient.dao";
+    const formData = new FormDtata();
+    formData.append("action", "12");
+    fetch(url, { method: "post", body: formData })
+    .then(response => response.json())
+    .then();
+}
+
 function getListaMedicamentos() {
-    const url = "http://control.lacasanostra.com.mx/dao/materialmedico.php";
+    // const url = "http://control.lacasanostra.com.mx/dao/materialmedico.php";
+    const url = urlStar + "/dao/materialmedico.php";
     const formData = new FormData();
     formData.append('action', '1');
     fetch(url, { method: "post", body: formData })
@@ -349,7 +384,8 @@ function getListaMedicamentos() {
 }
 
 function getSignosVitales() {
-    const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    const url = urlStar + "/dao/patient.php";
     const formData = new FormData();
     formData.append('paciente', getIdPaciente());
     formData.append('action', '13');
@@ -401,7 +437,8 @@ function getSignosVitales() {
 
 
 function gaurdaSignoVital() {
-    const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    const url = urlStar + "/dao/patient.php";
     const form = document.querySelector("#form-signovital");
     const required = validarFormulario(form);
     if (!required.includes(false)) {
@@ -431,7 +468,8 @@ function gaurdaSignoVital() {
 function mostrarMedicacion() { }
 function getCondicion() { }
 function getNota(id) {
-    const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    const url = urlStar + "/dao/patient.php";
     // let idPaciente = getIdPaciente();
     const formData = new FormData();
     formData.append('id', id);
@@ -491,7 +529,8 @@ function borrarExpediente() {
         dangerMode: true,
     }).then((res) => {
         if (res) {
-            const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+            // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+            const url = urlStar + "/dao/patient.php";
             let idPaciente = getIdPaciente();
             const formData = new FormData();
             formData.append('id', idPaciente);
@@ -535,4 +574,26 @@ function borrarExpediente() {
                 });
         }
     });
+}
+
+function addHoras(){
+    
+    let hora = document.querySelector("#getHora").value;
+    if(hora){
+        // document.querySelector("#hora").value += ","+hora.replace(":", "");
+        document.querySelector("#horarios").innerHTML += hora + " "
+    }
+    
+}
+function habilitarDias(){
+    let habilitado = document.querySelector("#frecuencia").value;
+    // alert(habilitado);
+    if(habilitado == "DE"){
+        document.querySelector("#seccion_dias").style.display = "block";
+    } else {
+        document.querySelector("#seccion_dias").style.display = "none";
+        document.getElementsByName("dia").forEach(el =>{
+            el.checked = false;
+        });
+    }
 }

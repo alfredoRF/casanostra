@@ -23,79 +23,10 @@
             </div>
             <ul class="list-unstyled components text-secondary">
                 <li>
-                    <a href="dashboard.html"><i class="fas fa-home"></i>Dashboard</a>
+                    <a href="pacientes.html"><i class="fas fa-hospital-user"></i>Pacientes</a>
                 </li>
                 <li>
-                    <a href="forms.html"><i class="fas fa-file-alt"></i>Forms</a>
-                </li>
-                <li>
-                    <a href="tables.html"><i class="fas fa-table"></i>Tables</a>
-                </li>
-                <li>
-                    <a href="charts.html"><i class="fas fa-chart-bar"></i>Charts</a>
-                </li>
-                <li>
-                    <a href="icons.html"><i class="fas fa-icons"></i>Icons</a>
-                </li>
-                <li>
-                    <a href="#uielementsmenu" data-bs-toggle="collapse" aria-expanded="false"
-                        class="dropdown-toggle no-caret-down"><i class="fas fa-layer-group"></i>UI Elements</a>
-                    <ul class="collapse list-unstyled" id="uielementsmenu">
-                        <li>
-                            <a href="ui-buttons.html"><i class="fas fa-angle-right"></i>Buttons</a>
-                        </li>
-                        <li>
-                            <a href="ui-badges.html"><i class="fas fa-angle-right"></i>Badges</a>
-                        </li>
-                        <li>
-                            <a href="ui-cards.html"><i class="fas fa-angle-right"></i>Cards</a>
-                        </li>
-                        <li>
-                            <a href="ui-alerts.html"><i class="fas fa-angle-right"></i>Alerts</a>
-                        </li>
-                        <li>
-                            <a href="ui-tabs.html"><i class="fas fa-angle-right"></i>Tabs</a>
-                        </li>
-                        <li>
-                            <a href="ui-date-time-picker.html"><i class="fas fa-angle-right"></i>Date & Time Picker</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#authmenu" data-bs-toggle="collapse" aria-expanded="false"
-                        class="dropdown-toggle no-caret-down"><i class="fas fa-user-shield"></i>Authentication</a>
-                    <ul class="collapse list-unstyled" id="authmenu">
-                        <li>
-                            <a href="login.html"><i class="fas fa-lock"></i>Login</a>
-                        </li>
-                        <li>
-                            <a href="signup.html"><i class="fas fa-user-plus"></i>Signup</a>
-                        </li>
-                        <li>
-                            <a href="forgot-password.html"><i class="fas fa-user-lock"></i>Forgot password</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#pagesmenu" data-bs-toggle="collapse" aria-expanded="false"
-                        class="dropdown-toggle no-caret-down"><i class="fas fa-copy"></i>Pages</a>
-                    <ul class="collapse list-unstyled" id="pagesmenu">
-                        <li>
-                            <a href="blank.html"><i class="fas fa-file"></i>Blank page</a>
-                        </li>
-                        <li>
-                            <a href="404.html"><i class="fas fa-info-circle"></i>404 Error page</a>
-                        </li>
-                        <li>
-                            <a href="500.html"><i class="fas fa-info-circle"></i>500 Error page</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="users.html"><i class="fas fa-user-friends"></i>Users</a>
-                </li>
-                <li>
-                    <a href="settings.html"><i class="fas fa-cog"></i>Settings</a>
+                    <a href="materialmedico.html"><i class="fas fa-pills"></i>Material Medico</a>
                 </li>
             </ul>
         </nav>
@@ -176,7 +107,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="medicacion-tab" data-bs-toggle="tab" href="#medicaion"
                                         role="tab" aria-controls="medicacion" aria-selected="false"
-                                        onclick="getTratamientoPaciente(); getMedicacion();">Medicamentos</a>
+                                        onclick="getTratamientoPaciente();">Medicamentos</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="condiciones-tab" data-bs-toggle="tab" href="#condiciones"
@@ -230,7 +161,7 @@
                                                     <input type="date" class="form-control" name="fecnac" id="fecnac"
                                                         required>
                                                 </div>
-                                                <div class="mb-3 col-3">
+                                                <div class="mb-3 col-2">
                                                     <label for="peso" class="form-label">Peso</label>
                                                     <div class="input-group mb-3">
                                                         <input type="number" class="form-control" name="peso" id="peso"
@@ -238,7 +169,7 @@
                                                         <span class="input-group-text">kg</span>
                                                     </div>
                                                 </div>
-                                                <div class="mb-3 col-3">
+                                                <div class="mb-3 col-2">
                                                     <label for="estatura" class="form-label">Estatura</label>
                                                     <div class="input-group mb-3">
                                                         <input type="number" class="form-control" name="estatura"
@@ -246,16 +177,16 @@
                                                         <span class="input-group-text">cm</span>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row g-2">
-                                                <div class="mb-3 col-6">
-                                                    <label for="expediente">Expediente</label>
+
+                                                <div class="mb-3 col-2">
+                                                    <label for="expediente" class="">Expediente</label>
                                                     <div id="dwl_expediente" style="display:none;">
                                                         <div class="row">
+                                                            <div class="mb-3 col-1"></div>
                                                             <div class="mb-3 col-6">
                                                                 <a href="http://" class="btn btn-primary"
-                                                                    id="link_expediente"><i
-                                                                        class="fas fa-file-download" target="_blank"></i></a>
+                                                                    id="link_expediente"><i class="fas fa-file-download"
+                                                                        target="_blank"></i></a>
                                                                 <button type="button" class="btn btn-danger"
                                                                     onclick="borrarExpediente()"><i
                                                                         class="fas fa-trash-alt"></i></button>
@@ -263,8 +194,7 @@
                                                         </div>
                                                     </div>
                                                     <input type="file" name="expediente" id="expediente"
-                                                        class="form-control" accept=".pdf"
-                                                        style="display:none;">
+                                                        class="form-control" accept=".pdf" style="display:none;">
                                                 </div>
                                             </div>
                                         </div>
@@ -367,37 +297,107 @@
                                                             <datalist id="listamedicamentos">
                                                             </datalist>
                                                         </div>
-                                                        <div class="row g-2">
-                                                            <div class="mb-3 col-6">
-                                                                <label for="inicio" class="form-label">Inico</label>
-                                                                <input type="datetime-local" id="inicio" name="inicio"
-                                                                    class="form-control" required />
-                                                            </div>
-                                                            <div class="mb-3 col-6">
-                                                                <label for="termina" class="form-label">Termina</label>
-                                                                <input type="datetime-local" id="termina" name="termina"
-                                                                    class="form-control" required />
-                                                            </div>
-                                                        </div>
+
                                                         <div class="row g-2">
                                                             <div class=" mb-3 col-6">
                                                                 <label for="dosis" class="form-label">Dosis</label>
                                                                 <div class="input-group mb-3">
                                                                     <input type="number" id="dosis" name="dosis"
                                                                         class="form-control" required /><span
-                                                                        class="input-group-text">ml</span>
+                                                                        class="input-group-text"><select name="unidad"
+                                                                            id="dosis_unidad">
+                                                                            <option value="ML" selected>ML</option>
+                                                                            <option value="MG">MG</option>
+                                                                        </select></span>
                                                                 </div>
 
                                                             </div>
                                                             <div class="mb-3 col-6">
                                                                 <label for="frecuencia"
                                                                     class="form-label">Frecuencia</label>
-                                                                <div class="input-group mb-3">
-                                                                    <input type="number" id="frecuencia"
-                                                                        name="frecuencia" class="form-control"
-                                                                        required />
-                                                                    <span class="input-group-text">hrs</span>
+
+                                                                <select id="frecuencia" name="frecuencia"
+                                                                    class="form-select" onchange="habilitarDias();" required>
+                                                                    <option value='PRN'>PRN</option>
+                                                                    <option value='DIARIO'>Diario</option>
+                                                                    <option value='DE'>Siertos dias de la semana
+                                                                    </option>
+                                                                </select>
+
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="row g-2">
+                                                            <div class="mb-3 col-12" id="seccion_dias" style="display:none">
+                                                                <label for="dias" class="form-label">Dias</label>
+                                                                <br>
+                                                                <div class="form-check form-check-inline col-2">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        id="diaL" value="l" name="dia">
+                                                                    <label class="form-check-label"
+                                                                        for="diaL">Lunes</label>
                                                                 </div>
+                                                                <div class="form-check form-check-inline col-2">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        id="diaMa" value="ma" name="dia">
+                                                                    <label class="form-check-label"
+                                                                        for="diaMa">Martes</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline col-2">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        id="diaMi" value="mi" name="dia">
+                                                                    <label class="form-check-label"
+                                                                        for="diaMi">Miercoles</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline col-2">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        id="diaJ" value="j" name="dia">
+                                                                    <label class="form-check-label"
+                                                                        for="diaJ">Jueves</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline col-2">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        id="diaV" value="v" name="dia">
+                                                                    <label class="form-check-label"
+                                                                        for="diaV">Viernes</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline col-2">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        id="diaS" value="s" name="dia">
+                                                                    <label class="form-check-label"
+                                                                        for="diaS">Sabado</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline col-2">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        id="diaD" value="d" name="dia">
+                                                                    <label class="form-check-label"
+                                                                        for="diaD">Domingo</label>
+                                                                </div>
+                                                            </div>
+                                                            <label for="getHora" class="form-label">Horario</label>
+                                                            <div class="input-group mb-3 col-6">
+                                                                
+                                                                <input type="time" id="getHora" class="form-control"><span
+                                                                    class="input-group-text">
+                                                                    <button class="btn btn-primary btn-sm" type="button"
+                                                                        id="guardarHora" onclick="addHoras();"><i
+                                                                            class="fas fa-plus"></i></button></span>
+                                                                
+                                                            </div>
+                                                            <label id="horarios"></label>
+                                                        </div>
+                                                        <div class="row g-2">
+                                                            <div class="mb-3 col-6">
+                                                                <label for="inicio" class="form-label">Fecha de
+                                                                    Inicio</label>
+                                                                <input type="datetime-local" id="inicio" name="inicio"
+                                                                    class="form-control" required />
+                                                            </div>
+                                                            <div class="mb-3 col-6">
+                                                                <label for="termina" class="form-label">Fecha de
+                                                                    Termino</label>
+                                                                <input type="datetime-local" id="termina" name="termina"
+                                                                    class="form-control" required />
                                                             </div>
                                                         </div>
                                                         <div class="mb-3">
@@ -471,8 +471,7 @@
                                     <div class="col-md-12">
                                         <a href="" class="btn btn-sm btn-outline-primary float-end"
                                             data-bs-toggle="modal" data-bs-target="#notamodal"
-                                            onclick="prepararFormNota();"><i
-                                                class="fas fa-plus-circle"></i> Nuevo</a>
+                                            onclick="prepararFormNota();"><i class="fas fa-plus-circle"></i> Nuevo</a>
                                         <table width="100%" class="table table-hover" id="table-notas">
                                             <thead>
                                                 <tr>
@@ -507,9 +506,8 @@
                                                             <label for="archivo_nota" class="form-label">Archivos <span
                                                                     id="archivo_text">0 de 5</span></label>
                                                             <div id="archivos_nota"></div>
-                                                            <input type="file" id="archivo_nota"
-                                                                accept="image/*" name="archivo_nota"
-                                                                class="form-control" multiple />
+                                                            <input type="file" id="archivo_nota" accept="image/*"
+                                                                name="archivo_nota" class="form-control" />
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -517,6 +515,21 @@
                                                             class="btn btn-success">Aceptar</button>
                                                     </div>
                                                 </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal fade" id="modal_archivo_nota" role="dialog" tabindex="-1">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="card mb-3">
+                                                    <img class="card-img-top" id="imagen_nota"
+                                                        src="assets/img/image-wide.svg" alt="Imagen de nota">
+
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button id="btn_cerarr_nota" type="button" class="btn btn-success"
+                                                    data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
                                             </div>
                                         </div>
                                     </div>
@@ -674,9 +687,10 @@
                 guardarNota();
 
             });
+            getMedicacion();
         });
 
-        
+
     </script>
 </body>
 
