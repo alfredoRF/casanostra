@@ -57,7 +57,7 @@ function guardarPaciente() {
 
 function getPaciente(id) {
     // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
-    const url = urlStar + "/dao/patient.php"; 
+    const url = urlStar + "/dao/patient.php";
     const formData = new FormData();
     formData.append('action', '4');
     formData.append('id', id);
@@ -143,13 +143,44 @@ function getMedicacion() {
                 data: medicaciones,
                 columns: [
                     { data: "medicamento" },
-                    { data: "dosis" },
-                    { data: "frecuencia" },
+                    {
+                        data: { dosis: "dosis", unidad: "unidad" }, render: (data, type) => {
+                            return data.dosis + " " + data.unidad;
+                        }
+                    },
+                    {
+                        data: { frecuencia: "frecuencia", dias: "dias" }, render: (data, type) => {
+                            let resp = "";
+                            switch (data.frecuencia) {
+                                case 'PRN':
+                                case 'DIARIO': resp = data.frecuencia; break;
+                                case "DE":
+                                    if (data.dias) {
+                                        data.dias.split(",").forEach(dia => {
+                                            switch (dia) {
+                                                case "l": resp += "Lunes, "; break;
+                                                case "ma": resp += "Martes, "; break;
+                                                case "mi": resp += "Miercoles, "; break;
+                                                case "j": resp += "Jueves, "; break;
+                                                case "v": resp += "Viernes, "; break;
+                                                case "s": resp += "Sabado, "; break;
+                                                case "d": resp += "Domingo, "; break;
+                                            }
+                                        });
+                                        resp = resp.length > 0 ? resp.substring(0, resp.length - 2) : "";
+                                    }
+                                    break;
+
+
+                            }
+                            return resp;
+                        }
+                    },
                     { data: "termina" },
                     {
                         data: "id",
                         render: (data, type) => {
-                            const btnaeditar = `<a href='#' class='btn btn-outline-primary btn-rounded' onclick='mostrarMedicacion(${data})'><i class='fas fa-eye' style='font-size:1.5em;'></i></a>`;
+                            const btnaeditar = `<a href='#' class='btn btn-outline-danger btn-rounded' onclick='borrarMedicacion(${data})'><i class='fas fa-trash' style='font-size:1.5em;'></i></a>`;
                             //return btnagregar+"&nbsp;"+btnsacar+"&nbsp;"+btnhistorico;
                             // console.log(data);
                             return btnaeditar;
@@ -170,19 +201,20 @@ function guardarMedicacion() {
     // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
     const url = urlStar + "/dao/patient.php";
     const form = document.querySelector("#form-medicacion");
-    let dias = "";
-    document.getElementsByName("dia").forEach(el =>{
-        if(el.checked){
-            dias += el.value+",";
-        }
-        el.checked = false;
-        
-    });
-    dias = dias.length > 0 ? dias.substring(0, dias.length - 1) : "";
+
     const required = validarFormulario(form);
     if (!required.includes(false)) {
+        let dias = "";
+        document.getElementsByName("dia").forEach(el => {
+            if (el.checked) {
+                dias += el.value + ",";
+            }
+            el.checked = false;
+
+        });
+        dias = dias.length > 0 ? dias.substring(0, dias.length - 1) : "";
         const formData = new FormData(form);
-        let horarios = (document.querySelector("#horarios").innerHTML).replace(/:/g, "").replace(/ /g, ",");
+        let horarios = document.querySelector("#horarios").innerHTML.replace(/:/g, "").replace(/ /g, ",");
         let date = new Date();
         let inicio = new Date(document.querySelector("#inicio").value);
         let termina = new Date(document.querySelector("#termina").value);
@@ -193,6 +225,7 @@ function guardarMedicacion() {
         formData.append("horarios", horarios);
         formData.append("dias", dias);
         formData.append('action', '5');
+        formData.append('status', '1');
         document.querySelector("#seccion_dias").style.display = "none";
         fetch(url, { method: "post", body: formData })
             .then((response) => response.json())
@@ -213,6 +246,7 @@ function guardarMedicacion() {
     }
 
 }
+
 
 function getCondicionesMedicas() {
     // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
@@ -355,14 +389,14 @@ function getTratamientoPaciente() {
     getListaMedicamentos();
 }
 
-function getTratamientos(){
+function getTratamientos() {
     // const url="http://control.lacasanostra.com.mx/dao/patient.dao";
     const url = urlStar + "/dao/patient.dao";
     const formData = new FormDtata();
     formData.append("action", "12");
     fetch(url, { method: "post", body: formData })
-    .then(response => response.json())
-    .then();
+        .then(response => response.json())
+        .then();
 }
 
 function getListaMedicamentos() {
@@ -519,6 +553,38 @@ function loadForm(data) {
 
     // $("#" + )
 }
+function borrarMedicacion(idMedicacion) {
+    swal({
+        title: "Eliminar Medicacion",
+        text: "La medicacion sera borrado",
+        icon: "warning",
+        buttons: ["Cancelar", "Borrar"],
+        dangerMode: true,
+    }).then((res) => {
+        if (res) {
+            const url = urlStar + "/dao/patient.php";
+            const formData = new FormData();
+            formData.append('id', idMedicacion);
+            formData.append('status', 0);
+            formData.append('action', '18')
+            fetch(url, { method: "post", body: formData })
+                .then((response) => response.json())
+                .then((medicacion) => {
+                    swal.close();
+                    getMedicacion();
+                    swal({
+                        title: 'Eliminado',
+                        text: 'La medicacion fue eliminado',
+                        icon: 'success',
+                        buttons: {
+                            cancel: false,
+                            conform: 'Aceptar'
+                        }
+                    });
+                });
+        }
+    });
+}
 
 function borrarExpediente() {
     swal({
@@ -576,23 +642,23 @@ function borrarExpediente() {
     });
 }
 
-function addHoras(){
-    
+function addHoras() {
+
     let hora = document.querySelector("#getHora").value;
-    if(hora){
+    if (hora) {
         // document.querySelector("#hora").value += ","+hora.replace(":", "");
         document.querySelector("#horarios").innerHTML += hora + " "
     }
-    
+
 }
-function habilitarDias(){
+function habilitarDias() {
     let habilitado = document.querySelector("#frecuencia").value;
     // alert(habilitado);
-    if(habilitado == "DE"){
+    if (habilitado == "DE") {
         document.querySelector("#seccion_dias").style.display = "block";
     } else {
         document.querySelector("#seccion_dias").style.display = "none";
-        document.getElementsByName("dia").forEach(el =>{
+        document.getElementsByName("dia").forEach(el => {
             el.checked = false;
         });
     }
