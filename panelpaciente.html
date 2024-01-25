@@ -107,7 +107,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="medicacion-tab" data-bs-toggle="tab" href="#medicaion"
                                         role="tab" aria-controls="medicacion" aria-selected="false"
-                                        onclick="getTratamientoPaciente();">Medicamentos</a>
+                                        onclick="getMedicacion();">Medicamentos</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="condiciones-tab" data-bs-toggle="tab" href="#condiciones"
@@ -267,8 +267,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>Medicamento</th>
-                                                    <th>Dosis (ML)</th>
-                                                    <th>Frecuencia (HR)</th>
+                                                    <th>Dosis</th>
+                                                    <th>Frecuencia</th>
                                                     <th>Fecha de Terminacion</th>
                                                     <th></th>
                                                 </tr>
@@ -331,43 +331,43 @@
                                                             <div class="mb-3 col-12" id="seccion_dias" style="display:none">
                                                                 <label for="dias" class="form-label">Dias</label>
                                                                 <br>
-                                                                <div class="form-check form-check-inline col-2">
+                                                                <div class="form-check form-check-inline col-3">
                                                                     <input class="form-check-input" type="checkbox"
                                                                         id="diaL" value="l" name="dia">
                                                                     <label class="form-check-label"
                                                                         for="diaL">Lunes</label>
                                                                 </div>
-                                                                <div class="form-check form-check-inline col-2">
+                                                                <div class="form-check form-check-inline col-3">
                                                                     <input class="form-check-input" type="checkbox"
                                                                         id="diaMa" value="ma" name="dia">
                                                                     <label class="form-check-label"
                                                                         for="diaMa">Martes</label>
                                                                 </div>
-                                                                <div class="form-check form-check-inline col-2">
+                                                                <div class="form-check form-check-inline col-3">
                                                                     <input class="form-check-input" type="checkbox"
                                                                         id="diaMi" value="mi" name="dia">
                                                                     <label class="form-check-label"
                                                                         for="diaMi">Miercoles</label>
                                                                 </div>
-                                                                <div class="form-check form-check-inline col-2">
+                                                                <div class="form-check form-check-inline col-3">
                                                                     <input class="form-check-input" type="checkbox"
                                                                         id="diaJ" value="j" name="dia">
                                                                     <label class="form-check-label"
                                                                         for="diaJ">Jueves</label>
                                                                 </div>
-                                                                <div class="form-check form-check-inline col-2">
+                                                                <div class="form-check form-check-inline col-3">
                                                                     <input class="form-check-input" type="checkbox"
                                                                         id="diaV" value="v" name="dia">
                                                                     <label class="form-check-label"
                                                                         for="diaV">Viernes</label>
                                                                 </div>
-                                                                <div class="form-check form-check-inline col-2">
+                                                                <div class="form-check form-check-inline col-3">
                                                                     <input class="form-check-input" type="checkbox"
                                                                         id="diaS" value="s" name="dia">
                                                                     <label class="form-check-label"
                                                                         for="diaS">Sabado</label>
                                                                 </div>
-                                                                <div class="form-check form-check-inline col-2">
+                                                                <div class="form-check form-check-inline col-3">
                                                                     <input class="form-check-input" type="checkbox"
                                                                         id="diaD" value="d" name="dia">
                                                                     <label class="form-check-label"
@@ -506,7 +506,7 @@
                                                             <label for="archivo_nota" class="form-label">Archivos <span
                                                                     id="archivo_text">0 de 5</span></label>
                                                             <div id="archivos_nota"></div>
-                                                            <input type="file" id="archivo_nota" accept="image/*"
+                                                            <input type="file" id="archivo_nota" accept=".jpeg, .jpg, .png"
                                                                 name="archivo_nota" class="form-control" />
                                                         </div>
                                                     </div>
@@ -664,6 +664,7 @@
             // console.log("Cargando panel-paciente");
             const idpaciente = getIdPaciente();
             getPaciente(idpaciente);
+            getTratamientoPaciente();
 
             $("#btn-guardarcondicion").on("click", function () {
                 guardarCondicion();
@@ -687,7 +688,7 @@
                 guardarNota();
 
             });
-            getMedicacion();
+            
         });
 
 
