@@ -126,7 +126,7 @@ function guardarCondicion() {
 
 }
 
-function getMedicacion() {
+function getMedicacion(tipo) {
     // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
     const url = urlStar + "/dao/patient.php";
     const formData = new FormData();
@@ -180,7 +180,8 @@ function getMedicacion() {
                     {
                         data: "id",
                         render: (data, type) => {
-                            const btnaeditar = `<a href='#' class='btn btn-outline-danger btn-rounded' onclick='borrarMedicacion(${data})'><i class='fas fa-trash' style='font-size:1.5em;'></i></a>`;
+                            const btnaeditar = tipo === "p" ? `<a href='#' class='btn btn-outline-danger btn-rounded' onclick='borrarMedicacion(${data})'><i class='fas fa-trash' style='font-size:1.5em;'></i></a>`
+                            : `<a href='#' class='btn btn-outline-primary btn-rounded' onclick='darAplicacion(${data})'><i class='fas fa-pills' style='font-size:1.5em;'></i></a>`;
                             //return btnagregar+"&nbsp;"+btnsacar+"&nbsp;"+btnhistorico;
                             // console.log(data);
                             return btnaeditar;
@@ -373,6 +374,18 @@ function guardarNota() {
                     });
                 }
 
+            }).catch( error => {
+                swal.close();
+                console.log(error);
+                swal({
+                    title: 'A ocurrido un error',
+                    text: 'Compruebe su conexion a internet',
+                    icon: 'danger',
+                    buttons: {
+                        cancel: false,
+                        confirm: 'Aceptar'
+                    }
+                });
             });
     }
 }

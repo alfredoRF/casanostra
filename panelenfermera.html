@@ -112,7 +112,7 @@
                                     <button class="nav-link" id="v-pills-medicacion-tab" data-bs-toggle="pill"
                                         data-bs-target="#medicacion" type="button" role="tab"
                                         aria-controls="#medicacion" aria-selected="false"
-                                        onclick="getTratamientoPaciente(); getMedicacion();">Tratamiento Medico</button>
+                                        onclick="getMedicacion('e');">Tratamiento Medico</button>
                                     <button class="nav-link" id="v-pills-condiciones-tab" data-bs-toggle="pill"
                                         data-bs-target="#condiciones" type="button" role="tab"
                                         aria-controls="v-pills-disabled" aria-selected="false"
@@ -123,7 +123,8 @@
                                         onclick="getNotas()">Notas</button>
                                     <button class="nav-link" id="v-pills-signos_vitales-tab" data-bs-toggle="pill"
                                         data-bs-target="#signos_vitales" type="button" role="tab"
-                                        aria-controls="v-pills-settings" aria-selected="false" onclick="getSignosVitales()">Signos Vitales</button>
+                                        aria-controls="v-pills-settings" aria-selected="false"
+                                        onclick="getSignosVitales()">Signos Vitales</button>
                                 </div>
                                 <div class="tab-content container-fluid" id="content_paciente">
                                     <div class="tab-pane fade show active" id="general" role="tabpanel"
@@ -197,8 +198,7 @@
                                                             </div>
                                                         </div>
                                                         <input type="file" name="expediente" id="expediente"
-                                                            class="form-control" accept=".pdf"
-                                                            style="display:none;">
+                                                            class="form-control" accept=".pdf" style="display:none;">
                                                     </div>
                                                 </div>
                                             </div>
@@ -272,8 +272,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Medicamento</th>
-                                                        <th>Dosis (ML)</th>
-                                                        <th>Frecuencia (HR)</th>
+                                                        <th>Dosis</th>
+                                                        <th>Frecuencia</th>
                                                         <th>Fecha de Terminacion</th>
                                                         <th></th>
                                                     </tr>
@@ -615,13 +615,13 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="assets/js/paciente.js"></script>
     <script>
-        
+
 
         $(() => {
             // console.log("Cargando panel-paciente");
             const idpaciente = getIdPaciente();
             getPaciente(idpaciente);
-
+            getTratamientoPaciente(); 
             $("#btn-guardarcondicion").on("click", function () {
                 guardarCondicion();
             });
@@ -646,7 +646,7 @@
             });
         });
 
-        
+
     </script>
 </body>
 
