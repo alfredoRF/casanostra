@@ -145,7 +145,7 @@ function getMedicacion(tipo) {
                     { data: "medicamento" },
                     {
                         data: { dosis: "dosis", unidad: "unidad" }, render: (data, type) => {
-                            return data.dosis + " " + data.unidad;
+                            return data.dosis + " " + (data.unidad === 'T' ? "TABLETAS" : data.unidad);
                         }
                     },
                     {
@@ -159,8 +159,8 @@ function getMedicacion(tipo) {
                                         data.dias.split(",").forEach(dia => {
                                             switch (dia) {
                                                 case "l": resp += "Lunes, "; break;
-                                                case "ma": resp += "Martes, "; break;
-                                                case "mi": resp += "Miercoles, "; break;
+                                                case "m": resp += "Martes, "; break;
+                                                case "x": resp += "Miercoles, "; break;
                                                 case "j": resp += "Jueves, "; break;
                                                 case "v": resp += "Viernes, "; break;
                                                 case "s": resp += "Sabado, "; break;
@@ -176,12 +176,12 @@ function getMedicacion(tipo) {
                             return resp;
                         }
                     },
-                    { data: "termina" },
+                    { data: "termina", render: (data) => data ?? "SIN TERMINO"},
                     {
                         data: "id",
                         render: (data, type) => {
                             const btnaeditar = tipo === "p" ? `<a href='#' class='btn btn-outline-danger btn-rounded' onclick='borrarMedicacion(${data})'><i class='fas fa-trash' style='font-size:1.5em;'></i></a>`
-                            : `<a href='#' class='btn btn-outline-primary btn-rounded' onclick='darAplicacion(${data})'><i class='fas fa-pills' style='font-size:1.5em;'></i></a>`;
+                                : `<a href='#' class='btn btn-outline-primary btn-rounded' onclick='darAplicacion(${data})'><i class='fas fa-pills' style='font-size:1.5em;'></i></a>`;
                             //return btnagregar+"&nbsp;"+btnsacar+"&nbsp;"+btnhistorico;
                             // console.log(data);
                             return btnaeditar;
@@ -215,13 +215,14 @@ function guardarMedicacion() {
         });
         dias = dias.length > 0 ? dias.substring(0, dias.length - 1) : "";
         const formData = new FormData(form);
-        let horarios = document.querySelector("#horarios").innerHTML.replace(/:/g, "").replace(/ /g, ",");
+        let horarios = document.querySelector("#horarios").innerHTML.replace(/:/g, "").replace(/ /g, "");
+        let fhT = document.querySelector("#termina").value;
         let date = new Date();
         let inicio = new Date(document.querySelector("#inicio").value);
-        let termina = new Date(document.querySelector("#termina").value);
+        let termina = fhT != "" ? new Date(fhT) : null;
         formData.append('fecha', date.toISOString().slice(0, 19).replace('T', ' '));
         formData.set('inicio', inicio.toISOString().slice(0, 19).replace('T', ' '));
-        formData.set('termina', termina.toISOString().slice(0, 19).replace('T', ' '));
+        formData.set('termina', termina ? termina.toISOString().slice(0, 19).replace('T', ' ') : null);
         formData.append('paciente', getIdPaciente());
         formData.append("horarios", horarios);
         formData.append("dias", dias);
@@ -233,7 +234,7 @@ function guardarMedicacion() {
             .then((medicacion) => {
                 resetform("form-medicacion");
                 $('#medicacionmodal').modal('hide');
-                getMedicacion();
+                getMedicacion('p');
                 swal({
                     title: 'Guardado',
                     text: 'El medicamento fue agregado',
@@ -374,13 +375,13 @@ function guardarNota() {
                     });
                 }
 
-            }).catch( error => {
+            }).catch(error => {
                 swal.close();
                 console.log(error);
                 swal({
                     title: 'A ocurrido un error',
                     text: 'Compruebe su conexion a internet',
-                    icon: 'danger',
+                    icon: 'error',
                     buttons: {
                         cancel: false,
                         confirm: 'Aceptar'
@@ -513,7 +514,28 @@ function gaurdaSignoVital() {
     }
 }
 function mostrarMedicacion() { }
-function getCondicion() { }
+
+function selectCondiciones() {
+    // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    const url = urlStar + "/dao/patient.php";
+    // alert("holas");
+    let id = getIdPaciente();
+    const formData = new FormData();
+    formData.append('idpaciente', id);
+    formData.append('action', '10');
+    fetch(url, { method: "post", body: formData })
+        .then((response) => response.json())
+        .then((condiciones) => {
+            // console.log(condiciones);
+            let options = "<option value='' disabled selected>Selecciona una</option>";
+            condiciones.forEach(condicion => {
+                // alert(condicion.titulo);
+                options += `<option value="${condicion.id}">${condicion.titulo.toUpperCase()}</option>`;
+            });
+            document.querySelector("#condicion").innerHTML = options;
+        });
+}
+
 function getNota(id) {
     // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
     const url = urlStar + "/dao/patient.php";
@@ -584,7 +606,7 @@ function borrarMedicacion(idMedicacion) {
                 .then((response) => response.json())
                 .then((medicacion) => {
                     swal.close();
-                    getMedicacion();
+                    getMedicacion('p');
                     swal({
                         title: 'Eliminado',
                         text: 'La medicacion fue eliminado',
@@ -664,15 +686,50 @@ function addHoras() {
     }
 
 }
+function calcularHorario(){
+    let fechaInicio = document.querySelector("#inicio");
+    let veces = document.querySelector("#veces").value;
+    if(fechaInicio.value){
+        // fechaInicio.parentNode.classList.remove("has-danger");
+        fechaInicio.classList.remove("is-invalid");
+        // alert(fechaInicio.value);
+        let minutos =  parseInt(1440/veces);
+        let fecha = new Date(fechaInicio.value);
+        let html = `${fecha.getHours() < 10 ? "0"+fecha.getHours() : fecha.getHours()}:${fecha.getMinutes() < 10 ? "0" + fecha.getMinutes() : fecha.getMinutes()}`;
+        for(let i = 1; i < veces; i++){
+            
+            html += ", ";
+            fecha.setMinutes(fecha.getMinutes() + minutos);
+            let h = fecha.getHours();
+            let m = fecha.getMinutes();
+            html += `${h < 10 ? "0"+h : h}:${m < 10 ? "0"+m : m}`;
+        }
+        document.querySelector("#horarios").innerHTML = html;
+    } else {
+        // fechaInicio.parentNode.classList.add("has-danger");
+        fechaInicio.classList.add("is-invalid");
+    }
+}
+
 function habilitarDias() {
     let habilitado = document.querySelector("#frecuencia").value;
     // alert(habilitado);
-    if (habilitado == "DE") {
-        document.querySelector("#seccion_dias").style.display = "block";
-    } else {
-        document.querySelector("#seccion_dias").style.display = "none";
-        document.getElementsByName("dia").forEach(el => {
-            el.checked = false;
-        });
+    switch (habilitado) {
+        case 'PRN':
+            document.querySelector("#seccion_dias").style.display = "none";
+            document.querySelector("#termina").disabled = true;
+            break;
+        case 'DIARIO':
+            document.querySelector("#seccion_dias").style.display = "none";
+            document.querySelector("#termina").disabled = false;
+            break;
+        case 'DE':
+            document.querySelector("#seccion_dias").style.display = "block";
+            document.querySelector("#termina").disabled = false;
+            document.getElementsByName("dia").forEach(el => {
+                el.checked = false;
+
+            });
+            break;
     }
 }

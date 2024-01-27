@@ -260,7 +260,7 @@
                                     aria-labelledby="medicaion-tab">
                                     <div class="col-md-12">
                                         <a href="" class="btn btn-sm btn-outline-primary float-end"
-                                            data-bs-toggle="modal" data-bs-target="#medicacionmodal"><i
+                                            data-bs-toggle="modal" data-bs-target="#medicacionmodal" onclick=""><i
                                                 class="fas fa-plus-circle"></i> Nuevo</a>
                                         <table width="100%" class="table table-hover" id="table-medicacion">
                                             <thead>
@@ -277,7 +277,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="modal fade" id="medicacionmodal" role="dialog" tabindex="-1">
+                                    <div class="modal modal-lg fade" id="medicacionmodal" role="dialog" tabindex="-1">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <form id="form-medicacion" accept-charset="utf-8"
@@ -296,18 +296,24 @@
                                                             <datalist id="listamedicamentos">
                                                             </datalist>
                                                         </div>
+                                                        <div class="mb-3">
+                                                            <label for="condicion" class="
+                                                                form-label">Condicion medica</label>
+                                                            <select name="condicion" id="condicion"
+                                                                class="form-select"  required></select>
+                                                        </div>
 
                                                         <div class="row g-2">
                                                             <div class=" mb-3 col-6">
                                                                 <label for="dosis" class="form-label">Dosis</label>
                                                                 <div class="input-group mb-3">
                                                                     <input type="number" id="dosis" name="dosis"
-                                                                        class="form-control" required /><span
-                                                                        class="input-group-text"><select name="unidad"
+                                                                        class="form-control" required />
+                                                                        <select class="" name="unidad"
                                                                             id="dosis_unidad">
                                                                             <option value="ML" selected>ML</option>
-                                                                            <option value="MG">MG</option>
-                                                                        </select></span>
+                                                                            <option value="T">Tabletas</option>
+                                                                        </select>
                                                                 </div>
 
                                                             </div>
@@ -319,8 +325,7 @@
                                                                     class="form-select" onchange="habilitarDias();" required>
                                                                     <option value='PRN'>PRN</option>
                                                                     <option value='DIARIO'>Diario</option>
-                                                                    <option value='DE'>Siertos dias de la semana
-                                                                    </option>
+                                                                    <option value='DE'>Siertos dias</option>
                                                                 </select>
 
 
@@ -338,13 +343,13 @@
                                                                 </div>
                                                                 <div class="form-check form-check-inline col-3">
                                                                     <input class="form-check-input" type="checkbox"
-                                                                        id="diaMa" value="ma" name="dia">
+                                                                        id="diaMa" value="m" name="dia">
                                                                     <label class="form-check-label"
                                                                         for="diaMa">Martes</label>
                                                                 </div>
                                                                 <div class="form-check form-check-inline col-3">
                                                                     <input class="form-check-input" type="checkbox"
-                                                                        id="diaMi" value="mi" name="dia">
+                                                                        id="diaMi" value="x" name="dia">
                                                                     <label class="form-check-label"
                                                                         for="diaMi">Miercoles</label>
                                                                 </div>
@@ -373,31 +378,59 @@
                                                                         for="diaD">Domingo</label>
                                                                 </div>
                                                             </div>
-                                                            <label for="getHora" class="form-label">Horario</label>
-                                                            <div class="input-group mb-3 col-6">
+                                                            <!-- <label for="getHora" class="form-label">Horario</label> -->
+                                                            <div class="row g-2">
+                                                                <div class="mb-3 col-6">
+                                                                    <label for="inicio" class="form-label">Fecha de
+                                                                        Inicio</label>
+                                                                    <input type="datetime-local" id="inicio" name="inicio"
+                                                                        class="form-control" required />
+                                                                        <div class="invalid-feedback">Seleccione la fecha de inicio</div>
+                                                                </div>
+                                                                <div class="mb-3 col-6">
+                                                                    <label for="termina" class="form-label">Fecha de
+                                                                        Termino</label>
+                                                                    <input type="datetime-local" id="termina" name="termina"
+                                                                        class="form-control" disabled/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mb-3 col-6">
                                                                 
-                                                                <input type="time" id="getHora" class="form-control"><span
+                                                                <!-- <input type="time" id="getHora" class="form-control"><span
                                                                     class="input-group-text">
                                                                     <button class="btn btn-primary btn-sm" type="button"
                                                                         id="guardarHora" onclick="addHoras();"><i
-                                                                            class="fas fa-plus"></i></button></span>
-                                                                
+                                                                            class="fas fa-plus"></i></button></span> -->
+                                                                <label for="veces" class="form-label">Veces por dia</label>
+                                                                <select id="veces" class="form-select" onchange="calcularHorario()">
+                                                                    <option value="" disabled selected >Veces al día...</option> 
+                                                                    <option value="1">Una vez al día</option>
+                                                                    <option value="2">2 veces al día</option> 
+                                                                    <option value="3">3 veces al día</option> 
+                                                                    <option value="4">4 veces al día</option> 
+                                                                    <option value="5">5 veces al día</option> 
+                                                                    <option value="6">6 veces al día</option> 
+                                                                    <option value="7">7 veces al día</option> 
+                                                                    <option value="8">8 veces al día</option> 
+                                                                    <option value="9">9 veces al día</option>
+                                                                    <option value="10">10 veces al día</option> 
+                                                                    <option value="11">11 veces al día</option> 
+                                                                    <option value="12">12 veces al día</option> 
+                                                                    <option value="13">13 veces al día</option> 
+                                                                    <option value="14">14 veces al día</option> 
+                                                                    <option value="15">15 veces al día</option> 
+                                                                    <option value="16">16 veces al día</option> 
+                                                                    <option value="17">17 veces al día</option> 
+                                                                    <option value="18">18 veces al día</option> 
+                                                                    <option value="19">19 veces al día</option> 
+                                                                    <option value="20">20 veces al día</option> 
+                                                                    <option value="21">21 veces al día</option>
+                                                                    <option value="22">22 veces al día</option>
+                                                                    <option value="23">23 veces al día</option>
+                                                                    <option value="24">24 veces al día</option>
+                                                                </select>
                                                             </div>
                                                             <label id="horarios"></label>
-                                                        </div>
-                                                        <div class="row g-2">
-                                                            <div class="mb-3 col-6">
-                                                                <label for="inicio" class="form-label">Fecha de
-                                                                    Inicio</label>
-                                                                <input type="datetime-local" id="inicio" name="inicio"
-                                                                    class="form-control" required />
-                                                            </div>
-                                                            <div class="mb-3 col-6">
-                                                                <label for="termina" class="form-label">Fecha de
-                                                                    Termino</label>
-                                                                <input type="datetime-local" id="termina" name="termina"
-                                                                    class="form-control" required />
-                                                            </div>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="descripcion"
@@ -664,7 +697,7 @@
             const idpaciente = getIdPaciente();
             getPaciente(idpaciente);
             getTratamientoPaciente();
-
+            selectCondiciones();
             $("#btn-guardarcondicion").on("click", function () {
                 guardarCondicion();
             });
