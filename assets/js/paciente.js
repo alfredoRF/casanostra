@@ -676,7 +676,13 @@ function borrarExpediente() {
         }
     });
 }
+function darAplicacion(medicacion){
+    const formData = new FormData();
+    formData.append('action', "15");
+    formData.append("medicacion", medicacion);
+    
 
+}
 function addHoras() {
 
     let hora = document.querySelector("#getHora").value;

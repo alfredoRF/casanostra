@@ -1,0 +1,86 @@
+[23-Jan-2024 14:27:26 UTC] PHP Warning:  Undefined array key "idmedicacion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 171
+[23-Jan-2024 17:25:24 UTC] PHP Warning:  Undefined array key "id" in /home/eduwitco/controlcasanostra/dao/patient.php on line 118
+[23-Jan-2024 17:29:18 UTC] PHP Warning:  Undefined array key "idmedicacion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 171
+[24-Jan-2024 00:36:19 UTC] PHP Warning:  Attempt to read property "id" on null in /home/eduwitco/controlcasanostra/dao/patient.php on line 93
+[24-Jan-2024 00:36:39 UTC] PHP Warning:  Attempt to read property "id" on null in /home/eduwitco/controlcasanostra/dao/patient.php on line 93
+[24-Jan-2024 00:36:48 UTC] PHP Warning:  Attempt to read property "id" on null in /home/eduwitco/controlcasanostra/dao/patient.php on line 93
+[24-Jan-2024 00:49:19 UTC] PHP Warning:  Attempt to read property "id" on null in /home/eduwitco/controlcasanostra/dao/patient.php on line 93
+[24-Jan-2024 00:59:23 UTC] PHP Warning:  Attempt to read property "id" on null in /home/eduwitco/controlcasanostra/dao/patient.php on line 93
+[24-Jan-2024 01:16:38 UTC] PHP Warning:  Undefined array key "paciente" in /home/eduwitco/controlcasanostra/dao/patient.php on line 355
+[24-Jan-2024 01:16:38 UTC] PHP Warning:  Undefined array key "paciente" in /home/eduwitco/controlcasanostra/dao/patient.php on line 356
+[24-Jan-2024 01:18:52 UTC] PHP Warning:  Attempt to read property "id" on null in /home/eduwitco/controlcasanostra/dao/patient.php on line 96
+[24-Jan-2024 01:19:05 UTC] PHP Warning:  Attempt to read property "id" on null in /home/eduwitco/controlcasanostra/dao/patient.php on line 96
+[24-Jan-2024 01:19:25 UTC] PHP Warning:  Attempt to read property "id" on null in /home/eduwitco/controlcasanostra/dao/patient.php on line 96
+[24-Jan-2024 02:40:31 UTC] PHP Warning:  Attempt to read property "id" on null in /home/eduwitco/controlcasanostra/dao/patient.php on line 96
+[24-Jan-2024 02:40:38 UTC] PHP Warning:  Attempt to read property "id" on null in /home/eduwitco/controlcasanostra/dao/patient.php on line 96
+[24-Jan-2024 02:57:55 UTC] PHP Warning:  Undefined array key "idcondicion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 200
+[24-Jan-2024 02:58:21 UTC] PHP Warning:  Undefined array key "idcondicion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 200
+[24-Jan-2024 02:58:34 UTC] PHP Warning:  Undefined array key "idcondicion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 200
+[24-Jan-2024 04:32:58 UTC] PHP Warning:  Attempt to read property "id" on null in /home/eduwitco/controlcasanostra/dao/patient.php on line 96
+[24-Jan-2024 17:13:51 UTC] PHP Warning:  Undefined array key "idmedicacion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 174
+[24-Jan-2024 20:27:20 UTC] PHP Warning:  Attempt to read property "id" on null in /home/eduwitco/controlcasanostra/dao/patient.php on line 96
+[24-Jan-2024 20:59:41 UTC] PHP Warning:  Undefined array key "idmedicacion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 174
+[24-Jan-2024 22:17:48 UTC] PHP Warning:  Undefined array key "idmedicacion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 174
+[24-Jan-2024 22:20:38 UTC] PHP Warning:  Undefined array key "idmedicacion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 174
+[25-Jan-2024 04:23:12 UTC] PHP Warning:  Attempt to read property "id" on null in /home/eduwitco/controlcasanostra/dao/patient.php on line 96
+[25-Jan-2024 04:24:37 UTC] PHP Warning:  Attempt to read property "id" on null in /home/eduwitco/controlcasanostra/dao/patient.php on line 96
+[25-Jan-2024 05:16:34 UTC] PHP Warning:  Undefined array key "idmedicacion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 174
+[25-Jan-2024 14:09:50 UTC] PHP Warning:  Attempt to read property "id" on null in /home/eduwitco/controlcasanostra/dao/patient.php on line 96
+[25-Jan-2024 14:12:10 UTC] PHP Warning:  Undefined array key "idmedicacion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 174
+[25-Jan-2024 14:12:10 UTC] PHP Warning:  Undefined array key "status" in /home/eduwitco/controlcasanostra/dao/patient.php on line 190
+[25-Jan-2024 14:16:23 UTC] PHP Warning:  Undefined array key "idmedicacion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 174
+[25-Jan-2024 14:16:23 UTC] PHP Warning:  Undefined array key "status" in /home/eduwitco/controlcasanostra/dao/patient.php on line 190
+[25-Jan-2024 14:18:08 UTC] PHP Warning:  Undefined array key "idmedicacion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 174
+[25-Jan-2024 14:18:50 UTC] PHP Warning:  Undefined array key "idmedicacion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 174
+[25-Jan-2024 14:18:50 UTC] PHP Warning:  Undefined array key "medicamento" in /home/eduwitco/controlcasanostra/dao/patient.php on line 178
+[25-Jan-2024 14:18:50 UTC] PHP Warning:  Undefined array key "paciente" in /home/eduwitco/controlcasanostra/dao/patient.php on line 179
+[25-Jan-2024 14:18:50 UTC] PHP Warning:  Attempt to read property "id" on null in /home/eduwitco/controlcasanostra/dao/patient.php on line 180
+[25-Jan-2024 14:18:50 UTC] PHP Warning:  Undefined array key "dosis" in /home/eduwitco/controlcasanostra/dao/patient.php on line 181
+[25-Jan-2024 14:18:50 UTC] PHP Warning:  Undefined array key "frecuencia" in /home/eduwitco/controlcasanostra/dao/patient.php on line 182
+[25-Jan-2024 14:18:50 UTC] PHP Warning:  Undefined array key "termina" in /home/eduwitco/controlcasanostra/dao/patient.php on line 183
+[25-Jan-2024 14:18:50 UTC] PHP Warning:  Undefined array key "inicio" in /home/eduwitco/controlcasanostra/dao/patient.php on line 184
+[25-Jan-2024 14:18:50 UTC] PHP Warning:  Undefined array key "fecha" in /home/eduwitco/controlcasanostra/dao/patient.php on line 185
+[25-Jan-2024 14:18:50 UTC] PHP Warning:  Undefined array key "horarios" in /home/eduwitco/controlcasanostra/dao/patient.php on line 186
+[25-Jan-2024 14:18:50 UTC] PHP Warning:  Undefined array key "dias" in /home/eduwitco/controlcasanostra/dao/patient.php on line 187
+[25-Jan-2024 14:18:50 UTC] PHP Warning:  Undefined array key "frecuencia" in /home/eduwitco/controlcasanostra/dao/patient.php on line 188
+[25-Jan-2024 14:18:50 UTC] PHP Warning:  Undefined array key "unidad" in /home/eduwitco/controlcasanostra/dao/patient.php on line 189
+[25-Jan-2024 15:35:37 UTC] PHP Warning:  imagecreatefromjpeg(): gd-jpeg: JPEG library reports unrecoverable error: Not a JPEG file: starts with 0x89 0x50 in /home/eduwitco/controlcasanostra/dao/patient.php on line 353
+[25-Jan-2024 15:35:37 UTC] PHP Warning:  imagecreatefromjpeg(): &quot;/tmp/phpMde5qV&quot; is not a valid JPEG file in /home/eduwitco/controlcasanostra/dao/patient.php on line 353
+[25-Jan-2024 15:37:02 UTC] PHP Warning:  imagecreatefromjpeg(): gd-jpeg: JPEG library reports unrecoverable error: Not a JPEG file: starts with 0x89 0x50 in /home/eduwitco/controlcasanostra/dao/patient.php on line 353
+[25-Jan-2024 15:37:02 UTC] PHP Warning:  imagecreatefromjpeg(): &quot;/tmp/phpAHSruQ&quot; is not a valid JPEG file in /home/eduwitco/controlcasanostra/dao/patient.php on line 353
+[25-Jan-2024 15:43:15 UTC] PHP Warning:  imagecreatefromjpeg(): gd-jpeg: JPEG library reports unrecoverable error: Not a JPEG file: starts with 0x89 0x50 in /home/eduwitco/controlcasanostra/dao/patient.php on line 353
+[25-Jan-2024 15:43:15 UTC] PHP Warning:  imagecreatefromjpeg(): &quot;/tmp/phpsMMt02&quot; is not a valid JPEG file in /home/eduwitco/controlcasanostra/dao/patient.php on line 353
+[25-Jan-2024 21:49:20 UTC] PHP Warning:  imagecreatefromjpeg(/tmp/phpT1LmAU): Failed to open stream: No such file or directory in /home/eduwitco/controlcasanostra/dao/patient.php on line 376
+[26-Jan-2024 03:06:29 UTC] PHP Warning:  Undefined array key "idmedicacion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 184
+[26-Jan-2024 15:15:16 UTC] PHP Warning:  Attempt to read property "id" on null in /home/eduwitco/controlcasanostra/dao/patient.php on line 105
+[26-Jan-2024 15:59:14 UTC] PHP Warning:  Undefined array key "idpaciente" in /home/eduwitco/controlcasanostra/dao/patient.php on line 92
+[26-Jan-2024 18:35:51 UTC] PHP Warning:  Attempt to read property "id" on null in /home/eduwitco/controlcasanostra/dao/patient.php on line 105
+[26-Jan-2024 18:48:00 UTC] PHP Warning:  Attempt to read property "id" on null in /home/eduwitco/controlcasanostra/dao/patient.php on line 105
+[26-Jan-2024 18:48:32 UTC] PHP Warning:  Attempt to read property "id" on null in /home/eduwitco/controlcasanostra/dao/patient.php on line 105
+[26-Jan-2024 19:45:30 UTC] PHP Warning:  Undefined array key "idmedicacion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 184
+[26-Jan-2024 19:59:02 UTC] PHP Warning:  Undefined array key "idmedicacion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 184
+[26-Jan-2024 20:07:19 UTC] PHP Warning:  Undefined array key "idmedicacion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 184
+[26-Jan-2024 20:08:54 UTC] PHP Warning:  Undefined array key "idmedicacion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 184
+[26-Jan-2024 20:12:38 UTC] PHP Warning:  Undefined array key "idmedicacion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 184
+[29-Jan-2024 15:35:11 UTC] PHP Warning:  Attempt to read property "id" on null in /home/eduwitco/controlcasanostra/dao/patient.php on line 105
+[31-Jan-2024 17:29:09 UTC] PHP Warning:  Undefined array key "idmedicacion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 184
+[31-Jan-2024 17:29:09 UTC] PHP Warning:  Undefined array key "condicion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 191
+[05-Feb-2024 14:09:28 UTC] PHP Warning:  Undefined array key "idmaterial" in /home/eduwitco/controlcasanostra/dao/materialmedico.php on line 60
+[05-Feb-2024 14:09:28 UTC] PHP Warning:  Undefined array key "oculto" in /home/eduwitco/controlcasanostra/dao/materialmedico.php on line 68
+[05-Feb-2024 14:10:01 UTC] PHP Warning:  Undefined array key "usuario" in /home/eduwitco/controlcasanostra/dao/materialmedico.php on line 86
+[05-Feb-2024 14:14:33 UTC] PHP Warning:  Undefined array key "idcondicion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 217
+[05-Feb-2024 14:14:51 UTC] PHP Warning:  Undefined array key "idcondicion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 217
+[05-Feb-2024 14:15:16 UTC] PHP Warning:  imagecreatefromjpeg(/tmp/phpoL8fcO): Failed to open stream: No such file or directory in /home/eduwitco/controlcasanostra/dao/patient.php on line 377
+[05-Feb-2024 14:15:28 UTC] PHP Warning:  imagecreatefromjpeg(/tmp/phpNPQT9b): Failed to open stream: No such file or directory in /home/eduwitco/controlcasanostra/dao/patient.php on line 377
+[05-Feb-2024 14:15:47 UTC] PHP Warning:  Undefined array key "idsignovital" in /home/eduwitco/controlcasanostra/dao/patient.php on line 324
+[05-Feb-2024 14:22:27 UTC] PHP Warning:  Undefined array key "idmedicacion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 184
+[05-Feb-2024 14:22:27 UTC] PHP Warning:  Undefined array key "condicion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 191
+[05-Feb-2024 17:29:21 UTC] PHP Fatal error:  Cannot redeclare getNotas() (previously declared in /home/eduwitco/controlcasanostra/dao/patient.php:123) in /home/eduwitco/controlcasanostra/dao/patient.php on line 127
+[05-Feb-2024 17:29:21 UTC] PHP Fatal error:  Cannot redeclare getNotas() (previously declared in /home/eduwitco/controlcasanostra/dao/patient.php:123) in /home/eduwitco/controlcasanostra/dao/patient.php on line 127
+[05-Feb-2024 17:33:27 UTC] PHP Fatal error:  Cannot redeclare getNotas() (previously declared in /home/eduwitco/controlcasanostra/dao/patient.php:123) in /home/eduwitco/controlcasanostra/dao/patient.php on line 127
+[05-Feb-2024 17:33:31 UTC] PHP Fatal error:  Cannot redeclare getNotas() (previously declared in /home/eduwitco/controlcasanostra/dao/patient.php:123) in /home/eduwitco/controlcasanostra/dao/patient.php on line 127
+[05-Feb-2024 17:33:37 UTC] PHP Fatal error:  Cannot redeclare getNotas() (previously declared in /home/eduwitco/controlcasanostra/dao/patient.php:123) in /home/eduwitco/controlcasanostra/dao/patient.php on line 127
+[05-Feb-2024 17:33:37 UTC] PHP Fatal error:  Cannot redeclare getNotas() (previously declared in /home/eduwitco/controlcasanostra/dao/patient.php:123) in /home/eduwitco/controlcasanostra/dao/patient.php on line 127
+[05-Feb-2024 17:33:38 UTC] PHP Fatal error:  Cannot redeclare getNotas() (previously declared in /home/eduwitco/controlcasanostra/dao/patient.php:123) in /home/eduwitco/controlcasanostra/dao/patient.php on line 127
+[05-Feb-2024 18:26:38 UTC] PHP Warning:  Undefined array key "idcondicion" in /home/eduwitco/controlcasanostra/dao/patient.php on line 227
+[05-Feb-2024 21:20:24 UTC] PHP Warning:  imagecreatefromjpeg(/tmp/phpjBlvNF): Failed to open stream: No such file or directory in /home/eduwitco/controlcasanostra/dao/patient.php on line 406
