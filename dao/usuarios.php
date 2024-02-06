@@ -5,6 +5,7 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Allow: GET, POST, OPTIONS, PUT, DELETE");
 
 require_once 'conection.php';
+session_start();
 
 $action = $_REQUEST['action'];
 
@@ -20,6 +21,12 @@ switch ($action) {
         break;
     case 4:
         delUsuario();
+        break;
+    case 5:
+        login();
+        break;
+    case 6:
+        logout();
         break;
 }
 
@@ -54,3 +61,24 @@ function delUsuario()
     $id = R::trash($usuario);
     echo json_encode($usuario); 
 }   
+
+function login(){
+    
+    $usuario = R::findOne("usuario", "telefono = ?", [$_REQUEST['telefono']]);
+    $status = false;
+    if(!is_null($usuario)){
+        if($usuario->pin == $_REQUEST["pin"]){
+            $_SESSION['user_id'] = $usuario->id;
+            $status = true;
+        } else {
+            $status = false;
+        }
+    }else {
+        $status = false;
+    }
+    echo json_encode(["login"=>$status]);
+}
+
+function logout(){
+
+}
