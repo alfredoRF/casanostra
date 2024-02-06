@@ -4,7 +4,7 @@ const urlStar = "/casanostra/"; //local
 function validarFormulario(form) {
     const required = [];
     Array.prototype.slice.call(form).forEach((elm) => {
-        if (elm.hasAttribute('required')) {
+        if (elm.hasAttribute('required') && !elm.disabled) {
             if (elm.value == "") {
                 elm.classList.add("is-invalid");
                 required.push(false);
@@ -219,11 +219,12 @@ function guardarMedicacion() {
         let horarios = document.querySelector("#horarios").innerHTML.replace(/:/g, "").replace(/ /g, "");
         let fhT = document.querySelector("#termina").value;
         let date = new Date();
-        let inicio = new Date(document.querySelector("#inicio").value);
-        let termina = fhT != "" ? new Date(fhT) : null;
+        let fhI = document.querySelector("#inicio").value;
+        let termina = fhT !== "" ? new Date(fhT) : null;
+        let inicio = fhI !== "" ? new Date(fhI) : null;
         formData.append('fecha', date.toISOString().slice(0, 19).replace('T', ' '));
-        formData.set('inicio', inicio.toISOString().slice(0, 19).replace('T', ' '));
-        formData.set('termina', termina ? termina.toISOString().slice(0, 19).replace('T', ' ') : null);
+        formData.set('inicio', inicio ? inicio.toISOString().slice(0, 19).replace('T', ' ') : "");
+        formData.set('termina', termina ? termina.toISOString().slice(0, 19).replace('T', ' ') : "");
         formData.append('paciente', getIdPaciente());
         formData.append("horarios", horarios);
         formData.append("dias", dias);
@@ -724,15 +725,24 @@ function habilitarDias() {
     switch (habilitado) {
         case 'PRN':
             document.querySelector("#seccion_dias").style.display = "none";
+            document.querySelector("#seccion_horario").style.display = "none";
+            // document.querySelector("#seccion_inicioFin").style.display = "none";
             document.querySelector("#termina").disabled = true;
+            document.querySelector("#inicio").disabled = true;
             break;
         case 'DIARIO':
             document.querySelector("#seccion_dias").style.display = "none";
+            document.querySelector("#seccion_horario").style.display = "flex";
+            // document.querySelector("#seccion_inicioFin").style.display = "flex";
             document.querySelector("#termina").disabled = false;
+            document.querySelector("#inicio").disabled = false;
             break;
         case 'DE':
             document.querySelector("#seccion_dias").style.display = "block";
+            document.querySelector("#seccion_horario").style.display = "flex";
+            // document.querySelector("#seccion_inicioFin").style.display = "flex";
             document.querySelector("#termina").disabled = false;
+            document.querySelector("#inicio").disabled = false;
             document.getElementsByName("dia").forEach(el => {
                 el.checked = false;
 
@@ -740,3 +750,15 @@ function habilitarDias() {
             break;
     }
 }
+
+function resetFormMedicacion(){
+    document.querySelector('#form-medicacion').reset();
+    document.querySelector("#seccion_dias").style.display = "none";
+    document.querySelector("#seccion_horario").style.display = "none";
+    document.querySelector("#termina").disabled = true;
+    document.querySelector("#inicio").disabled = true;
+    document.querySelector("#horarios").innerHTML = "";
+    
+}
+
+function getActividades(){}

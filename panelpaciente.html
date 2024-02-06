@@ -265,7 +265,8 @@
                                     aria-labelledby="medicaion-tab">
                                     <div class="col-md-12">
                                         <a href="" class="btn btn-sm btn-outline-primary float-end"
-                                            data-bs-toggle="modal" data-bs-target="#medicacionmodal"><i
+                                            data-bs-toggle="modal" data-bs-target="#medicacionmodal"
+                                            onclick="resetFormMedicacion()"><i
                                                 class="fas fa-plus-circle"></i> Nuevo</a>
                                         <table width="100%" class="table table-hover" id="table-medicacion">
                                             <thead>
@@ -301,7 +302,12 @@
                                                             <datalist id="listamedicamentos">
                                                             </datalist>
                                                         </div>
-
+                                                        <div class="mb-3">
+                                                            <label for="condicion" class="
+                                                                form-label">Condicion medica</label>
+                                                            <select name="condicion" id="condicion" class="form-select"
+                                                                required></select>
+                                                        </div>
                                                         <div class="row g-2">
                                                             <div class=" mb-3 col-6">
                                                                 <label for="dosis" class="form-label">Dosis</label>
@@ -319,20 +325,19 @@
                                                             <div class="mb-3 col-6">
                                                                 <label for="frecuencia"
                                                                     class="form-label">Frecuencia</label>
-
                                                                 <select id="frecuencia" name="frecuencia"
-                                                                    class="form-select" onchange="habilitarDias();" required>
+                                                                    class="form-select" onchange="habilitarDias();"
+                                                                    required>
                                                                     <option value='PRN'>PRN</option>
                                                                     <option value='DIARIO'>Diario</option>
                                                                     <option value='DE'>Siertos dias de la semana
                                                                     </option>
                                                                 </select>
-
-
                                                             </div>
                                                         </div>
                                                         <div class="row g-2">
-                                                            <div class="mb-3 col-12" id="seccion_dias" style="display:none">
+                                                            <div class="mb-3 col-12" id="seccion_dias"
+                                                                style="display:none">
                                                                 <label for="dias" class="form-label">Dias</label>
                                                                 <br>
                                                                 <div class="form-check form-check-inline col-3">
@@ -378,35 +383,67 @@
                                                                         for="diaD">Domingo</label>
                                                                 </div>
                                                             </div>
-                                                            <label for="getHora" class="form-label">Horario</label>
-                                                            <div class="input-group mb-3 col-6">
-                                                                
-                                                                <input type="time" id="getHora" class="form-control"><span
-                                                                    class="input-group-text">
-                                                                    <button class="btn btn-primary btn-sm" type="button"
-                                                                        id="guardarHora" onclick="addHoras();"><i
-                                                                            class="fas fa-plus"></i></button></span>
-                                                                
-                                                            </div>
-                                                            <label id="horarios"></label>
-                                                            <br/>
-                                                            <br/>
+                                                            
                                                         </div>
-                                                        <br/>
+
                                                         <div class="row g-2">
                                                             <div class="mb-3 col-6">
                                                                 <label for="inicio" class="form-label">Fecha de
                                                                     Inicio</label>
                                                                 <input type="datetime-local" id="inicio" name="inicio"
-                                                                    class="form-control" required />
+                                                                    class="form-control" required disabled/>
+                                                                <div class="invalid-feedback">Seleccione la fecha de
+                                                                    inicio</div>
                                                             </div>
                                                             <div class="mb-3 col-6">
                                                                 <label for="termina" class="form-label">Fecha de
                                                                     Termino</label>
                                                                 <input type="datetime-local" id="termina" name="termina"
-                                                                    class="form-control" />
+                                                                    class="form-control" disabled />
                                                             </div>
                                                         </div>
+                                                        <div class="row g-2" id="seccion_horario" style="display:none;">
+                                                            <div class="mb-3 col-6">
+
+                                                                <label for="veces" class="form-label">Veces por
+                                                                    dia</label>
+                                                                <select id="veces" class="form-select"
+                                                                    onchange="calcularHorario()">
+                                                                    <option value="" disabled selected>Veces al día...
+                                                                    </option>
+                                                                    <option value="1">Una vez al día</option>
+                                                                    <option value="2">2 veces al día</option>
+                                                                    <option value="3">3 veces al día</option>
+                                                                    <option value="4">4 veces al día</option>
+                                                                    <option value="5">5 veces al día</option>
+                                                                    <option value="6">6 veces al día</option>
+                                                                    <option value="7">7 veces al día</option>
+                                                                    <option value="8">8 veces al día</option>
+                                                                    <option value="9">9 veces al día</option>
+                                                                    <option value="10">10 veces al día</option>
+                                                                    <option value="11">11 veces al día</option>
+                                                                    <option value="12">12 veces al día</option>
+                                                                    <option value="13">13 veces al día</option>
+                                                                    <option value="14">14 veces al día</option>
+                                                                    <option value="15">15 veces al día</option>
+                                                                    <option value="16">16 veces al día</option>
+                                                                    <option value="17">17 veces al día</option>
+                                                                    <option value="18">18 veces al día</option>
+                                                                    <option value="19">19 veces al día</option>
+                                                                    <option value="20">20 veces al día</option>
+                                                                    <option value="21">21 veces al día</option>
+                                                                    <option value="22">22 veces al día</option>
+                                                                    <option value="23">23 veces al día</option>
+                                                                    <option value="24">24 veces al día</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="mb-3 col-6">
+                                                                <label for="" class="form-label">Horarios:</label>
+                                                                <label id="horarios"></label>
+                                                            </div>
+                                                        </div>
+
+
                                                         <div class="mb-3">
                                                             <label for="descripcion"
                                                                 class="form-label">Descripcion</label>
@@ -513,8 +550,9 @@
                                                             <label for="archivo_nota" class="form-label">Archivos <span
                                                                     id="archivo_text">0 de 5</span></label>
                                                             <div id="archivos_nota"></div>
-                                                            <input type="file" id="archivo_nota" accept=".jpeg, .jpg, .png"
-                                                                name="archivo_nota" class="form-control" />
+                                                            <input type="file" id="archivo_nota"
+                                                                accept=".jpeg, .jpg, .png" name="archivo_nota"
+                                                                class="form-control" />
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
@@ -654,221 +692,223 @@
                                 </div>
                                 <!-- Inicia panel actividades-->
                                 <div class="tab-pane fade" id="actividades" role="tabpanel"
-                                aria-labelledby="medicaion-tab">
-                                <div class="col-md-12">
-                                    <a href="" class="btn btn-sm btn-outline-primary float-end"
-                                        data-bs-toggle="modal" data-bs-target="#medicacionmodal"><i
-                                            class="fas fa-plus-circle"></i> Nuevo</a>
-                                    <table width="100%" class="table table-hover" id="table-medicacion">
-                                        <thead>
-                                            <tr>
-                                                <th>Nombre</th>
-                                                <th>Descripcion</th>
-                                                <th>Frecuencia</th>
-                                                <th>Inicia</th>
-                                                <th>Termina</th>
-                                                <th>Horario</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                                    aria-labelledby="medicaion-tab">
+                                    <div class="col-md-12">
+                                        <a href="" class="btn btn-sm btn-outline-primary float-end"
+                                            data-bs-toggle="modal" data-bs-target="#medicacionmodal"><i
+                                                class="fas fa-plus-circle"></i> Nuevo</a>
+                                        <table width="100%" class="table table-hover" id="table-medicacion">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nombre</th>
+                                                    <th>Descripcion</th>
+                                                    <th>Frecuencia</th>
+                                                    <th>Inicia</th>
+                                                    <th>Termina</th>
+                                                    <th>Horario</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="modal fade" id="medicacionmodal" role="dialog" tabindex="-1">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <form id="form-medicacion" accept-charset="utf-8"
-                                                onsubmit="event.preventDefault();">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Nuevo medicamento</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body text-start">
-                                                    <div class="mb-3">
-                                                        <label for="medicamento" class="
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal fade" id="medicacionmodal" role="dialog" tabindex="-1">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form id="form-medicacion" accept-charset="utf-8"
+                                                    onsubmit="event.preventDefault();">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Nuevo medicamento</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body text-start">
+                                                        <div class="mb-3">
+                                                            <label for="medicamento" class="
                                                             form-label">Medicamento</label>
-                                                        <input type="text" name="medicamento" id="medicamento"
-                                                            class="form-control" list="listamedicamentos" required>
-                                                        <datalist id="listamedicamentos">
-                                                        </datalist>
-                                                    </div>
+                                                            <input type="text" name="medicamento" id="medicamento"
+                                                                class="form-control" list="listamedicamentos" required>
+                                                            <datalist id="listamedicamentos">
+                                                            </datalist>
+                                                        </div>
 
-                                                    <div class="row g-2">
-                                                        <div class=" mb-3 col-6">
-                                                            <label for="dosis" class="form-label">Dosis</label>
-                                                            <div class="input-group mb-3">
-                                                                <input type="number" id="dosis" name="dosis"
-                                                                    class="form-control" required /><span
-                                                                    class="input-group-text"><select name="unidad"
-                                                                        id="dosis_unidad">
-                                                                        <option value="ML" selected>ML</option>
-                                                                        <option value="TB">TAB</option>
-                                                                    </select></span>
+                                                        <div class="row g-2">
+                                                            <div class=" mb-3 col-6">
+                                                                <label for="dosis" class="form-label">Dosis</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="number" id="dosis" name="dosis"
+                                                                        class="form-control" required /><span
+                                                                        class="input-group-text"><select name="unidad"
+                                                                            id="dosis_unidad">
+                                                                            <option value="ML" selected>ML</option>
+                                                                            <option value="TB">TAB</option>
+                                                                        </select></span>
+                                                                </div>
+
                                                             </div>
+                                                            <div class="mb-3 col-6">
+                                                                <label for="frecuencia"
+                                                                    class="form-label">Frecuencia</label>
 
+                                                                <select id="frecuencia" name="frecuencia"
+                                                                    class="form-select" onchange="habilitarDias();"
+                                                                    required>
+                                                                    <option value='PRN'>PRN</option>
+                                                                    <option value='DIARIO'>Diario</option>
+                                                                    <option value='DE'>Siertos dias de la semana
+                                                                    </option>
+                                                                </select>
+
+
+                                                            </div>
                                                         </div>
-                                                        <div class="mb-3 col-6">
-                                                            <label for="frecuencia"
-                                                                class="form-label">Frecuencia</label>
+                                                        <div class="row g-2">
+                                                            <div class="mb-3 col-12" id="seccion_dias"
+                                                                style="display:none">
+                                                                <label for="dias" class="form-label">Dias</label>
+                                                                <br>
+                                                                <div class="form-check form-check-inline col-3">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        id="diaL" value="l" name="dia">
+                                                                    <label class="form-check-label"
+                                                                        for="diaL">Lunes</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline col-3">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        id="diaMa" value="ma" name="dia">
+                                                                    <label class="form-check-label"
+                                                                        for="diaMa">Martes</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline col-3">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        id="diaMi" value="mi" name="dia">
+                                                                    <label class="form-check-label"
+                                                                        for="diaMi">Miercoles</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline col-3">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        id="diaJ" value="j" name="dia">
+                                                                    <label class="form-check-label"
+                                                                        for="diaJ">Jueves</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline col-3">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        id="diaV" value="v" name="dia">
+                                                                    <label class="form-check-label"
+                                                                        for="diaV">Viernes</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline col-3">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        id="diaS" value="s" name="dia">
+                                                                    <label class="form-check-label"
+                                                                        for="diaS">Sabado</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline col-3">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        id="diaD" value="d" name="dia">
+                                                                    <label class="form-check-label"
+                                                                        for="diaD">Domingo</label>
+                                                                </div>
+                                                            </div>
+                                                            <label for="getHora" class="form-label">Horario</label>
+                                                            <div class="input-group mb-3 col-6">
 
-                                                            <select id="frecuencia" name="frecuencia"
-                                                                class="form-select" onchange="habilitarDias();" required>
-                                                                <option value='PRN'>PRN</option>
-                                                                <option value='DIARIO'>Diario</option>
-                                                                <option value='DE'>Siertos dias de la semana
-                                                                </option>
-                                                            </select>
+                                                                <input type="time" id="getHora"
+                                                                    class="form-control"><span class="input-group-text">
+                                                                    <button class="btn btn-primary btn-sm" type="button"
+                                                                        id="guardarHora" onclick="addHoras();"><i
+                                                                            class="fas fa-plus"></i></button></span>
 
-
+                                                            </div>
+                                                            <label id="horarios"></label>
+                                                            <br />
+                                                            <br />
+                                                        </div>
+                                                        <br />
+                                                        <div class="row g-2">
+                                                            <div class="mb-3 col-6">
+                                                                <label for="inicio" class="form-label">Fecha de
+                                                                    Inicio</label>
+                                                                <input type="datetime-local" id="inicio" name="inicio"
+                                                                    class="form-control" required />
+                                                            </div>
+                                                            <div class="mb-3 col-6">
+                                                                <label for="termina" class="form-label">Fecha de
+                                                                    Termino</label>
+                                                                <input type="datetime-local" id="termina" name="termina"
+                                                                    class="form-control" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="descripcion"
+                                                                class="form-label">Descripcion</label>
+                                                            <textarea rows="4" id="descripcion" name="descripcion"
+                                                                class="form-control"></textarea>
                                                         </div>
                                                     </div>
-                                                    <div class="row g-2">
-                                                        <div class="mb-3 col-12" id="seccion_dias" style="display:none">
-                                                            <label for="dias" class="form-label">Dias</label>
-                                                            <br>
-                                                            <div class="form-check form-check-inline col-3">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    id="diaL" value="l" name="dia">
-                                                                <label class="form-check-label"
-                                                                    for="diaL">Lunes</label>
-                                                            </div>
-                                                            <div class="form-check form-check-inline col-3">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    id="diaMa" value="ma" name="dia">
-                                                                <label class="form-check-label"
-                                                                    for="diaMa">Martes</label>
-                                                            </div>
-                                                            <div class="form-check form-check-inline col-3">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    id="diaMi" value="mi" name="dia">
-                                                                <label class="form-check-label"
-                                                                    for="diaMi">Miercoles</label>
-                                                            </div>
-                                                            <div class="form-check form-check-inline col-3">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    id="diaJ" value="j" name="dia">
-                                                                <label class="form-check-label"
-                                                                    for="diaJ">Jueves</label>
-                                                            </div>
-                                                            <div class="form-check form-check-inline col-3">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    id="diaV" value="v" name="dia">
-                                                                <label class="form-check-label"
-                                                                    for="diaV">Viernes</label>
-                                                            </div>
-                                                            <div class="form-check form-check-inline col-3">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    id="diaS" value="s" name="dia">
-                                                                <label class="form-check-label"
-                                                                    for="diaS">Sabado</label>
-                                                            </div>
-                                                            <div class="form-check form-check-inline col-3">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    id="diaD" value="d" name="dia">
-                                                                <label class="form-check-label"
-                                                                    for="diaD">Domingo</label>
-                                                            </div>
-                                                        </div>
-                                                        <label for="getHora" class="form-label">Horario</label>
-                                                        <div class="input-group mb-3 col-6">
-                                                            
-                                                            <input type="time" id="getHora" class="form-control"><span
-                                                                class="input-group-text">
-                                                                <button class="btn btn-primary btn-sm" type="button"
-                                                                    id="guardarHora" onclick="addHoras();"><i
-                                                                        class="fas fa-plus"></i></button></span>
-                                                            
-                                                        </div>
-                                                        <label id="horarios"></label>
-                                                        <br/>
-                                                        <br/>
+                                                    <div class="modal-footer">
+                                                        <button id="btn-guardaractividades" type="button"
+                                                            class="btn btn-success">Aceptar</button>
                                                     </div>
-                                                    <br/>
-                                                    <div class="row g-2">
-                                                        <div class="mb-3 col-6">
-                                                            <label for="inicio" class="form-label">Fecha de
-                                                                Inicio</label>
-                                                            <input type="datetime-local" id="inicio" name="inicio"
-                                                                class="form-control" required />
-                                                        </div>
-                                                        <div class="mb-3 col-6">
-                                                            <label for="termina" class="form-label">Fecha de
-                                                                Termino</label>
-                                                            <input type="datetime-local" id="termina" name="termina"
-                                                                class="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="descripcion"
-                                                            class="form-label">Descripcion</label>
-                                                        <textarea rows="4" id="descripcion" name="descripcion"
-                                                            class="form-control"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button id="btn-guardaractividades" type="button"
-                                                        class="btn btn-success">Aceptar</button>
-                                                </div>
-                                            </form>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane fade" id="condiciones" role="tabpanel"
-                                aria-labelledby="condiciones-tab">
-                                <div class="col-md-12">
-                                    <a href="" class="btn btn-sm btn-outline-primary float-end"
-                                        data-bs-toggle="modal" data-bs-target="#condicionesmodal"><i
-                                            class="fas fa-plus-circle"></i> Nuevo</a>
-                                    <table width="100%" class="table table-hover" id="table-condicionesmedicas">
-                                        <thead>
-                                            <tr>
-                                                <th>Fecha</th>
-                                                <th>Condicion</th>
-                                                <th>Detalles</th>
-                                                <th></th>
-                                        </thead>
-                                        <tbody>
+                                <div class="tab-pane fade" id="condiciones" role="tabpanel"
+                                    aria-labelledby="condiciones-tab">
+                                    <div class="col-md-12">
+                                        <a href="" class="btn btn-sm btn-outline-primary float-end"
+                                            data-bs-toggle="modal" data-bs-target="#condicionesmodal"><i
+                                                class="fas fa-plus-circle"></i> Nuevo</a>
+                                        <table width="100%" class="table table-hover" id="table-condicionesmedicas">
+                                            <thead>
+                                                <tr>
+                                                    <th>Fecha</th>
+                                                    <th>Condicion</th>
+                                                    <th>Detalles</th>
+                                                    <th></th>
+                                            </thead>
+                                            <tbody>
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="modal fade" id="condicionesmodal" role="dialog" tabindex="-1">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <form id="form-condicionmedica" accept-charset="utf-8"
-                                                onsubmit="event.preventDefault();">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Nueva Condicion</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body text-start">
-                                                    <div class="mb-3">
-                                                        <label for="titulo" class="form-label">Titulo</label>
-                                                        <input type="text" name="titulo" id="titulo"
-                                                            class="form-control" required>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal fade" id="condicionesmodal" role="dialog" tabindex="-1">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form id="form-condicionmedica" accept-charset="utf-8"
+                                                    onsubmit="event.preventDefault();">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Nueva Condicion</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label for="descripcion"
-                                                            class="form-label">Descripcion</label>
-                                                        <textarea rows="4" id="descripcion" name="descripcion"
-                                                            class="form-control" required></textarea>
+                                                    <div class="modal-body text-start">
+                                                        <div class="mb-3">
+                                                            <label for="titulo" class="form-label">Titulo</label>
+                                                            <input type="text" name="titulo" id="titulo"
+                                                                class="form-control" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="descripcion"
+                                                                class="form-label">Descripcion</label>
+                                                            <textarea rows="4" id="descripcion" name="descripcion"
+                                                                class="form-control" required></textarea>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button id="btn-guardarcondicion" type="button"
-                                                        class="btn btn-success">Aceptar</button>
-                                                </div>
-                                            </form>
+                                                    <div class="modal-footer">
+                                                        <button id="btn-guardarcondicion" type="button"
+                                                            class="btn btn-success">Aceptar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Termina panel de actividades-->
+                                <!-- Termina panel de actividades-->
                             </div>
                         </div>
                     </div>
@@ -888,6 +928,7 @@
             const idpaciente = getIdPaciente();
             getPaciente(idpaciente);
             getTratamientoPaciente();
+            selectCondiciones();
 
             $("#btn-guardarcondicion").on("click", function () {
                 guardarCondicion();
@@ -914,9 +955,9 @@
                 guardarNota();
 
             });
-            getActividades();
+            // getActividades();
             getMedicacion();
-            
+
         });
     </script>
 </body>

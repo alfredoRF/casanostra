@@ -77,7 +77,7 @@ try {
             break;
         /*Case 22: Put para poner actividades */
         case 22:
-            putActividades;
+            putActividades();
             break;
     }
 } catch (Throwable $e) {
@@ -205,8 +205,12 @@ function putMedicacion()
     $medicacion->condicion = $_REQUEST['condicion'];
     $medicacion->dosis = $_REQUEST['dosis'];
     $medicacion->frecuencia = $_REQUEST['frecuencia'];
-    $medicacion->termina = $_REQUEST['termina'];
-    $medicacion->inicio = $_REQUEST['inicio'];
+    if($_REQUEST['termina']){
+        $medicacion->termina = $_REQUEST['termina'];
+    }
+    if($_REQUEST['inicio']){
+        $medicacion->inicio = $_REQUEST['inicio'];
+    }
     $medicacion->fecha = $_REQUEST['fecha'];
     $medicacion->horarios = $_REQUEST['horarios'];
     $medicacion->dias = $_REQUEST['dias'];
