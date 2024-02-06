@@ -1,4 +1,5 @@
-const urlStar = "https://controlcasanostra.develobit.com.mx"
+// const urlStar = "https://controlcasanostra.develobit.com.mx"; //servidor
+const urlStar = "/casanostra/"; //local
 
 function validarFormulario(form) {
     const required = [];

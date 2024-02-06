@@ -185,7 +185,8 @@
             getUsuarios();
         });
 
-        const urlStar = "https://controlcasanostra.develobit.com.mx";
+        // const urlStart = "https://controlcasanostra.develobit.com.mx"; //servidor
+        const urlStart = "/casanostra/"; //local
         function validarFormulario(form) {
             const required = [];
             Array.prototype.slice.call(form).forEach((elm) => {
@@ -203,7 +204,7 @@
         }
 
         function getUsuarios() {
-            const url = urlStar + "/dao/usuarios.php";
+            const url = urlStart + "dao/usuarios.php";
             const formData = new FormData();
             formData.append('action', '1');
             fetch(url, { method: "post", body: formData })
@@ -242,7 +243,7 @@
                 });
         }
         function getUsuario(id) {
-            const url = urlStar + "/dao/usuarios.php";
+            const url = urlStart + "dao/usuarios.php";
             const formData = new FormData();
             // let id = document.querySelector("#idUsuario");
             formData.append('idUsuario', id);
@@ -261,7 +262,7 @@
 
         }
         function guardarUsuario() {
-            const url = urlStar + "/dao/usuarios.php";
+            const url = urlStart + "dao/usuarios.php";
             const form = document.querySelector("#form-usuario");
             const required = validarFormulario(form);
             if (!required.includes(false)) {

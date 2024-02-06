@@ -13,8 +13,7 @@
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/vendor/datatables/datatables.min.css" rel="stylesheet">
     <link href="assets/css/master.css" rel="stylesheet">
-    <link href="
-https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css
 " rel="stylesheet">
 </head>
 
@@ -376,6 +375,8 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css
 
     <script>
         //const Swal = require('sweetalert2');
+        // const urlStart = "https://controlcasanostra.develobit.com.mx/"; //servidor
+        const urlStart = "/casanostra/"; //local
         function validarForm(form) {
 
             const required = [];
@@ -417,7 +418,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css
         });
 
         function nuevoMaterialMedico() {
-            const url = "https://controlcasanostra.develobit.com.mx/dao/materialmedico.php";
+            const url = urlStart+"dao/materialmedico.php";
             const form = document.querySelector("#form-nuevomaterialmedico");
             const required = validarForm(form);
             if (!required.includes(false)) {
@@ -446,7 +447,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css
 
         function guardarMaterialMedico() {
 
-            const url = "https://controlcasanostra.develobit.com.mx/dao/materialmedico.php";
+            const url = urlStart+"dao/materialmedico.php";
             const form = document.querySelector("#form-materialmedico");
             const required = validarForm(form);
             if (!required.includes(false)) {
@@ -479,7 +480,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css
         }
 
         function sacarMaterialMedico() {
-            var url = "https://controlcasanostra.develobit.com.mx/dao/materialmedico.php";
+            const url = urlStart+"dao/materialmedico.php";
             const formData = new FormData();
             let date = new Date();
             formData.append('fecha', date.toISOString().slice(0, 19).replace('T', ' '));
@@ -501,7 +502,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css
 
 
         function getMaterialMedico() {
-            var url = "https://controlcasanostra.develobit.com.mx/dao/materialmedico.php";
+            const url = urlStart+"dao/materialmedico.php";
             const formData = new FormData();
             formData.append('action', '1');
             fetch(url, { method: "post", body: formData })
@@ -547,7 +548,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css
         }
 
         function modalAgregarStock(idmedicamento) {
-            var url = "https://controlcasanostra.develobit.com.mx/dao/materialmedico.php";
+            const url = urlStart+"dao/materialmedico.php";
             const formData = new FormData();
             formData.append('action', '4');
             formData.append('id', idmedicamento);
@@ -566,7 +567,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css
         }
 
         function modalRetirarStock(idmedicamento) {
-            var url = "https://controlcasanostra.develobit.com.mx/dao/materialmedico.php";
+            const url = urlStart+"dao/materialmedico.php";
             const formData = new FormData();
             formData.append('action', '4');
             formData.append('id', idmedicamento);

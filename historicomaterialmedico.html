@@ -186,6 +186,9 @@
     <script src="assets/js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
     <script>
+        // const urlStart = "https://controlcasanostra.develobit.com.mx/"; // servidor
+        const urlStart = "/cosanostra/"; // local
+
         $(function() {
             console.log( "LOAD HISTORICO MATERIAL MEDICO" );
             
@@ -201,7 +204,7 @@
         
 
         function datosMaterialMedico(idmaterialmedico){
-            var url = "https://controlcasanostra.develobit.com.mx/dao/materialmedico.php";
+            const url = urlStart+"dao/materialmedico.php";
             const formData = new FormData();
             formData.append('action', '4');
             formData.append('id', idmaterialmedico);
@@ -216,7 +219,7 @@
         }
 
         function verHistorico(idmaterialmedico){
-            var url = "https://controlcasanostra.develobit.com.mx/dao/materialmedico.php";
+            const url = urlStart+"dao/materialmedico.php";
             const formData = new FormData();
             formData.append('action', '2');
             formData.append('idmedicamento', idmaterialmedico);
