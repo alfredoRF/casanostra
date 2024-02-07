@@ -22,79 +22,8 @@
             <div class="sidebar-header">
                 <img src="assets/img/bootstraper-logo.png" alt="bootraper logo" class="app-logo">
             </div>
-            <ul class="list-unstyled components text-secondary">
-                <li>
-                    <a href="dashboard.html"><i class="fas fa-home"></i>Dashboard</a>
-                </li>
-                <li>
-                    <a href="forms.html"><i class="fas fa-file-alt"></i>Forms</a>
-                </li>
-                <li>
-                    <a href="tables.html"><i class="fas fa-table"></i>Tables</a>
-                </li>
-                <li>
-                    <a href="charts.html"><i class="fas fa-chart-bar"></i>Charts</a>
-                </li>
-                <li>
-                    <a href="icons.html"><i class="fas fa-icons"></i>Icons</a>
-                </li>
-                <li>
-                    <a href="#uielementsmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down"><i class="fas fa-layer-group"></i>UI Elements</a>
-                    <ul class="collapse list-unstyled" id="uielementsmenu">
-                        <li>
-                            <a href="ui-buttons.html"><i class="fas fa-angle-right"></i>Buttons</a>
-                        </li>
-                        <li>
-                            <a href="ui-badges.html"><i class="fas fa-angle-right"></i>Badges</a>
-                        </li>
-                        <li>
-                            <a href="ui-cards.html"><i class="fas fa-angle-right"></i>Cards</a>
-                        </li>
-                        <li>
-                            <a href="ui-alerts.html"><i class="fas fa-angle-right"></i>Alerts</a>
-                        </li>
-                        <li>
-                            <a href="ui-tabs.html"><i class="fas fa-angle-right"></i>Tabs</a>
-                        </li>
-                        <li>
-                            <a href="ui-date-time-picker.html"><i class="fas fa-angle-right"></i>Date & Time Picker</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#authmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down"><i class="fas fa-user-shield"></i>Authentication</a>
-                    <ul class="collapse list-unstyled" id="authmenu">
-                        <li>
-                            <a href="login.html"><i class="fas fa-lock"></i>Login</a>
-                        </li>
-                        <li>
-                            <a href="signup.html"><i class="fas fa-user-plus"></i>Signup</a>
-                        </li>
-                        <li>
-                            <a href="forgot-password.html"><i class="fas fa-user-lock"></i>Forgot password</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#pagesmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down"><i class="fas fa-copy"></i>Pages</a>
-                    <ul class="collapse list-unstyled" id="pagesmenu">
-                        <li>
-                            <a href="blank.html"><i class="fas fa-file"></i>Blank page</a>
-                        </li>
-                        <li>
-                            <a href="404.html"><i class="fas fa-info-circle"></i>404 Error page</a>
-                        </li>
-                        <li>
-                            <a href="500.html"><i class="fas fa-info-circle"></i>500 Error page</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="users.html"><i class="fas fa-user-friends"></i>Users</a>
-                </li>
-                <li>
-                    <a href="settings.html"><i class="fas fa-cog"></i>Settings</a>
-                </li>
+            <ul class="list-unstyled components text-secondary" id="left_menu">
+
             </ul>
         </nav>
         <!-- end of sidebar component -->
@@ -106,36 +35,27 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="nav navbar-nav ms-auto">
+
                         <li class="nav-item dropdown">
                             <div class="nav-dropdown">
-                                <a href="#" id="nav1" class="nav-item nav-link dropdown-toggle text-secondary" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-link"></i> <span>Quick Links</span> <i style="font-size: .8em;" class="fas fa-caret-down"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end nav-link-menu" aria-labelledby="nav1">
-                                    <ul class="nav-list">
-                                        <li><a href="" class="dropdown-item"><i class="fas fa-list"></i> Access Logs</a></li>
-                                        <div class="dropdown-divider"></div>
-                                        <li><a href="" class="dropdown-item"><i class="fas fa-database"></i> Back ups</a></li>
-                                        <div class="dropdown-divider"></div>
-                                        <li><a href="" class="dropdown-item"><i class="fas fa-cloud-download-alt"></i> Updates</a></li>
-                                        <div class="dropdown-divider"></div>
-                                        <li><a href="" class="dropdown-item"><i class="fas fa-user-shield"></i> Roles</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <div class="nav-dropdown">
-                                <a href="#" id="nav2" class="nav-item nav-link dropdown-toggle text-secondary" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-user"></i> <span>John Doe</span> <i style="font-size: .8em;" class="fas fa-caret-down"></i>
+                                <a href="#" id="nav2" class="nav-item nav-link dropdown-toggle text-secondary"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user"></i> <span id="nombre_usuario">John Doe</span> <i
+                                        style="font-size: .8em;" class="fas fa-caret-down"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end nav-link-menu">
                                     <ul class="nav-list">
-                                        <li><a href="" class="dropdown-item"><i class="fas fa-address-card"></i> Profile</a></li>
-                                        <li><a href="" class="dropdown-item"><i class="fas fa-envelope"></i> Messages</a></li>
-                                        <li><a href="" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a></li>
+                                        <li><a href="" class="dropdown-item"><i class="fas fa-address-card"></i>
+                                                Perfil</a></li>
+                                        <li><a href="" class="dropdown-item"><i class="fas fa-envelope"></i>
+                                                Mensajes</a></li>
+                                        <li><a href="" class="dropdown-item"><i class="fas fa-cog"></i>
+                                                Configuracion</a>
+                                        </li>
                                         <div class="dropdown-divider"></div>
-                                        <li><a href="" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                                        <li><a href="" class="dropdown-item" onclick="logout();"><i
+                                                    class="fas fa-sign-out-alt"></i>
+                                                Logout</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -148,7 +68,8 @@
                 <div class="container">
                     <div class="page-title">
                         <h3>Movimientos
-                            <a href="materialmedico.html" class="btn btn-sm btn-outline-primary float-end" ><i class="fas fa-angle-left"></i> Regresar</a>
+                            <a href="materialmedico.html" class="btn btn-sm btn-outline-primary float-end"><i
+                                    class="fas fa-angle-left"></i> Regresar</a>
                         </h3>
                     </div>
                     <div class="box box-primary">
@@ -156,7 +77,7 @@
                             <center>
                                 <h3 id="nombrematerialmedico"></h3>
                             </center>
-                                <hr/>
+                            <hr />
                             <table width="100%" class="table table-hover" id="table-historicomaterialmedico">
                                 <thead>
                                     <tr>
@@ -169,14 +90,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                   
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
     <script src="assets/vendor/jquery/jquery.min.js"></script>
@@ -185,62 +106,64 @@
     <script src="assets/js/initiate-datatables.js"></script>
     <script src="assets/js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+    <script src="assets/js/menu.js"></script>
     <script>
         // const urlStart = "https://controlcasanostra.develobit.com.mx/"; // servidor
         const urlStart = "/cosanostra/"; // local
 
-        $(function() {
-            console.log( "LOAD HISTORICO MATERIAL MEDICO" );
-            
+        $(function () {
+            console.log("LOAD HISTORICO MATERIAL MEDICO");
+
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const idmaterialmedico = urlParams.get('idmaterialmedico');
             datosMaterialMedico(idmaterialmedico);
             verHistorico(idmaterialmedico);
-            
+
         });
 
 
-        
 
-        function datosMaterialMedico(idmaterialmedico){
-            const url = urlStart+"dao/materialmedico.php";
+
+        function datosMaterialMedico(idmaterialmedico) {
+            const url = urlStart + "dao/materialmedico.php";
             const formData = new FormData();
             formData.append('action', '4');
             formData.append('id', idmaterialmedico);
             fetch(url, { method: "post", body: formData })
-                .then(function(response) {
+                .then(function (response) {
                     return response.json();
                 })
-                .then(function(myJson) {
+                .then(function (myJson) {
                     console.log(myJson);
-                    $("#nombrematerialmedico").html(myJson.nombre);  
-            });
+                    $("#nombrematerialmedico").html(myJson.nombre);
+                });
         }
 
-        function verHistorico(idmaterialmedico){
-            const url = urlStart+"dao/materialmedico.php";
+        function verHistorico(idmaterialmedico) {
+            const url = urlStart + "dao/materialmedico.php";
             const formData = new FormData();
             formData.append('action', '2');
             formData.append('idmedicamento', idmaterialmedico);
             fetch(url, { method: "post", body: formData })
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (myJson) {
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (myJson) {
                     var table = $('#table-historicomaterialmedico').DataTable();
                     table.destroy();
                     table = $('#table-historicomaterialmedico').DataTable({
-                        data:myJson,
+                        data: myJson,
                         columns: [
-                            { data: "fecha"},
-                            { data: "proveedor"},
-                            { data: "caducidad"},
-                            { data: "cantidad"},
-                            { data: "usuario"},
-                            { data: "destino", 
-                                render: function(data, type) {      
-                                    switch(data){
+                            { data: "fecha" },
+                            { data: "proveedor" },
+                            { data: "caducidad" },
+                            { data: "cantidad" },
+                            { data: "usuario" },
+                            {
+                                data: "destino",
+                                render: function (data, type) {
+                                    switch (data) {
                                         case 'b': return "Bodega Material"; break;
                                         case 'm': return "Bodega Medicamento"; break;
                                         case 'f': return "Farmacia"; break;
@@ -253,8 +176,8 @@
                         lengthChange: false,
                         searching: true,
                         ordering: true
-                    } );
-            }); 
+                    });
+                });
         }
     </script>
 </body>

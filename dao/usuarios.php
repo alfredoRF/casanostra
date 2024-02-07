@@ -28,6 +28,9 @@ switch ($action) {
     case 6:
         logout();
         break;
+    case 7:
+        getSessionInfo();
+        break;
 }
 
 
@@ -80,5 +83,15 @@ function login(){
 }
 
 function logout(){
+    unset($_SESSION['user_id']);
+    echo json_encode(["status"=>true, "idUsuario"=>$_SESSION['user_id']]);
+}
 
+function getSessionInfo(){
+    $usuario = null;
+    if($_SESSION['user_id']){
+        $usuario = R::findOne("usuario", "id = ?", [$_SESSION['user_id']]);
+        unset($usuario->pin);
+    }
+    echo json_encode(["usuario"=>$usuario]);
 }

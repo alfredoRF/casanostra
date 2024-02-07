@@ -17,6 +17,7 @@
     <link href="assets/vendor/fontawesome/css/brands.min.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/auth.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -38,7 +39,8 @@
                         <div class="mb-3 text-start">
                             <label for="pin" class="form-label">Pin</label>
                             <div class="input-group">
-                                <input type="password" class="form-control" placeholder="pin" name="pin" id="pin" required>
+                                <input type="password" class="form-control" placeholder="pin" name="pin" id="pin"
+                                    required>
                                 <span class="input-group-text" id="tipo_pin" onclick="tooglePass()"><i
                                         class="fas fa-eye"></i></span>
                             </div>
@@ -54,6 +56,8 @@
     </div>
     <script src="assets/vendor/jquery/jquery.min.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
+
     <script>
         // const urlStart = "https://controlcasanostra.develobit.com.mx"; //servidor
         const urlStart = "/casanostra/"; //local
@@ -64,6 +68,7 @@
             $("#form_login").on("submit", (event) => {
                 event.preventDefault()
             });
+            checkStatus();
         });
 
         function validarFormulario(form) {
@@ -115,6 +120,20 @@
                 document.querySelector("#tipo_pin").innerHTML = `<i class="fas fa-eye"></i>`;
             }
             //tipo_pin
+        }
+
+        function checkStatus() {
+            const url = urlStart + "dao/usuarios.php";
+            const formData = new FormData();
+            
+            formData.append('action', '7')
+            fetch(url, { method: "post", body: formData })
+                .then((response) => response.json())
+                .then((res) => {
+                    if (res.usuario) {
+                        window.location.href = "pacientes.html";
+                    } 
+                });
         }
     </script>
 </body>

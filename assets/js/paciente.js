@@ -1,5 +1,5 @@
 // const urlStar = "https://controlcasanostra.develobit.com.mx"; //servidor
-const urlStar = "/casanostra/"; //local
+let urlStar = "/casanostra/"; //local
 
 function validarFormulario(form) {
     const required = [];
