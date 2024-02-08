@@ -4,89 +4,88 @@ header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Conte
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Allow: GET, POST, OPTIONS, PUT, DELETE");
 
-try {
 
-    require_once 'conection.php';
+require_once 'conection.php';
+session_start();
 
-    $action = $_REQUEST['action'];
+$action = $_REQUEST['action'];
 
-    switch ($action) {
-        case 1:
-            getAll();
-            break;
-        case 2:
-            getActives();
-            break;
-        case 3:
-            putPaciente();
-            break;
-        case 4:
-            getPaciente();
-            break;
-        case 5:
-            putMedicacion();
-            break;
-        case 6:
-            getMedicaciones();
-            break;
-        case 7:
-            getMedicacion();
-            break;
-        case 8:
-            getTreatments();
-            break;
-        case 9:
-            putCondicion();
-            break;
-        case 10:
-            getCondiciones();
-            break;
-        case 11:
-            getNotas();
-            break;
-        case 12:
-            putNota();
-            break;
-        case 13:
-            getSignosVitales();
-            break;
-        case 14:
-            putSignoVital();
-            break;
-        case 15:
-            eliminarExpediente();
-            break;
-        case 16:
-            getNota();
-            break;
-        case 17:
-            getInfoMedicacion();
-            break;
-        case 18:
-            actualisarStatusMedicacion();
-            break;
-        case 19:
-            getTratamiento();
-            break;
-        case 20:
-            putTratamiento();
-            break;
-        /*case 21: Get para obtener actividades*/
-        case 21:
-            getActividades();
-            break;
-        /*Case 22: Put para poner actividades */
-        case 22:
-            putActividades();
-            break;
-    }
-} catch (Throwable $e) {
-    $responseData = array(
-        "status" => "Error interno",
-        "data" => $e->getLine() . ":" . $e->getMessage()
-    );
-    echo "error >>" . $e->getLine() . ":" . $e->getMessage();
+if(!sessionStatus()){
+    //header("Location: ../");
+    //die();
 }
+
+switch ($action) {
+    case 1:
+        getAll();
+        break;
+    case 2:
+        getActives();
+        break;
+    case 3:
+        putPaciente();
+        break;
+    case 4:
+        getPaciente();
+        break;
+    case 5:
+        putMedicacion();
+        break;
+    case 6:
+        getMedicaciones();
+        break;
+    case 7:
+        getMedicacion();
+        break;
+    case 8:
+        getTreatments();
+        break;
+    case 9:
+        putCondicion();
+        break;
+    case 10:
+        getCondiciones();
+        break;
+    case 11:
+        getNotas();
+        break;
+    case 12:
+        putNota();
+        break;
+    case 13:
+        getSignosVitales();
+        break;
+    case 14:
+        putSignoVital();
+        break;
+    case 15:
+        eliminarExpediente();
+        break;
+    case 16:
+        getNota();
+        break;
+    case 17:
+        getInfoMedicacion();
+        break;
+    case 18:
+        actualisarStatusMedicacion();
+        break;
+    case 19:
+        getTratamiento();
+        break;
+    case 20:
+        putTratamiento();
+        break;
+    /*case 21: Get para obtener actividades*/
+    case 21:
+        getActividades();
+        break;
+    /*Case 22: Put para poner actividades */
+    case 22:
+        putActividades();
+        break;
+}
+
 
 
 function getAll()
@@ -424,4 +423,12 @@ function getInfoMedicacion()
     $condiciones = R::find('condiciones', 'paciente=?', [$_REQUEST['paciente']]);
     $medicaciones = R::getAll('SELECT  mm.nombre AS medicamento, m.dosis, m.frecuencia, m.termina, m.id FROM medicacion m INNER JOIN materialmedico mm ON m.medicamento = mm.id WHERE m.paciente = ?', [$_REQUEST['paciente']]);
     echo json_encode(["condiciones" => $condiciones, "medicacion" => $medicaciones]);
+}
+
+function sessionStatus(){
+    if(isset($_SESSION['usuario'])){
+        return true;
+    }else{
+        return false;
+    } 
 }

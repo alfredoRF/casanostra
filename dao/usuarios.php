@@ -9,6 +9,11 @@ session_start();
 
 $action = $_REQUEST['action'];
 
+if(!sessionStatus()&&$action!=5){
+    header("Location: ../");
+    die();
+}
+
 switch ($action) {
     case 1:
         getUsuarios();
@@ -28,8 +33,9 @@ switch ($action) {
     case 6:
         logout();
         break;
+
     case 7:
-        getSessionInfo();
+        sessionData();
         break;
 }
 
@@ -66,32 +72,49 @@ function delUsuario()
 }   
 
 function login(){
-    
     $usuario = R::findOne("usuario", "telefono = ?", [$_REQUEST['telefono']]);
-    $status = false;
-    if(!is_null($usuario)){
-        if($usuario->pin == $_REQUEST["pin"]){
-            $_SESSION['user_id'] = $usuario->id;
-            $status = true;
-        } else {
-            $status = false;
-        }
+    $status = 'error';
+    $data = null;
+    if(is_null($usuario)){
+        $data = ['error'=>'telefono invalido!!!'];
     }else {
-        $status = false;
+        if($usuario->pin == $_REQUEST["pin"]){
+            $_SESSION['usuario'] = $usuario;
+            $status = 'ok';
+            $data = $usuario;
+        } else {
+            $data = ['error'=>'PIN invalido!!!'];
+        }
     }
-    echo json_encode(["login"=>$status]);
+    $response =  [
+        "status"=>$status, 
+        "data"=>$data
+    ];
+
+    echo json_encode($response);
 }
 
 function logout(){
-    unset($_SESSION['user_id']);
-    echo json_encode(["status"=>true, "idUsuario"=>$_SESSION['user_id']]);
+    unset($_SESSION['usuario']);
+    $response =  [
+        "status"=>"ok", 
+        "data"=>null
+    ];
+    echo json_encode($response);
 }
 
-function getSessionInfo(){
-    $usuario = null;
-    if($_SESSION['user_id']){
-        $usuario = R::findOne("usuario", "id = ?", [$_SESSION['user_id']]);
-        unset($usuario->pin);
-    }
-    echo json_encode(["usuario"=>$usuario]);
+function sessionStatus(){
+    if(isset($_SESSION['usuario'])){
+        return true;
+    }else{
+        return false;
+    } 
+}
+
+function sessionData(){
+    $response =  [
+        "status"=>"ok", 
+        "data"=>$_SESSION['usuario']
+    ];
+    echo json_encode($response);
 }
