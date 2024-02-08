@@ -166,24 +166,29 @@ function putPaciente()
 function putNota()
 {
 
-    // $nota = R::findOne('notas', 'id = ?', [$_REQUEST['id']]);
-    // if ($nota == null) {
-    //     $nota = R::dispense('notas');
-    // }
-    // $nota->nota = $_REQUEST["nota"];
-    // $nota->fecha = $_REQUEST["fecha"];
-    // $id = R::store($nota);
-    // //$tmp_files = $_FILES['file']['tmp_name'];
-
-    // $extention = explode('.', $_FILES['archivo_nota']['name']);
-    // $files = glob("../expedientes/Nota_*-" . $id . "*");
-    // $pathS = '../expedientes/Nota_' . (count($files) + 1) . '-' . $id . "." . $extention[count($extention) - 1];
-    // $fileDirTumb = '../expedientes/thumbnails/Nota_' . (count($files) + 1) . '-' . $id . "." . $extention[count($extention) - 1];
+    $nota = R::findOne('notas', 'id = ?', [$_REQUEST['id']]);
+    if ($nota == null) {
+        $nota = R::dispense('notas');
+    }
+    $nota->nota = $_REQUEST["nota"];
+    $nota->fecha = $_REQUEST["fecha"];
+    $id = R::store($nota);
+    //$tmp_files = $_FILES['file']['tmp_name'];
+    $w = getimagesize($_FILES['archivo_nota']['tmp_name'])[0];
+    $rs = 100-((($w/1024)-1)*100);
+    $extention = explode('.', $_FILES['archivo_nota']['name']);
+    $files = glob("../expedientes/Nota_*-" . $id . "*");
+    $pathS = '../expedientes/Nota_' . (count($files) + 1) . '-' . $id . "." . $extention[count($extention) - 1];
+    $fileDirTumb = '../expedientes/thumbnails/Nota_' . (count($files) + 1) . '-' . $id . "." . $extention[count($extention) - 1];
     // $status = move_uploaded_file($_FILES['archivo_nota']['tmp_name'], $pathS);
-    // // $status = resizeIMG(1024, $_FILES['archivo_nota']['tmp_name'], $pathS);
+    // $status = resizeIMG(1024, $_FILES['archivo_nota']['tmp_name'], $pathS);
     // $statusT = resizeIMG(300, $_FILES['archivo_nota']['tmp_name'], $fileDirTumb); //status de imagen thumbnail
-    // echo json_encode(["nota" => $nota, "file_upload" => ["archivo" => $status, "thumbnail" => $statusT], "archivos" => $files]);
-    echo json_encode(print_r(getimagesize($_FILES['archivo_nota']['tmp_name'])));
+    $status = resizer($_FILES['archivo_nota']['tmp_name'], $pathS, $rs);
+    $statusT = resizer($_FILES['archivo_nota']['tmp_name'], $fileDirTumb, 30);
+    echo json_encode(["nota" => $nota, "file_upload" => ["archivo" => $status, "thumbnail" => $statusT], "archivos" => $files]);
+    
+    // $rsh = $h*(1-$rs);
+    // echo json_encode(["width"=> $w, "height"=>$h, "porcentaje"=>$rs, "nuevoWith"=>$rsh]);
 }
 
 function getNota()
@@ -401,8 +406,8 @@ function eliminarExpediente()
 
 //     echo json_encode(["status"=>$statusO&&$statusT, "cantidad"=>$cantidad]);
 
-//   }
-function resizer ($source, $destination, $size, $quality=null) : void {
+//   } resizer($_, $path, $rs)
+function resizer ($source, $destination, $size, $quality=null){
     // $source - Original image file
     // $destination - Resized image file name
     // $size - Single number for percentage resize
@@ -446,6 +451,7 @@ function resizer ($source, $destination, $size, $quality=null) : void {
       }
       imagedestroy($original);
       imagedestroy($resized);
+      return $fnOutput;
     }
 /**
  * Funcion para cambiar resolucion de imagen
