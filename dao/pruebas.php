@@ -15,5 +15,5 @@ switch ($action) {
 
 function prueba()
 {
-    echo json_encode(["res"=>is_dir("../expedientes/")]);
+    phpinfo();
 }

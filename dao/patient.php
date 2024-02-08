@@ -166,23 +166,24 @@ function putPaciente()
 function putNota()
 {
 
-    $nota = R::findOne('notas', 'id = ?', [$_REQUEST['id']]);
-    if ($nota == null) {
-        $nota = R::dispense('notas');
-    }
-    $nota->nota = $_REQUEST["nota"];
-    $nota->fecha = $_REQUEST["fecha"];
-    $id = R::store($nota);
-    //$tmp_files = $_FILES['file']['tmp_name'];
+    // $nota = R::findOne('notas', 'id = ?', [$_REQUEST['id']]);
+    // if ($nota == null) {
+    //     $nota = R::dispense('notas');
+    // }
+    // $nota->nota = $_REQUEST["nota"];
+    // $nota->fecha = $_REQUEST["fecha"];
+    // $id = R::store($nota);
+    // //$tmp_files = $_FILES['file']['tmp_name'];
 
-    $extention = explode('.', $_FILES['archivo_nota']['name']);
-    $files = glob("../expedientes/Nota_*-" . $id . "*");
-    $pathS = '../expedientes/Nota_' . (count($files) + 1) . '-' . $id . "." . $extention[count($extention) - 1];
-    $fileDirTumb = '../expedientes/thumbnails/Nota_' . (count($files) + 1) . '-' . $id . "." . $extention[count($extention) - 1];
-    $status = move_uploaded_file($_FILES['archivo_nota']['tmp_name'], $pathS);
-    // $status = resizeIMG(1024, $_FILES['archivo_nota']['tmp_name'], $pathS);
-    $statusT = resizeIMG(300, $_FILES['archivo_nota']['tmp_name'], $fileDirTumb); //status de imagen thumbnail
-    echo json_encode(["nota" => $nota, "file_upload" => ["archivo" => $status, "thumbnail" => $statusT], "archivos" => $files]);
+    // $extention = explode('.', $_FILES['archivo_nota']['name']);
+    // $files = glob("../expedientes/Nota_*-" . $id . "*");
+    // $pathS = '../expedientes/Nota_' . (count($files) + 1) . '-' . $id . "." . $extention[count($extention) - 1];
+    // $fileDirTumb = '../expedientes/thumbnails/Nota_' . (count($files) + 1) . '-' . $id . "." . $extention[count($extention) - 1];
+    // $status = move_uploaded_file($_FILES['archivo_nota']['tmp_name'], $pathS);
+    // // $status = resizeIMG(1024, $_FILES['archivo_nota']['tmp_name'], $pathS);
+    // $statusT = resizeIMG(300, $_FILES['archivo_nota']['tmp_name'], $fileDirTumb); //status de imagen thumbnail
+    // echo json_encode(["nota" => $nota, "file_upload" => ["archivo" => $status, "thumbnail" => $statusT], "archivos" => $files]);
+    echo json_encode(print_r(getimagesize($_FILES['archivo_nota']['tmp_name'])));
 }
 
 function getNota()
@@ -401,7 +402,51 @@ function eliminarExpediente()
 //     echo json_encode(["status"=>$statusO&&$statusT, "cantidad"=>$cantidad]);
 
 //   }
-
+function resizer ($source, $destination, $size, $quality=null) : void {
+    // $source - Original image file
+    // $destination - Resized image file name
+    // $size - Single number for percentage resize
+    //         Array of 2 numbers for fixed width + height
+    // $quality - Optional image quality. JPG & WEBP = 0 to 100, PNG = -1 to 9
+    
+      // (A) CHECKS
+      if (!file_exists($source)) { throw new Exception("Source image file not found"); }
+      $sExt = strtolower(pathinfo($source)["extension"]);
+      $dExt = strtolower(pathinfo($destination)["extension"]);
+      $allowed = ["bmp", "gif", "jpg", "jpeg", "png", "webp"];
+      if (!in_array($sExt, $allowed)) { throw new Exception("$sExt - Invalid image file type"); }
+      if (!in_array($dExt, $allowed)) { throw new Exception("$dExt - Invalid image file type"); }
+      if ($quality != null) {
+        if (in_array($dExt, ["jpg", "jpeg", "webp"]) && ($quality<0 || $quality>100)) { $quality = 70; }
+        if ($dExt == "png" && ($quality<-1 || $quality>9)) { $quality = -1; }
+        if (!in_array($dExt, ["png", "jpg", "jpeg", "webp"])) { $quality = null; }
+      }
+    
+      // (B) NEW IMAGE DIMENSIONS
+      if (is_array($size)) {
+        $new_width = $size[0];
+        $new_height = $size[1];
+      } else {
+        $dimensions = getimagesize($source);
+        $new_width = ceil(($size/100) * $dimensions[0]);
+        $new_height = ceil(($size/100) * $dimensions[1]);
+      }
+    
+      // (C) RESIZE
+      $fnCreate = "imagecreatefrom" . ($sExt=="jpg" ? "jpeg" : $sExt);
+      $original = $fnCreate($source);
+      $resized = imagescale($original, $new_width, $new_height, IMG_BICUBIC);
+      
+      // (D) OUTPUT & CLEAN UP
+      $fnOutput = "image" . ($dExt=="jpg" ? "jpeg" : $dExt);
+      if (is_numeric($quality)) {
+        $fnOutput($resized, $destination, $quality);
+      } else {
+        $fnOutput($resized, $destination);
+      }
+      imagedestroy($original);
+      imagedestroy($resized);
+    }
 /**
  * Funcion para cambiar resolucion de imagen
  */
