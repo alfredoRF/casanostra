@@ -165,7 +165,7 @@ function putPaciente()
 
 function putNota()
 {
-
+    //informacion de la nota
     $nota = R::findOne('notas', 'id = ?', [$_REQUEST['id']]);
     if ($nota == null) {
         $nota = R::dispense('notas');
@@ -173,22 +173,29 @@ function putNota()
     $nota->nota = $_REQUEST["nota"];
     $nota->fecha = $_REQUEST["fecha"];
     $id = R::store($nota);
+    //fin de la informacion
+
     //$tmp_files = $_FILES['file']['tmp_name'];
-    $w = getimagesize($_FILES['archivo_nota']['tmp_name'])[0];
-    $rs = 100-((($w/1024)-1)*100);
-    $extention = explode('.', $_FILES['archivo_nota']['name']);
-    $files = glob("../expedientes/Nota_*-" . $id . "*");
-    $pathS = '../expedientes/Nota_' . (count($files) + 1) . '-' . $id . "." . $extention[count($extention) - 1];
-    $fileDirTumb = '../expedientes/thumbnails/Nota_' . (count($files) + 1) . '-' . $id . "." . $extention[count($extention) - 1];
-    // $status = move_uploaded_file($_FILES['archivo_nota']['tmp_name'], $pathS);
+    $w = getimagesize($_FILES['archivo_nota']['tmp_name'])[0];//tamano de archivo
+    $rs = 100-((($w/1024)-1)*100);//porcentaje a reducir
+    $extention = explode('.', $_FILES['archivo_nota']['name']);//arreglo para obtener extencion
+    $files = glob("../expedientes/Nota_*-" . $id . "*");//cantidad de archivos que hay de la nota
+    $pathS = '../expedientes/Nota_' . (count($files) + 1) . '-' . $id . "." . $extention[count($extention) - 1];//path para guardar expediente
+    //      path                    numero de archivos           idNota          extencion del archivo
+    $fileDirTumb = '../expedientes/thumbnails/Nota_' . (count($files) + 1) . '-' . $id . "." . $extention[count($extention) - 1]; //path thumbnail
+    //                      path                    numero de archivos           idNota          extencion del archivo
+    $tempFile = "../expedientes/tmp/".time().".".$extention[count($extention) - 1];//path para guardar temporalmente archivo
+    
+    $statusTemp = move_uploaded_file($_FILES['archivo_nota']['tmp_name'], $tempFile);//se guarda el archivo temporalmente
+    //                                  archivo                             path
     // $status = resizeIMG(1024, $_FILES['archivo_nota']['tmp_name'], $pathS);
     // $statusT = resizeIMG(300, $_FILES['archivo_nota']['tmp_name'], $fileDirTumb); //status de imagen thumbnail
-    $status = resizer($_FILES['archivo_nota']['tmp_name'], $pathS, $rs);
-    $statusT = resizer($_FILES['archivo_nota']['tmp_name'], $fileDirTumb, 30);
-    echo json_encode(["nota" => $nota, "file_upload" => ["archivo" => $status, "thumbnail" => $statusT], "archivos" => $files]);
-    
-    // $rsh = $h*(1-$rs);
-    // echo json_encode(["width"=> $w, "height"=>$h, "porcentaje"=>$rs, "nuevoWith"=>$rsh]);
+    $status = resizer($tempFile, $pathS, $rs);
+    $statusT = resizer($tempFile, $fileDirTumb, 30);
+    unlink($tempFile);
+    unlink('1707508579.png');
+    echo json_encode(["nota" => $nota, "file_upload" => ["archivo" => $status, "thumbnail" => $statusT, "temporal"=>$statusTemp], "archivos" => $files]);
+    // echo json_encode(["file_move"=>$statusTemp, "path"=>$tempFile]);
 }
 
 function getNota()
