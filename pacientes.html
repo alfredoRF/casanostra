@@ -19,7 +19,7 @@
         <!-- sidebar navigation component -->
         <nav id="sidebar" class="active">
             <div class="sidebar-header">
-                <img src="assets/img/bootstraper-logo.png" alt="bootraper logo" class="app-logo">
+                <img src="assets/img/logo_casanostra_horizontal.fw.png" alt="bootraper logo" class="app-logo">
             </div>
             <ul class="list-unstyled components text-secondary" id="left_menu">
                 <li>
@@ -44,22 +44,22 @@
                             <div class="nav-dropdown">
                                 <a href="#" id="nav2" class="nav-item nav-link dropdown-toggle text-secondary"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-user"></i> <span id="nombre_usuario">John Doe</span> <i
+                                    <i class="fas fa-user"></i> <span id="nombre_usuario"></span> <i
                                         style="font-size: .8em;" class="fas fa-caret-down"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end nav-link-menu">
                                     <ul class="nav-list">
-                                        <li><a href="" class="dropdown-item"><i class="fas fa-address-card"></i>
+                                        <li><a href="#" class="dropdown-item"><i class="fas fa-address-card"></i>
                                                 Perfil</a></li>
-                                        <li><a href="" class="dropdown-item"><i class="fas fa-envelope"></i>
+                                        <li><a href="#" class="dropdown-item"><i class="fas fa-envelope"></i>
                                                 Mensajes</a></li>
-                                        <li><a href="" class="dropdown-item"><i class="fas fa-cog"></i>
+                                        <li><a href="#" class="dropdown-item"><i class="fas fa-cog"></i>
                                                 Configuracion</a>
                                         </li>
                                         <div class="dropdown-divider"></div>
-                                        <li><a href="" class="dropdown-item" onclick="logout();"><i
+                                        <li><a href="#" class="dropdown-item" onclick="logout();"><i
                                                     class="fas fa-sign-out-alt"></i>
-                                                Logout</a></li>
+                                                Cerrar sesion</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -247,16 +247,15 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="assets/js/menu.js"></script>
     <script>
-        // const urlStart = "https://controlcasanostra.develobit.com.mx/"; //servidor
-        const urlStart = "/casanostra/"; //servidor|
+        const urlStart = "./"; 
         $(function () {
-            console.log("LOAD PATIENTS");
-            getPacientes();
-
             $("#btn-guardarpaciente").on("click", function (evt) {
                 evt.preventDefault();
                 guardarPaciente();
             });
+
+            sessionuserdata();
+            getPacientes();
         });
 
         function getPacientes() {
@@ -281,9 +280,12 @@
                             {
                                 data: "id",
                                 render: function (data, type) {
-                                    //<i class="fas fa-syringe"></i>
-                                    return `<a href='panelpaciente.html?paciente=${data}' class='btn btn-outline-primary btn-rounded' style='float:right'><i class='fas fa-eye'></i></a>
-                                    <a href='panelenfermera.html?paciente=${data}' class='btn btn-outline-primary btn-rounded' style='float:right'><i class="fas fa-syringe"></i></a>`;
+                                    if(userdata.perfil=='a'){
+                                        return '<a href="panelpaciente.html?paciente='+data+'" class="btn btn-outline-primary btn-rounded" style="float:right"><i class="fas fa-eye"></i></a>';
+                                    }else{
+                                        return '<a href="panelenfermera.html?paciente='+data+'" class="btn btn-outline-primary btn-rounded" style="float:right"><i class="fas fa-eye"></i></a>';
+
+                                    }
                                 }
                             }
                         ],

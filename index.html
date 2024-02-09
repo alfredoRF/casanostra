@@ -11,13 +11,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Login | Bootstrap Simple Admin Template</title>
+    <title>La Casa Nostra</title>
     <link href="assets/vendor/fontawesome/css/fontawesome.min.css" rel="stylesheet">
     <link href="assets/vendor/fontawesome/css/solid.min.css" rel="stylesheet">
     <link href="assets/vendor/fontawesome/css/brands.min.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/auth.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.2/dist/sweetalert2.min.css
+    " rel="stylesheet">
 </head>
 
 <body>
@@ -26,7 +27,7 @@
             <div class="card">
                 <div class="card-body text-center">
                     <div class="mb-4">
-                        <img class="brand" src="assets/img/bootstraper-logo.png" alt="bootstraper logo">
+                        <img class="brand" src="assets/img/logo_casanostra.fw.png" alt="bootstraper logo">
                     </div>
                     <h6 class="mb-4 text-muted">Accede a tu cuenta</h6>
                     <div class="invalid-feedback" id="feedback" style="display:none;">Telefono o Pin equivocados</div>
@@ -46,7 +47,7 @@
                             </div>
                         </div>
 
-                        <button class="btn btn-primary shadow-2 mb-4" id="btn_loggin">Acceder</button>
+                        <button type="submit" class="btn btn-primary shadow-2 mb-4">Acceder</button>
                     </form>
                     <!-- <p class="mb-2 text-muted">Forgot password? <a href="forgot-password.html">Reset</a></p>
                     <p class="mb-0 text-muted">Don't have account yet? <a href="signup.html">Signup</a></p> -->
@@ -56,19 +57,15 @@
     </div>
     <script src="assets/vendor/jquery/jquery.min.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
-        // const urlStart = "https://controlcasanostra.develobit.com.mx"; //servidor
-        const urlStart = "/casanostra/"; //local
+        const urlStart = "./"; //local
         $(() => {
-            $("#btn_loggin").on("click", () => {
-                acceder();
-            });
             $("#form_login").on("submit", (event) => {
-                event.preventDefault()
+                event.preventDefault();
+                login();
             });
-            checkStatus();
         });
 
         function validarFormulario(form) {
@@ -87,24 +84,28 @@
             return required;
         }
 
-        function acceder() {
+        function login() {
             const url = urlStart + "dao/usuarios.php";
             const form = document.querySelector("#form_login");
             const required = validarFormulario(form);
             if (!required.includes(false)) {
                 const formData = new FormData(form);
-                // let id = document.querySelector("#idUsuario").value;
-                // formData.append('fecha', date.toISOString().slice(0, 19).replace('T', ' '));
-                // formData.append('idUsuario', id);
                 formData.append('action', '5');
                 fetch(url, { method: "post", body: formData })
                     .then((response) => response.json())
                     .then((res) => {
-                        if (res.login) {
-                            window.location.href = "pacientes.html";
-                        }
-                        else {
-                            document.querySelector("#feedback").style.display = "block";
+                        if (res.status == 'ok') {
+                             window.location.href = "pacientes.html";
+                        }else {
+                            swal({
+                            title: 'Error',
+                            text: res.data.error,
+                            icon: 'warning',
+                            buttons: {
+                                cancel: false,
+                                confirm: 'Aceptar'
+                            }
+                        });
                         }
                     });
             }
