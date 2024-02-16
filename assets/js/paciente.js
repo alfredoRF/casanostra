@@ -1,5 +1,5 @@
 // const urlStar = "https://controlcasanostra.develobit.com.mx"; //servidor
-let urlStar = "/casanostra/"; //local
+let urlStar = "./"; //local
 
 function validarFormulario(form) {
     const required = [];
@@ -138,15 +138,25 @@ function getMedicacion(tipo) {
         .then((medicaciones) => {
             //console.log(myJson)
             // console.log("creando tabla ---------------------");
+            let paciente = document.querySelector("#nombre").value;
             let table = $('#table-medicacion').DataTable();
             table.destroy();
             table = $('#table-medicacion').DataTable({
+                dom: 'Bfrtip',
+                buttons: [{
+                    extend: 'pdfHtml5',
+                    filename: "Medicacion de paciente " + paciente,
+                    title: "Medicacion para " +paciente,
+                    orientation: 'portrait',
+                    pageSize: 'A4', 
+                    text: "<i class='fas fa-print'></i>"
+                }],
                 data: medicaciones,
                 columns: [
                     { data: "medicamento" },
                     {
                         data: { dosis: "dosis", unidad: "unidad" }, render: (data, type) => {
-                            return data.dosis + " " + (data.unidad === 'T' ? "TABLETAS" : data.unidad);
+                            return data.dosis + " " + (data.unidad === 'TB' ? "TABLETAS" : data.unidad);
                         }
                     },
                     {
@@ -177,7 +187,7 @@ function getMedicacion(tipo) {
                             return resp;
                         }
                     },
-                    { data: "termina", render: (data) => data ?? "SIN TERMINO"},
+                    { data: "termina", render: (data) => data ?? "SIN TERMINO" },
                     {
                         data: "id",
                         render: (data, type) => {
@@ -192,8 +202,9 @@ function getMedicacion(tipo) {
                 responsive: true,
                 pageLength: 20,
                 lengthChange: false,
-                searching: true,
-                ordering: true
+                // searching: true,
+                ordering: true,
+
             });
             // console.log("tabla reada >>>>>>>>>>>>>>>>>>>>>");
         });
@@ -259,14 +270,22 @@ function getCondicionesMedicas() {
     formData.append('idpaciente', getIdPaciente());
     formData.append('action', '10');
     fetch(url, { method: "post", body: formData })
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (myJson) {
-            console.log(myJson)
+        .then(response => response.json())
+        .then(myJson => {
+            // console.log(myJson)
+            let paciente = document.querySelector("#nombre").value;
             let table = $('#table-condicionesmedicas').DataTable();
             table.destroy();
             table = $('#table-condicionesmedicas').DataTable({
+                dom: 'Bfrtip',
+                buttons: [{
+                    extend: 'pdfHtml5',
+                    filename: "Condiciones de paciente " + paciente,
+                    title: "Condiciones de " +paciente,
+                    orientation: 'portrait',
+                    pageSize: 'A4', 
+                    text: "<i class='fas fa-print'></i>"
+                }],
                 data: myJson,
                 columns: [
                     { data: "fecha" },
@@ -678,11 +697,11 @@ function borrarExpediente() {
         }
     });
 }
-function darAplicacion(medicacion){
+function darAplicacion(medicacion) {
     const formData = new FormData();
     formData.append('action', "15");
     formData.append("medicacion", medicacion);
-    
+
 
 }
 function addHoras() {
@@ -694,23 +713,23 @@ function addHoras() {
     }
 
 }
-function calcularHorario(){
+function calcularHorario() {
     let fechaInicio = document.querySelector("#inicio");
     let veces = document.querySelector("#veces").value;
-    if(fechaInicio.value){
+    if (fechaInicio.value) {
         // fechaInicio.parentNode.classList.remove("has-danger");
         fechaInicio.classList.remove("is-invalid");
         // alert(fechaInicio.value);
-        let minutos =  parseInt(1440/veces);
+        let minutos = parseInt(1440 / veces);
         let fecha = new Date(fechaInicio.value);
-        let html = `${fecha.getHours() < 10 ? "0"+fecha.getHours() : fecha.getHours()}:${fecha.getMinutes() < 10 ? "0" + fecha.getMinutes() : fecha.getMinutes()}`;
-        for(let i = 1; i < veces; i++){
-            
+        let html = `${fecha.getHours() < 10 ? "0" + fecha.getHours() : fecha.getHours()}:${fecha.getMinutes() < 10 ? "0" + fecha.getMinutes() : fecha.getMinutes()}`;
+        for (let i = 1; i < veces; i++) {
+
             html += ", ";
             fecha.setMinutes(fecha.getMinutes() + minutos);
             let h = fecha.getHours();
             let m = fecha.getMinutes();
-            html += `${h < 10 ? "0"+h : h}:${m < 10 ? "0"+m : m}`;
+            html += `${h < 10 ? "0" + h : h}:${m < 10 ? "0" + m : m}`;
         }
         document.querySelector("#horarios").innerHTML = html;
     } else {
@@ -751,14 +770,14 @@ function habilitarDias() {
     }
 }
 
-function resetFormMedicacion(){
+function resetFormMedicacion() {
     document.querySelector('#form-medicacion').reset();
     document.querySelector("#seccion_dias").style.display = "none";
     document.querySelector("#seccion_horario").style.display = "none";
     document.querySelector("#termina").disabled = true;
     document.querySelector("#inicio").disabled = true;
     document.querySelector("#horarios").innerHTML = "";
-    
+
 }
 
-function getActividades(){}
+function getActividades() { }

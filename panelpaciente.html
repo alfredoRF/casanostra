@@ -1,4 +1,4 @@
-<!doctype html>
+<!x html>
 <html lang="en">
 
 <head>
@@ -11,6 +11,9 @@
     <link href="assets/vendor/fontawesome/css/brands.min.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/vendor/datatables/datatables.min.css" rel="stylesheet">
+    <link href="assets/vendor/datatables/Buttons-2.4.2/css/buttons.bootstrap5.min.css" rel="stylesheet">
+    <link href="assets/vendor/datatables/DataTables-1.10.25/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
     <link href="assets/css/master.css" rel="stylesheet">
 </head>
 
@@ -76,7 +79,7 @@
                                         role="tab" aria-controls="general" aria-selected="true">Generales</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="medicacion-tab" data-bs-toggle="tab" href="#medicaion"
+                                    <a class="nav-link" id="medicacion-tab" data-bs-toggle="tab" href="#medicacion"
                                         role="tab" aria-controls="medicacion" aria-selected="false"
                                         onclick="getMedicacion('p');">Medicamentos</a>
                                 </li>
@@ -232,8 +235,8 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div class="tab-pane fade" id="medicaion" role="tabpanel"
-                                    aria-labelledby="medicaion-tab">
+                                <div class="tab-pane fade" id="medicacion" role="tabpanel"
+                                    aria-labelledby="medicacion-tab">
                                     <div class="col-md-12">
                                         <a href="" class="btn btn-sm btn-outline-primary float-end"
                                             data-bs-toggle="modal" data-bs-target="#medicacionmodal"
@@ -889,9 +892,14 @@
     </div>
     <script src="assets/vendor/jquery/jquery.min.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/datatables/datatables.min.js"></script>
-    <script src="assets/js/script.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="assets/vendor/datatables/DataTables-1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="assets/vendor/datatables/Buttons-2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="assets/vendor/datatables/DataTables-1.10.25/js/dataTables.bootstrap5.min.js"></script>
+    <script src="assets/vendor/datatables/Buttons-2.4.2/js/buttons.bootstrap5.js"></script>
+    <script src="assets/vendor/datatables/pdfmake-0.2.7/pdfmake.js"></script>
+    <script src="assets/vendor/datatables/pdfmake-0.2.7/vfs_fonts.js"></script>
+    <script src="assets/vendor/datatables/Buttons-2.4.2/js/buttons.html5.min.js"></script>
     <script src="assets/js/paciente.js"></script>
     <script src="assets/js/menu.js"></script>
     <script>

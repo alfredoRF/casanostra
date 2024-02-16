@@ -192,7 +192,7 @@ function putNota()
     $status = resizer($tempFile, $pathS, $rs);
     $statusT = resizer($tempFile, $fileDirTumb, 30);
     unlink($tempFile);
-    unlink('1707508579.png');
+    // unlink('1707508579.png');
     echo json_encode(["nota" => $nota, "file_upload" => ["archivo" => $status, "thumbnail" => $statusT, "temporal"=>$statusTemp], "archivos" => $files]);
     // echo json_encode(["file_move"=>$statusTemp, "path"=>$tempFile]);
 }
@@ -444,20 +444,21 @@ function resizer ($source, $destination, $size, $quality=null){
       }
     
       // (C) RESIZE
-      $fnCreate = "imagecreatefrom" . ($sExt=="jpg" ? "jpeg" : $sExt);
-      $original = $fnCreate($source);
-      $resized = imagescale($original, $new_width, $new_height, IMG_BICUBIC);
+    //   $fnCreate = "imagecreatefrom" . ($sExt=="jpg" ? "jpeg" : $sExt);
+    //   $original = $fnCreate($source);
+    //   $resized = imagescale($original, $new_width, $new_height, IMG_BICUBIC);
       
-      // (D) OUTPUT & CLEAN UP
-      $fnOutput = "image" . ($dExt=="jpg" ? "jpeg" : $dExt);
-      if (is_numeric($quality)) {
-        $fnOutput($resized, $destination, $quality);
-      } else {
-        $fnOutput($resized, $destination);
-      }
-      imagedestroy($original);
-      imagedestroy($resized);
-      return $fnOutput;
+    //   // (D) OUTPUT & CLEAN UP
+    //   $fnOutput = "image" . ($dExt=="jpg" ? "jpeg" : $dExt);
+    //   if (is_numeric($quality)) {
+    //     $fnOutput($resized, $destination, $quality);
+    //   } else {
+    //     $fnOutput($resized, $destination);
+    //   }
+    //   imagedestroy($original);
+    //   imagedestroy($resized);
+    //   return $fnOutput;
+    return ["image"];
     }
 /**
  * Funcion para cambiar resolucion de imagen
