@@ -121,7 +121,7 @@ function getMedicaciones()
 
 function getMedicacion()
 {
-    $medicacion = R::findOne('medicacion', 'id = ?', [$_REQUEST["id"]]);
+    $medicacion = R::getAll('SELECT mm.nombre AS medicamento, c.titulo AS condicion, m.dosis, m.unidad, m.via, m.frecuencia, m.termina, m.inicio, m.observacion, m.dias, m.horarios FROM medicacion m INNER JOIN materialmedico mm ON m.medicamento = mm.id INNER JOIN condiciones c ON m.condicion = c.id WHERE m.id = ?', [$_REQUEST["id"]]);
     echo json_encode($medicacion);
 }
 

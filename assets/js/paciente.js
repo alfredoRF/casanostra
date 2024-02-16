@@ -96,10 +96,10 @@ function getPaciente(id) {
         });
 }
 
-function guardarCondicion() {
+function guardarCondicion(tipo = 'c') {
     // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
     const url = urlStar + "/dao/patient.php";
-    const form = document.querySelector("#form-condicionmedica");
+    const form = tipo == "m" ? document.querySelector("#form_condicion_m") : document.querySelector("#form-condicionmedica");
     const required = validarFormulario(form);
     if (!required.includes(false)) {
         const formData = new FormData(form);
@@ -110,21 +110,37 @@ function guardarCondicion() {
         fetch(url, { method: "post", body: formData })
             .then((response) => response.json())
             .then((condicion) => {
-                resetform("form-condicionmedica");
-                $('#condicionesmodal').modal('hide');
-                getCondicionesMedicas();
-                swal({
-                    title: 'Guardado',
-                    text: 'La condicion fue guardada',
-                    icon: 'success',
-                    buttons: {
-                        cancel: false,
-                        conform: 'Aceptar'
-                    }
-                });
+                if (tipo == "m") {
+                    resetform("form_condicion_m");
+                    $("#nueva_condicion_modal").modal("hide");
+                    $("#medicacionmodal").modal("show");
+                    selectCondiciones();
+                }
+                else {
+                    resetform("form-condicionmedica");
+                    $('#condicionesmodal').modal('hide');
+                    getCondicionesMedicas();
+                    swal({
+                        title: 'Guardado',
+                        text: 'La condicion fue guardada',
+                        icon: 'success',
+                        buttons: {
+                            cancel: false,
+                            conform: 'Aceptar'
+                        }
+                    });
+                }
+
             });
     }
 
+}
+
+function nuevaCondicion() {
+    document.querySelector("#form_condicion_m").reset();
+    // document.querySelector("#condicion_tipo").value = tipo;
+    $("#medicacionmodal").modal("hide");
+    $("#nueva_condicion_modal").modal("show");
 }
 
 function getMedicacion(tipo) {
@@ -146,9 +162,9 @@ function getMedicacion(tipo) {
                 buttons: [{
                     extend: 'pdfHtml5',
                     filename: "Medicacion de paciente " + paciente,
-                    title: "Medicacion para " +paciente,
+                    title: "Medicacion para " + paciente,
                     orientation: 'portrait',
-                    pageSize: 'A4', 
+                    pageSize: 'A4',
                     text: "<i class='fas fa-print'></i>"
                 }],
                 data: medicaciones,
@@ -191,7 +207,7 @@ function getMedicacion(tipo) {
                     {
                         data: "id",
                         render: (data, type) => {
-                            const btnaeditar = tipo === "p" ? `<a href='#' class='btn btn-outline-danger btn-rounded' onclick='borrarMedicacion(${data})'><i class='fas fa-trash' style='font-size:1.5em;'></i></a>`
+                            const btnaeditar = tipo === "p" ? `<a href='#' class='btn btn-outline-primary btn-rounded' onclick='mostrarMedicacion(${data})'><i class='fas fa-info-circle' style='font-size:1.5em;'></i></a>`
                                 : `<a href='#' class='btn btn-outline-primary btn-rounded' onclick='darAplicacion(${data})'><i class='fas fa-pills' style='font-size:1.5em;'></i></a>`;
                             //return btnagregar+"&nbsp;"+btnsacar+"&nbsp;"+btnhistorico;
                             // console.log(data);
@@ -277,13 +293,13 @@ function getCondicionesMedicas() {
             let table = $('#table-condicionesmedicas').DataTable();
             table.destroy();
             table = $('#table-condicionesmedicas').DataTable({
-                dom: 'Bfrtip',
+                // layaout: '<"top"<"left-col"B><"center-col"l><"right-col"f>>rtip',
                 buttons: [{
                     extend: 'pdfHtml5',
                     filename: "Condiciones de paciente " + paciente,
-                    title: "Condiciones de " +paciente,
+                    title: "Condiciones de " + paciente,
                     orientation: 'portrait',
-                    pageSize: 'A4', 
+                    pageSize: 'A4',
                     text: "<i class='fas fa-print'></i>"
                 }],
                 data: myJson,
@@ -534,7 +550,60 @@ function gaurdaSignoVital() {
             });
     }
 }
-function mostrarMedicacion() { }
+function mostrarMedicacion(id) {
+    const url = urlStar + "/dao/patient.php";
+    // alert("holas");
+    // let id = getIdPaciente();
+    const formData = new FormData();
+    formData.append('id', id);
+    formData.append('action', '7');
+    fetch(url, { method: "post", body: formData })
+        .then((response) => response.json())
+        .then((medicacion) => {
+            medicacion = medicacion[0];
+            let frecuencia = ""; let horarios = "";
+            if (medicacion.frecuencia == "DE") {
+                frecuencia = "Siertos dias de la semana";
+                document.querySelector("#panel_dias_i").style.display = "inline-block";
+                let dias = "";
+                medicacion.dias.split(',').forEach(d => {
+                    switch (d) {
+                        case "l": dias += "Lunes, "; break;
+                        case "m": dias += "Martes, "; break;
+                        case "x": dias += "Miercoles, "; break;
+                        case "j": dias += "Jueves, "; break;
+                        case "v": dias += "Viernes, "; break;
+                        case "s": dias += "Sabado, "; break;
+                        case "d": dias += "Domingo, "; break;
+                    }
+                });
+                dias = dias.length > 0 ? dias.substring(0, dias.length - 2) : "";
+                document.querySelector("#dias_info").innerHTML = dias;
+            } else {
+                frecuencia = medicacion.frecuencia;
+                document.querySelector("#panel_dias_i").style.display = 'none';
+            }
+            if (medicacion.horarios || medicacion.horarios !== "") {
+                medicacion.horarios.split(",").forEach(h => {
+                    horarios += h.slice(0, 2) + ":" + h.slice(2) + " ";
+                });
+            } else {
+                horarios = "Sin Horario";
+                // alert(horarios);
+            }
+
+            document.querySelector("#medicamento_i").value = medicacion.medicamento.toUpperCase();
+            document.querySelector("#condicion_i").value = medicacion.condicion.toUpperCase();
+            document.querySelector("#dosis_i").value = medicacion.dosis;
+            document.querySelector("#unidad_i").innerHTML = medicacion.unidad;
+            document.querySelector("#frecuencia_i").value = frecuencia;
+            document.querySelector("#inicio_i").value = medicacion.inicio;
+            document.querySelector("#termina_i").value = medicacion.termina;//horarios
+            document.querySelector("#horarios_i").innerHTML = horarios;//descripcion_i
+            document.querySelector("#observacion_i").value = medicacion.observacion;//descripcion_i
+            $("#medicacion_info_modal").modal("show");
+        });
+}
 
 function selectCondiciones() {
     // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
