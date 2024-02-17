@@ -121,7 +121,7 @@ function getMedicaciones()
 
 function getMedicacion()
 {
-    $medicacion = R::getAll('SELECT mm.nombre AS medicamento, c.titulo AS condicion, m.dosis, m.unidad, m.via, m.frecuencia, m.termina, m.inicio, m.observacion, m.dias, m.horarios FROM medicacion m INNER JOIN materialmedico mm ON m.medicamento = mm.id INNER JOIN condiciones c ON m.condicion = c.id WHERE m.id = ?', [$_REQUEST["id"]]);
+    $medicacion = R::getAll('SELECT m.id, mm.nombre AS medicamento, c.titulo AS condicion, m.dosis, m.unidad, m.via, m.frecuencia, m.termina, m.inicio, m.observacion, m.dias, m.horarios FROM medicacion m INNER JOIN materialmedico mm ON m.medicamento = mm.id INNER JOIN condiciones c ON m.condicion = c.id WHERE m.id = ?', [$_REQUEST["id"]]);
     echo json_encode($medicacion);
 }
 
@@ -254,6 +254,8 @@ function actualisarStatusMedicacion()
 {
     $medicacion = R::findOne('medicacion', 'id=?', [$_REQUEST['id']]);
     $medicacion->status = $_REQUEST["status"];
+    $medicacion->causa = $_REQUEST["causa"];
+    $id = R::store($medicacion);
     echo json_encode($medicacion);
 }
 
@@ -361,8 +363,8 @@ function removeMedicalReport()
 }
 function getSignosVitales()
 {
-    $signosVitales = R::getAll("SELECT lpm, rpm, sys, dia, temperatura, eva, id FROM signosvitales WHERE paciente = ? ", [$_REQUEST['paciente']]);
-    echo json_encode($signosVitales);
+    $signosVitales = R::find("signosvitales", "paciente = ? ", [$_REQUEST['paciente']]);
+    echo json_encode(R::exportAll($signosVitales));
 }
 function putSignoVital()
 {
@@ -375,7 +377,10 @@ function putSignoVital()
     $signoVital->rpm = $_REQUEST['rpm'];
     $signoVital->sys = $_REQUEST['sys'];
     $signoVital->dia = $_REQUEST['dia'];
-    $signoVital->eva = $_REQUEST['eva'];
+    $signoVital->glucosa = $_REQUEST['glucosa'];
+    $signoVital->spo2 = $_REQUEST['spo2'];
+    $signoVital->peso = $_REQUEST['peso'];
+    $signoVital->observaciones = $_REQUEST['observaciones'];
     $signoVital->temperatura = $_REQUEST['temperatura'];
     $signoVital->fecha = $_REQUEST['fecha'];
     $id = R::store($signoVital);

@@ -477,31 +477,21 @@ function getSignosVitales() {
     fetch(url, { method: "post", body: formData })
         .then((response) => response.json())
         .then((signos) => {
-            let table = $('#table-signosVitales').DataTable();
+            // alert("hola");
+            // console.log(signos);
+            let table = $('#tabla_signosVitales').DataTable();
             table.destroy();
-            table = $('#table-signosVitales').DataTable({
+            table = $('#tabla_signosVitales').DataTable({
                 data: signos,
                 columns: [
-                    { data: "lpm" },
+                    { data: "lpm"},
                     { data: "rpm" },
-                    { data: "sys" },
-                    { data: "dia" },
-                    { data: "temperatura" },
-                    {
-                        data: "eva", render: (data, type) => {
-                            data = parseInt(data);
-                            let info;
-                            switch (data) {
-                                case 1: info = "Sin dolor"; break;
-                                case 2: info = "Dolor leve"; break;
-                                case 3: info = "Dolor moderado"; break;
-                                case 4: info = "Dolor severo"; break;
-                                case 5: info = "Dolor muy severo"; break;
-                                case 6: info = "Maximo dolor"; break;
-                            }
-                            return info;
-                        }
-                    },
+                    { data: "sys", render: data => data ? (data+" mmHg") : ""},
+                    { data: "dia", render: data => data ? (data+" mmHg") : ""},
+                    { data: "temperatura", render: data => data ? (data+"&#176;C") : "" },
+                    { data: "glucosa", render: data => data ? (data+" MG/DL") : ""},
+                    {data: "spo2", render: data => data ? (data+"%") : ""},
+                    {data: "peso", render: data => data ? (data+" KG") : ""},
                     {
                         data: "id",
                         render: (data, type) => {
@@ -591,7 +581,7 @@ function mostrarMedicacion(id) {
                 horarios = "Sin Horario";
                 // alert(horarios);
             }
-
+            document.querySelector("#idMedicacion").value = medicacion.id;
             document.querySelector("#medicamento_i").value = medicacion.medicamento.toUpperCase();
             document.querySelector("#condicion_i").value = medicacion.condicion.toUpperCase();
             document.querySelector("#dosis_i").value = medicacion.dosis;
@@ -678,20 +668,28 @@ function loadForm(data) {
 
     // $("#" + )
 }
-function borrarMedicacion(idMedicacion) {
+function borrarMedicacion(idMedicacion, medicamento) {
+    $("#medicacion_info_modal").modal("hide");
+    let content = document.createElement('div');
+    content.innerHTML = '<div class="row col-12"><label for="causa" class="form-label">Causa de suspencion</lable><textarea rows="4" id="causa" name="causa" class="form-control"></textarea> </div>';
     swal({
-        title: "Eliminar Medicacion",
-        text: "La medicacion sera borrado",
+        title: `El medicamento sera eliminado`,
+        text: medicamento,
         icon: "warning",
+        content: content,
+        closeOnClickOutside: false,
+        closeOnEsc: false,
         buttons: ["Cancelar", "Borrar"],
         dangerMode: true,
     }).then((res) => {
         if (res) {
+            let causa = document.querySelector("#causa").value;
             const url = urlStar + "/dao/patient.php";
             const formData = new FormData();
             formData.append('id', idMedicacion);
             formData.append('status', 0);
-            formData.append('action', '18')
+            formData.append('causa', causa);
+            formData.append('action', '18');
             fetch(url, { method: "post", body: formData })
                 .then((response) => response.json())
                 .then((medicacion) => {

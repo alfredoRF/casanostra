@@ -283,9 +283,12 @@
                                                             <label for="condicion" class="
                                                                 form-label">Condicion medica</label>
                                                             <div class="input-group">
-                                                                <select name="condicion" class="form-select" id="condicion"
-                                                                    class="form-select" required></select>
-                                                                    <span class="input-group-text"><a href="#" onclick="nuevaCondicion()"><i class="fas fa-plus"></i></a></span>
+                                                                <select name="condicion" class="form-select"
+                                                                    id="condicion" class="form-select"
+                                                                    required></select>
+                                                                <span class="input-group-text"><a href="#"
+                                                                        onclick="nuevaCondicion()"><i
+                                                                            class="fas fa-plus"></i></a></span>
                                                             </div>
                                                         </div>
                                                         <div class="row g-2">
@@ -447,90 +450,93 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="modal modal-lg fade" id="medicacion_info_modal" role="dialog" tabindex="-1">
+                                    <div class="modal modal-lg fade" id="medicacion_info_modal" role="dialog"
+                                        tabindex="-1">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">informacion de medicacion</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body text-start">
-                                                        <div class="mb-3">
-                                                            <label for="medicamento" class="
+
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">informacion de medicacion</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <input type="hidden" id="idMedicacion" value="">
+                                                <div class="modal-body text-start">
+                                                    <div class="mb-3">
+                                                        <label for="medicamento" class="
                                                                 form-label">Medicamento</label>
-                                                            <input type="text" name="medicamento" id="medicamento_i"
-                                                                class="form-control"disabled>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="condicion" class="
+                                                        <input type="text" name="medicamento" id="medicamento_i"
+                                                            class="form-control" disabled>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="condicion" class="
                                                                 form-label">Condicion medica</label>
-                                                            <input type="text" id="condicion_i" class="form-control" disabled>
-                                                        </div>
-                                                        <div class="row g-2">
-                                                            <div class=" mb-3 col-3">
-                                                                <label for="dosis" class="form-label">Dosis</label>
-                                                                <div class="input-group mb-3">
-                                                                    <input type="number" id="dosis_i" name="dosis"
-                                                                        class="form-control" required disabled/><span
-                                                                        class="input-group-text" id="unidad_i"></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="mb-3 col-4">
-                                                                <label class="form-label " for="via">Via de
-                                                                    Administracion</label>
-                                                                <input class="form-control" type="text"
-                                                                    id="via_i" disabled>
-                                                            </div>
-                                                            <div class="mb-3 col-5">
-                                                                <label for="frecuencia"
-                                                                    class="form-label">Frecuencia</label>
-                                                                <input type="text" name="" class="form-control" id="frecuencia_i" disabled>
+                                                        <input type="text" id="condicion_i" class="form-control"
+                                                            disabled>
+                                                    </div>
+                                                    <div class="row g-2">
+                                                        <div class=" mb-3 col-3">
+                                                            <label for="dosis" class="form-label">Dosis</label>
+                                                            <div class="input-group mb-3">
+                                                                <input type="number" id="dosis_i" name="dosis"
+                                                                    class="form-control" required disabled /><span
+                                                                    class="input-group-text" id="unidad_i"></span>
                                                             </div>
                                                         </div>
-                                                        <div class="row g-2" id="panel_dias_i">
-                                                            <div class="mb-3 col-12">
-                                                                <label for="diasinfo" class="form-label">Dias:</label><br>
-                                                                <label id="dias_info"></label>
-                                                                
-                                                            </div>
+                                                        <div class="mb-3 col-4">
+                                                            <label class="form-label " for="via">Via de
+                                                                Administracion</label>
+                                                            <input class="form-control" type="text" id="via_i" disabled>
+                                                        </div>
+                                                        <div class="mb-3 col-5">
+                                                            <label for="frecuencia"
+                                                                class="form-label">Frecuencia</label>
+                                                            <input type="text" name="" class="form-control"
+                                                                id="frecuencia_i" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-2" id="panel_dias_i">
+                                                        <div class="mb-3 col-12">
+                                                            <label for="diasinfo" class="form-label">Dias:</label><br>
+                                                            <label id="dias_info"></label>
 
                                                         </div>
 
-                                                        <div class="row g-2">
-                                                            <div class="mb-3 col-6">
-                                                                <label for="inicio" class="form-label">Fecha de
-                                                                    Inicio</label>
-                                                                <input type="datetime-local" id="inicio_i" name="inicio"
-                                                                    class="form-control" required disabled />
-                                                                
-                                                            </div>
-                                                            <div class="mb-3 col-6">
-                                                                <label for="termina" class="form-label">Fecha de
-                                                                    Termino</label>
-                                                                <input type="datetime-local" id="termina_i" name="termina"
-                                                                    class="form-control" disabled />
-                                                            </div>
+                                                    </div>
+
+                                                    <div class="row g-2">
+                                                        <div class="mb-3 col-6">
+                                                            <label for="inicio" class="form-label">Fecha de
+                                                                Inicio</label>
+                                                            <input type="datetime-local" id="inicio_i" name="inicio"
+                                                                class="form-control" required disabled />
+
                                                         </div>
-                                                        <div class="row g-2" id="seccion_horario">
-                                                            <div class="mb-3 col-6">
-                                                                <label for="" class="form-label">Horarios:</label>
-                                                                <label id="horarios_i"></label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="descripcion"
-                                                                class="form-label">Descripcion</label>
-                                                            <textarea rows="4" id="observacion_i" name="observacion"
-                                                                class="form-control" disabled></textarea>
+                                                        <div class="mb-3 col-6">
+                                                            <label for="termina" class="form-label">Fecha de
+                                                                Termino</label>
+                                                            <input type="datetime-local" id="termina_i" name="termina"
+                                                                class="form-control" disabled />
                                                         </div>
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-danger">Eliminar</button>
-                                                        <button id="btn-guardarmedicacion" type="button"
-                                                            class="btn btn-success">Cerrar</button>
+                                                    <div class="row g-2" id="seccion_horario">
+                                                        <div class="mb-3 col-6">
+                                                            <label for="" class="form-label">Horarios:</label>
+                                                            <label id="horarios_i"></label>
+                                                        </div>
                                                     </div>
+                                                    <div class="mb-3">
+                                                        <label for="descripcion" class="form-label">Descripcion</label>
+                                                        <textarea rows="4" id="observacion_i" name="observacion"
+                                                            class="form-control" disabled></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger"
+                                                        onclick="borrarMedicacion($('#idMedicacion').val(), $('#medicamento_i').val())">Eliminar</button>
+                                                    <button id="btn-guardarmedicacion" type="button"
+                                                        class="btn btn-success">Cerrar</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -558,8 +564,8 @@
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button"
-                                                            class="btn btn-success" onclick="guardarCondicion('m')">Aceptar</button>
+                                                        <button type="button" class="btn btn-success"
+                                                            onclick="guardarCondicion('m')">Aceptar</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -691,7 +697,9 @@
                                         <a href="" class="btn btn-sm btn-outline-primary float-end"
                                             data-bs-toggle="modal" data-bs-target="#signovitalModal"><i
                                                 class="fas fa-plus-circle"></i> Nuevo</a>
-                                        <table width="100%" class="table table-hover" id="table-signosVitales">
+                                    </div>
+                                    <div class="row col-12">
+                                        <table width="100%" class="table table-hover" id="tabla_signosVitales">
                                             <thead>
                                                 <tr>
                                                     <th>Latidos por minuto (LPM)</th>
@@ -699,7 +707,9 @@
                                                     <th>SYS</th>
                                                     <th>DIA</th>
                                                     <th>Temperatura</th>
-                                                    <th>Estado de animia (EVA)</th>
+                                                    <th>Glucosa</th>
+                                                    <th>SpO2</th>
+                                                    <th>Peso</th>
                                                     <th></th>
                                             </thead>
                                             <tbody>
@@ -720,45 +730,48 @@
                                                     <div class="modal-body text-start">
                                                         <div class="col-12">
                                                             <div class="row g-2">
-                                                                <div class="mb-3 col-4">
+                                                                <div class="mb-3 col-6">
                                                                     <label for="lpm" class="form-label">Latidos por
                                                                         minuto</label>
                                                                     <div class="input-group mb-3">
                                                                         <input type="number" name="lpm" id="lpm"
-                                                                            class="form-control" required><span
+                                                                            class="form-control" step="1" required><span
                                                                             class="input-group-text">LPM</span>
                                                                     </div>
                                                                 </div>
-                                                                <div class="mb-3 col-4">
+                                                                <div class="mb-3 col-6">
                                                                     <label for="rpm" class="form-label">Respiraciones
                                                                         por minuto</label>
                                                                     <div class="input-group mb-3">
-                                                                        <input type="number" class="form-control"
+                                                                        <input type="number"  step="1" class="form-control"
                                                                             name="rpm" id="rpm" required /><span
                                                                             class="input-group-text">RPM</span>
                                                                     </div>
                                                                 </div>
-                                                                <div class="mb-3 col-4">
+                                                            </div>
+                                                            <div class="row g-2">
+                                                                <div class="mb-3 col-6">
                                                                     <label for="sys" class="form-label">Presion arterial
                                                                         Sistolica maxima </label>
                                                                     <div class="input-group mb-3">
-                                                                        <input type="number" class="form-control"
+                                                                        <input type="text" step="1" class="form-control"
                                                                             name="sys" id="sys" required /><span
-                                                                            class="input-group-text">SYS</span>
+                                                                            class="input-group-text">mmHg</span>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="row g-2">
-                                                                <div class="mb-3 col-5">
+                                                            
+                                                                <div class="mb-3 col-6">
                                                                     <label for="dia" class="form-label">Presion arterial
                                                                         Diastolica minima</label>
                                                                     <div class="input-group mb-3">
                                                                         <input type="number" class="form-control"
                                                                             name="dia" id="dia" required>
-                                                                        <span class="input-group-text">DIA</span>
+                                                                        <span class="input-group-text">mmHg</span>
                                                                     </div>
                                                                 </div>
-                                                                <div class="mb-3 col-2">
+                                                            </div>
+                                                            <div class="row g-2">
+                                                                <div class="mb-3 col-3">
                                                                     <label for="temperatura"
                                                                         class="form-label">Temperatura</label>
                                                                     <div class="input-group mb-3">
@@ -769,21 +782,33 @@
                                                                             C</span>
                                                                     </div>
                                                                 </div>
-                                                                <div class="mb-3 col-5">
-                                                                    <label for="eva" class="form-label">Estado de animia
-                                                                        (EVA)</label>
-                                                                    <select class="form-control" name="eva" id="eva"
-                                                                        required>
-                                                                        <option value="" selected disabled>Selecciona
-                                                                            una (EVA)</option>
-                                                                        <option value="1">Sin dolor</option>
-                                                                        <option value="2">Dolor leve</option>
-                                                                        <option value="3">Dolor moderado</option>
-                                                                        <option value="4">Dolor severo</option>
-                                                                        <option value="5">Dolor muy severo</option>
-                                                                        <option value="6">Maximo dolor</option>
-                                                                    </select>
+                                                                <div class="mb-3 col-3">
+                                                                    <label for="eva" class="form-label">Glucosa</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="number" class="form-control" name="glucosa" id="glucosa" step="1">
+                                                                        <span class="input-group-text">MG/DL</span>
+                                                                    </div>
                                                                 </div>
+                                                                <div class="mb-3 col-3">
+                                                                    <label for="dia" class="form-label">SpO2</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="number" step="1" class="form-control"
+                                                                            name="spo2" id="spo2" max="100" required>
+                                                                        <span class="input-group-text">%</span>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                <div class="mb-3 col-3">
+                                                                    <label for="eva" class="form-label">Peso</label>
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="number" class="form-control" name="peso" id="peso" step="0.1">
+                                                                        <span class="input-group-text">KG</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mb-3 col-12">
+                                                                <label for="observaciones" class="form-label">Observaciones</label>
+                                                                <textarea id="observaciones" name="observaciones" class="form-control"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -797,7 +822,7 @@
                                     </div>
                                 </div>
                                 <!-- Inicia panel actividades-->
-                                
+
                                 <!-- Termina panel de actividades-->
                             </div>
                         </div>
