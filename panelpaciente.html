@@ -104,6 +104,16 @@
                                         role="tab" aria-controls="actividades" aria-selected="false"
                                         onclick="getActividades('p');">Actividades</a>
                                 </li>
+                                <!--     -->
+                                <li class="nav-item">
+                                    <a class="nav-link" id="laboratorios-tab" data-bs-toggle="tab" href="#laboratorios"
+                                        role="tab" aria-controls="laboratorios" aria-selected="false"
+                                        onclick="getLaboratorios();">Laboratorios</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="citas-tab" data-bs-toggle="tab" href="#citas" role="tab"
+                                        aria-controls="citas" aria-selected="false" onclick="getCitas();">Citas</a>
+                                </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade active show" id="general" role="tabpanel"
@@ -244,7 +254,7 @@
                                             data-bs-toggle="modal" data-bs-target="#medicacionmodal"
                                             onclick="resetFormMedicacion()"><i class="fas fa-plus-circle"></i> Nuevo</a>
                                     </div>
-                                    <div class="row col-12">
+                                    <div class="row col-12 pt-1">
                                         <table width="100%" class="table table-hover" id="table-medicacion">
                                             <thead>
                                                 <tr>
@@ -436,9 +446,9 @@
 
 
                                                         <div class="mb-3">
-                                                            <label for="descripcion"
+                                                            <label for="observacion"
                                                                 class="form-label">Descripcion</label>
-                                                            <textarea rows="4" id="descripcion" name="observacion"
+                                                            <textarea rows="4" id="observacion" name="observacion"
                                                                 class="form-control"></textarea>
                                                         </div>
                                                     </div>
@@ -578,6 +588,8 @@
                                         <a href="" class="btn btn-sm btn-outline-primary float-end"
                                             data-bs-toggle="modal" data-bs-target="#condicionesmodal"><i
                                                 class="fas fa-plus-circle"></i> Nuevo</a>
+                                    </div>
+                                    <div class="row col-12 p-1">
                                         <table width="100%" class="table table-hover" id="table-condicionesmedicas">
                                             <thead>
                                                 <tr>
@@ -608,9 +620,9 @@
                                                                 class="form-control" required>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="descripcion"
+                                                            <label for="descripcion_c"
                                                                 class="form-label">Descripcion</label>
-                                                            <textarea rows="4" id="descripcion" name="descripcion"
+                                                            <textarea rows="4" id="descripcion_c" name="descripcion"
                                                                 class="form-control" required></textarea>
                                                         </div>
                                                     </div>
@@ -628,6 +640,8 @@
                                         <a href="" class="btn btn-sm btn-outline-primary float-end"
                                             data-bs-toggle="modal" data-bs-target="#notamodal"
                                             onclick="prepararFormNota();"><i class="fas fa-plus-circle"></i> Nuevo</a>
+                                    </div>
+                                    <div class="row col-12 p-1">
                                         <table width="100%" class="table table-hover" id="table-notas">
                                             <thead>
                                                 <tr>
@@ -698,7 +712,7 @@
                                             data-bs-toggle="modal" data-bs-target="#signovitalModal"><i
                                                 class="fas fa-plus-circle"></i> Nuevo</a>
                                     </div>
-                                    <div class="row col-12">
+                                    <div class="row col-12 p-1"><br>
                                         <table width="100%" class="table table-hover" id="tabla_signosVitales">
                                             <thead>
                                                 <tr>
@@ -743,8 +757,9 @@
                                                                     <label for="rpm" class="form-label">Respiraciones
                                                                         por minuto</label>
                                                                     <div class="input-group mb-3">
-                                                                        <input type="number"  step="1" class="form-control"
-                                                                            name="rpm" id="rpm" required /><span
+                                                                        <input type="number" step="1"
+                                                                            class="form-control" name="rpm" id="rpm"
+                                                                            required /><span
                                                                             class="input-group-text">RPM</span>
                                                                     </div>
                                                                 </div>
@@ -759,7 +774,7 @@
                                                                             class="input-group-text">mmHg</span>
                                                                     </div>
                                                                 </div>
-                                                            
+
                                                                 <div class="mb-3 col-6">
                                                                     <label for="dia" class="form-label">Presion arterial
                                                                         Diastolica minima</label>
@@ -785,30 +800,35 @@
                                                                 <div class="mb-3 col-3">
                                                                     <label for="eva" class="form-label">Glucosa</label>
                                                                     <div class="input-group mb-3">
-                                                                        <input type="number" class="form-control" name="glucosa" id="glucosa" step="1">
+                                                                        <input type="number" class="form-control"
+                                                                            name="glucosa" id="glucosa" step="1">
                                                                         <span class="input-group-text">MG/DL</span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="mb-3 col-3">
                                                                     <label for="dia" class="form-label">SpO2</label>
                                                                     <div class="input-group mb-3">
-                                                                        <input type="number" step="1" class="form-control"
-                                                                            name="spo2" id="spo2" max="100" required>
+                                                                        <input type="number" step="1"
+                                                                            class="form-control" name="spo2" id="spo2"
+                                                                            max="100" required>
                                                                         <span class="input-group-text">%</span>
                                                                     </div>
                                                                 </div>
-                                                                
+
                                                                 <div class="mb-3 col-3">
                                                                     <label for="eva" class="form-label">Peso</label>
                                                                     <div class="input-group mb-3">
-                                                                        <input type="number" class="form-control" name="peso" id="peso" step="0.1">
+                                                                        <input type="number" class="form-control"
+                                                                            name="peso" id="peso" step="0.1">
                                                                         <span class="input-group-text">KG</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="row mb-3 col-12">
-                                                                <label for="observaciones" class="form-label">Observaciones</label>
-                                                                <textarea id="observaciones" name="observaciones" class="form-control"></textarea>
+                                                                <label for="observaciones"
+                                                                    class="form-label">Observaciones</label>
+                                                                <textarea id="observaciones" name="observaciones"
+                                                                    class="form-control"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -822,66 +842,141 @@
                                     </div>
                                 </div>
                                 <!-- Inicia panel actividades-->
-
+                                <div class="tab-pane fade" id="actividades" role="tabpanel"
+                                    aria-labelledby="attributions-tab">
+                                    <div class="col-md-12">
+                                        <a href="" class="btn btn-sm btn-outline-primary float-end"
+                                            data-bs-toggle="modal" data-bs-target="#actividad_modal"><i
+                                                class="fas fa-plus-circle"></i> Nuevo</a><br>
+                                    </div>
+                                    <div class="row col-12 p-1"></div>
+                                </div>
                                 <!-- Termina panel de actividades-->
+
+                                <div class="tab-pane fade" id="laboratorios" role="tabpanel"
+                                    aria-labelledby="attributions-tab">
+                                    <div class="col-md-12">
+                                        <a href="" class="btn btn-sm btn-outline-primary float-end"
+                                            data-bs-toggle="modal" data-bs-target="#laboratorio_modal"><i
+                                                class="fas fa-plus-circle"></i> Nuevo</a><br>
+                                    </div>
+                                    <div class="row col-12 p-1">
+                                        <table width="100%" class="table table-hover" id="tabla_laboratorios">
+                                            <thead>
+                                                <tr>
+                                                    <th>Fecha de captura</th>
+                                                    <th>Descripcion</th>
+                                                    <th></th>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal modal fade" id="laboratorio_modal" role="dialog" tabindex="-1">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <form id="form-signovital" accept-charset="utf-8"
+                                                    onsubmit="event.preventDefault();">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Nuevo captura de Laboratorio</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body text-start">
+                                                        <div class="col-12">
+                                                            <div class="row">
+                                                                <div class="col-6">
+                                                                    <label for="fechacaptura"
+                                                                        class="form-label">Fecha de captura</label>
+                                                                    <input type="datetime-local" name="fechacaptura"
+                                                                        id="fechacaptura" class="form-control" required>
+
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <label for="doc_laboratorio" class="form-label">Documento de Laboratio</label>
+                                                                        <input type="file" class="form-control" name="doc_laboratorio" id="doc_laboratorio"
+                                                                            required />
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <label for="descripcion_l" class="form-label">Descripcion de documento: </label>
+                                                                    <textarea name="descripcion" class="form-control" id="descripcion_l"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="tab-pane fade" id="citas" role="tabpanel"
+                                                            aria-labelledby="attributions-tab">
+                                                            <div class="col-md-12">
+                                                                <a href=""
+                                                                    class="btn btn-sm btn-outline-primary float-end"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#cita_modal"><i
+                                                                        class="fas fa-plus-circle"></i> Nuevo</a>
+                                                            </div>
+                                                            <div class="row col-12"></div>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="assets/vendor/jquery/jquery.min.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="assets/vendor/datatables/DataTables-1.10.25/js/jquery.dataTables.min.js"></script>
-    <script src="assets/vendor/datatables/Buttons-2.4.2/js/dataTables.buttons.min.js"></script>
-    <script src="assets/vendor/datatables/DataTables-1.10.25/js/dataTables.bootstrap5.min.js"></script>
-    <script src="assets/vendor/datatables/Buttons-2.4.2/js/buttons.bootstrap5.js"></script>
-    <script src="assets/vendor/datatables/pdfmake-0.2.7/pdfmake.js"></script>
-    <script src="assets/vendor/datatables/pdfmake-0.2.7/vfs_fonts.js"></script>
-    <script src="assets/vendor/datatables/Buttons-2.4.2/js/buttons.html5.min.js"></script>
-    <script src="assets/js/paciente.js"></script>
-    <script src="assets/js/menu.js"></script>
-    <script>
-        $(() => {
-            sessionuserdata();
+                        <script src="assets/vendor/jquery/jquery.min.js"></script>
+                        <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+                        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                        <script src="assets/vendor/datatables/DataTables-1.10.25/js/jquery.dataTables.min.js"></script>
+                        <script src="assets/vendor/datatables/Buttons-2.4.2/js/dataTables.buttons.min.js"></script>
+                        <script
+                            src="assets/vendor/datatables/DataTables-1.10.25/js/dataTables.bootstrap5.min.js"></script>
+                        <script src="assets/vendor/datatables/Buttons-2.4.2/js/buttons.bootstrap5.js"></script>
+                        <script src="assets/vendor/datatables/pdfmake-0.2.7/pdfmake.js"></script>
+                        <script src="assets/vendor/datatables/pdfmake-0.2.7/vfs_fonts.js"></script>
+                        <script src="assets/vendor/datatables/Buttons-2.4.2/js/buttons.html5.min.js"></script>
+                        <script src="assets/js/paciente.js"></script>
+                        <script src="assets/js/menu.js"></script>
+                        <script>
+                            $(() => {
+                                sessionuserdata();
 
-            const idpaciente = getIdPaciente();
-            getPaciente(idpaciente);
-            getTratamientoPaciente();
-            selectCondiciones();
+                                const idpaciente = getIdPaciente();
+                                getPaciente(idpaciente);
+                                getTratamientoPaciente();
+                                selectCondiciones();
 
-            $("#btn-guardarcondicion").on("click", function () {
-                guardarCondicion();
-            });
-            $("#btn-guardarmedicacion").on("click", () => {
-                guardarMedicacion();
-            });
-            $("#btn-guardarpaciente").on("click", function (evt) {
-                //evt.preventDefault();
-                guardarPaciente();
-            });
-            $("#btn-guardarNota").on("click", () => {
-                guardarNota();
-            });
-            $("#btn-guadarSignoVital").on("click", () => {
-                gaurdaSignoVital();
-            });
-            $("#btn-guardaractividades").on("click", () => {
-                guardarActividades();
-            });
-            $("#archivo_nota").on("change", () => {
-                //let archivos = $("#archivo_nota").get(0).files.length;
-                //document.querySelector("#archivo_text").innerHTML = `${archivos} de 5`;
-                guardarNota();
+                                $("#btn-guardarcondicion").on("click", function () {
+                                    guardarCondicion();
+                                });
+                                $("#btn-guardarmedicacion").on("click", () => {
+                                    guardarMedicacion();
+                                });
+                                $("#btn-guardarpaciente").on("click", function (evt) {
+                                    //evt.preventDefault();
+                                    guardarPaciente();
+                                });
+                                $("#btn-guardarNota").on("click", () => {
+                                    guardarNota();
+                                });
+                                $("#btn-guadarSignoVital").on("click", () => {
+                                    gaurdaSignoVital();
+                                });
+                                $("#btn-guardaractividades").on("click", () => {
+                                    guardarActividades();
+                                });
+                                $("#archivo_nota").on("change", () => {
+                                    //let archivos = $("#archivo_nota").get(0).files.length;
+                                    //document.querySelector("#archivo_text").innerHTML = `${archivos} de 5`;
+                                    guardarNota();
 
-            });
-            // getActividades();
-            getMedicacion();
+                                });
+                                // getActividades();
+                                getMedicacion();
 
-        });
-    </script>
+                            });
+                        </script>
 </body>
 
 </html>
