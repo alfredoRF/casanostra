@@ -883,8 +883,8 @@ function guardarLaboratorio() {
             closeOnEsc: false,
         });
         const formData = new FormData(form);
-        let date = new Date();
-        // formData.append('fecha', date.toISOString().slice(0, 19).replace('T', ' '));
+        let date = new Date(document.querySelector("#fechacaptura").value);
+        formData.set('fechacaptura', date.toISOString().slice(0, 19).replace('T', ' '));
         formData.append('paciente', getIdPaciente());
         formData.append('action', '24');
         fetch(url, { method: "post", body: formData })
@@ -893,7 +893,7 @@ function guardarLaboratorio() {
 
                 console.log(laboratorio);
                 resetform("form_laboratorio");
-                
+
                 getLaboratorios();
                 swal.close();
                 swal({
@@ -909,6 +909,79 @@ function guardarLaboratorio() {
     }
 }
 /**fin laboratorios */
+
+/**funciones para citas */
+function getCitas() {
+    const url = urlStar + "/dao/patient.php";
+    const formData = new FormData();
+    formData.append('paciente', getIdPaciente());
+    formData.append('action', '25');
+    fetch(url, { method: "post", body: formData })
+        .then((response) => response.json())
+        .then((citas) => {
+            let calendarEl = document.getElementById('calendar');
+            let calendar = new FullCalendar.Calendar(calendarEl, {
+                // height: '100%',
+                locale: 'es',
+                initialView: 'dayGridMonth',
+                events: citas.map(cita => {
+                    let dateTimeParts = cita.fecha.split(/[- :]/); // regular expression split that creates array with: year, month, day, hour, minutes, seconds values
+                    dateTimeParts[1]--; // monthIndex begins with 0 for January and ends with 11 for December so we need to decrement by one
+
+                    const date = new Date(...dateTimeParts); // our Date object
+                    let obj = {title: cita.descripcion, start: date};
+                    // console.log(obj);
+                    return obj;
+                })
+
+            });
+            calendar.render();
+            calendar.on('dateClick', info => {
+                // console.log('clicked on ' + info.dateStr);
+                resetform('form_cita');
+                document.querySelector("#fecha_c").value = info.dateStr + "T00:00";
+                $('#cita_modal').modal('show');
+            });
+        });
+
+}
+
+function guardarCita() {
+    const url = urlStar + "/dao/patient.php";
+    const form = document.querySelector("#form_cita");
+    const required = validarFormulario(form);
+    if (!required.includes(false)) {
+
+        const formData = new FormData(form);
+        let date = new Date(document.querySelector("#fecha_c").value);
+        formData.set('fecha', date.toISOString().slice(0, 19).replace('T', ' '));
+        formData.append('paciente', getIdPaciente());
+        formData.append('action', '26');
+        fetch(url, { method: "post", body: formData })
+            .then((response) => response.json())
+            .then((cita) => {
+                $('#cita_modal').modal('hide');
+
+                // console.log(laboratorio);
+                resetform("form_cita");
+
+
+                // swal.close();
+                swal({
+                    title: 'Guardado',
+                    text: 'La cita fue guardada',
+                    icon: 'success',
+                    buttons: {
+                        cancel: false,
+                        confirm: 'Aceptar'
+                    }
+                });
+                getCitas();
+            });
+    }
+}
+
+/**fin citas */
 
 function resetFormMedicacion() {
     document.querySelector('#form-medicacion').reset();

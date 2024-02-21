@@ -458,7 +458,7 @@ function putCita()
 {
     $cita = R::dispense("cita");
     $cita->paciente = $_REQUEST["paciente"];
-    $cita->fecha = $_REQUEST["fechacaptura"];
+    $cita->fecha = $_REQUEST["fecha"];
     $cita->descripcion = $_REQUEST["descripcion"];
     $id = R::store($cita);
     // $path = '../expedientes/Laboratorio_'.$id.".pdf";

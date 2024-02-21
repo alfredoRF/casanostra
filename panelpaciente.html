@@ -856,10 +856,11 @@
 
                                 <div class="tab-pane fade" id="laboratorios" role="tabpanel"
                                     aria-labelledby="attributions-tab">
-                                    <div class="col-md-12">
+                                    <div class="col-12">
                                         <a href="" class="btn btn-sm btn-outline-primary float-end"
-                                            data-bs-toggle="modal" data-bs-target="#laboratorio_modal" onclick="resetform('form_laboratorio');"><i
-                                                class="fas fa-plus-circle"></i> Nuevo</a><br>
+                                            data-bs-toggle="modal" data-bs-target="#laboratorio_modal"
+                                            onclick="resetform('form_laboratorio');"><i class="fas fa-plus-circle"></i>
+                                            Nuevo</a><br>
                                     </div>
                                     <div class="row col-12 p-1">
                                         <table width="100%" class="table table-hover" id="tabla_laboratorios">
@@ -915,8 +916,8 @@
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button"
-                                                            class="btn btn-primary" onclick="guardarLaboratorio()">Guardar</button>
+                                                        <button type="button" class="btn btn-primary"
+                                                            onclick="guardarLaboratorio()">Guardar</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -925,12 +926,56 @@
                                 </div>
                                 <div class="tab-pane fade" id="citas" role="tabpanel"
                                     aria-labelledby="attributions-tab">
-                                    <div class="col-md-12">
-                                        <a href="" class="btn btn-sm btn-outline-primary float-end"
-                                            data-bs-toggle="modal" data-bs-target="#cita_modal"><i
-                                                class="fas fa-plus-circle"></i> Nuevo</a>
+                                    <div class="container">
+                                        <div class="col-md-12">
+                                            <a href="" class="btn btn-sm btn-outline-primary float-end"
+                                                data-bs-toggle="modal" data-bs-target="#cita_modal" onclick="resetform('form_cita')"><i
+                                                    class="fas fa-plus-circle"></i> Nuevo</a>
+                                        </div>
+                                        <div class="row col-12">
+                                            <div id='calendar'></div>
+                                        </div>
                                     </div>
-                                    <div class="row col-12"></div>
+                                    <div class="modal modal fade" id="cita_modal" role="dialog" tabindex="-1">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <form id="form_cita" accept-charset="utf-8"
+                                                    onsubmit="event.preventDefault();">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Captura de Laboratorio</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body text-start">
+                                                        <div class="col-12">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <label for="fecha_c" class="form-label">Fecha
+                                                                        de captura</label>
+                                                                    <input type="datetime-local" name="fecha"
+                                                                        id="fecha_c" class="form-control" required>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mt-20">
+                                                                <div class="col-12">
+                                                                    <label for="descripcion_c"
+                                                                        class="form-label">Descripcion de cita:
+                                                                    </label>
+                                                                    <textarea name="descripcion" class="form-control"
+                                                                        id="descripcion_c" required></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary"
+                                                            onclick="guardarCita()">Guardar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -951,6 +996,10 @@
     <script src="assets/vendor/datatables/Buttons-2.4.2/js/buttons.html5.min.js"></script>
     <script src="assets/js/paciente.js"></script>
     <script src="assets/js/menu.js"></script>
+    <script src="assets/vendor/fullcalendar-6.1.11/dist/index.global.min.js"></script>
+    <script src="assets/vendor/fullcalendar-6.1.11/packages/core/locales/es.global.min.js"></script>
+    <!-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script> -->
+
     <script>
         $(() => {
             sessionuserdata();
