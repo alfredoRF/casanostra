@@ -484,14 +484,14 @@ function getSignosVitales() {
             table = $('#tabla_signosVitales').DataTable({
                 data: signos,
                 columns: [
-                    { data: "lpm"},
+                    { data: "lpm" },
                     { data: "rpm" },
-                    { data: "sys", render: data => data ? (data+" mmHg") : ""},
-                    { data: "dia", render: data => data ? (data+" mmHg") : ""},
-                    { data: "temperatura", render: data => data ? (data+"&#176;C") : "" },
-                    { data: "glucosa", render: data => data ? (data+" MG/DL") : ""},
-                    {data: "spo2", render: data => data ? (data+"%") : ""},
-                    {data: "peso", render: data => data ? (data+" KG") : ""},
+                    { data: "sys", render: data => data ? (data + " mmHg") : "" },
+                    { data: "dia", render: data => data ? (data + " mmHg") : "" },
+                    { data: "temperatura", render: data => data ? (data + "&#176;C") : "" },
+                    { data: "glucosa", render: data => data ? (data + " MG/DL") : "" },
+                    { data: "spo2", render: data => data ? (data + "%") : "" },
+                    { data: "peso", render: data => data ? (data + " KG") : "" },
                     {
                         data: "id",
                         render: (data, type) => {
@@ -836,6 +836,79 @@ function habilitarDias() {
             break;
     }
 }
+
+/**funciones para laboratorios */
+function getLaboratorios() {
+    const url = urlStar + "/dao/patient.php";
+    const formData = new FormData();
+    formData.append('paciente', getIdPaciente());
+    formData.append('action', '23');
+    fetch(url, { method: "post", body: formData })
+        .then((response) => response.json())
+        .then((laboratorios) => {
+            let table = $('#tabla_laboratorios').DataTable();
+            table.destroy();
+            table = $('#tabla_laboratorios').DataTable({
+                data: laboratorios,
+                columns: [
+                    { data: "fechacaptura" },
+                    { data: "descripcion" },
+                    {
+                        data: "id", render: data => `<a href='./expedientes/Laboratorio_${data}.pdf' class='btn btn-outline-primary btn-rounded' target="blank"><i class='fas fa-file-signature' style='font-size:1.5em;'></i></a>`
+                    }
+                ],
+                responsive: true,
+                pageLength: 20,
+                lengthChange: false,
+                searching: true,
+                ordering: true
+            });
+        });
+}
+
+function guardarLaboratorio() {
+    const url = urlStar + "/dao/patient.php";
+    const form = document.querySelector("#form_laboratorio");
+    const required = validarFormulario(form);
+    if (!required.includes(false)) {
+        $('#laboratorio_modal').modal('hide');
+        let html = document.createElement('div');
+        html.innerHTML = '<div class="spinner-border" style="width: 5rem; height: 5rem;" role="status"><span class="visually-hidden">Loading...</span></div>';
+        swal({
+            title: "Guardando...",
+            text: "Porfavor espere",
+            content: html,
+            buttons: false,
+            closeOnClickOutside: false,
+            closeOnEsc: false,
+        });
+        const formData = new FormData(form);
+        let date = new Date();
+        // formData.append('fecha', date.toISOString().slice(0, 19).replace('T', ' '));
+        formData.append('paciente', getIdPaciente());
+        formData.append('action', '24');
+        fetch(url, { method: "post", body: formData })
+            .then((response) => response.json())
+            .then((laboratorio) => {
+
+                console.log(laboratorio);
+                resetform("form_laboratorio");
+                
+                getLaboratorios();
+                swal.close();
+                swal({
+                    title: 'Guardado',
+                    text: 'La captura fue exitosa',
+                    icon: 'success',
+                    buttons: {
+                        cancel: false,
+                        confirm: 'Aceptar'
+                    }
+                });
+            });
+    }
+}
+/**fin laboratorios */
 
 function resetFormMedicacion() {
     document.querySelector('#form-medicacion').reset();

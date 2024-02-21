@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
     <title>Panel Paciente</title>
     <link href="assets/vendor/fontawesome/css/fontawesome.min.css" rel="stylesheet">
     <link href="assets/vendor/fontawesome/css/solid.min.css" rel="stylesheet">
@@ -857,7 +858,7 @@
                                     aria-labelledby="attributions-tab">
                                     <div class="col-md-12">
                                         <a href="" class="btn btn-sm btn-outline-primary float-end"
-                                            data-bs-toggle="modal" data-bs-target="#laboratorio_modal"><i
+                                            data-bs-toggle="modal" data-bs-target="#laboratorio_modal" onclick="resetform('form_laboratorio');"><i
                                                 class="fas fa-plus-circle"></i> Nuevo</a><br>
                                     </div>
                                     <div class="row col-12 p-1">
@@ -876,10 +877,10 @@
                                     <div class="modal modal fade" id="laboratorio_modal" role="dialog" tabindex="-1">
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
-                                                <form id="form-signovital" accept-charset="utf-8"
+                                                <form id="form_laboratorio" accept-charset="utf-8"
                                                     onsubmit="event.preventDefault();">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title">Nuevo captura de Laboratorio</h5>
+                                                        <h5 class="modal-title">Captura de Laboratorio</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
@@ -887,96 +888,108 @@
                                                         <div class="col-12">
                                                             <div class="row">
                                                                 <div class="col-6">
-                                                                    <label for="fechacaptura"
-                                                                        class="form-label">Fecha de captura</label>
+                                                                    <label for="fechacaptura" class="form-label">Fecha
+                                                                        de captura</label>
                                                                     <input type="datetime-local" name="fechacaptura"
                                                                         id="fechacaptura" class="form-control" required>
 
                                                                 </div>
                                                                 <div class="col-6">
-                                                                    <label for="doc_laboratorio" class="form-label">Documento de Laboratio</label>
-                                                                        <input type="file" class="form-control" name="doc_laboratorio" id="doc_laboratorio"
-                                                                            required />
+                                                                    <label for="doc_laboratorio"
+                                                                        class="form-label">Documento de
+                                                                        Laboratio</label>
+                                                                    <input type="file" accept=".pdf"
+                                                                        class="form-control" name="doc_laboratorio"
+                                                                        id="doc_laboratorio" required />
                                                                 </div>
                                                             </div>
-                                                            <div class="row">
+                                                            <div class="row mt-20">
                                                                 <div class="col-12">
-                                                                    <label for="descripcion_l" class="form-label">Descripcion de documento: </label>
-                                                                    <textarea name="descripcion" class="form-control" id="descripcion_l"></textarea>
+                                                                    <label for="descripcion_l"
+                                                                        class="form-label">Descripcion de documento:
+                                                                    </label>
+                                                                    <textarea name="descripcion" class="form-control"
+                                                                        id="descripcion_l"></textarea>
                                                                 </div>
                                                             </div>
-                                                        </div>
-
-                                                        <div class="tab-pane fade" id="citas" role="tabpanel"
-                                                            aria-labelledby="attributions-tab">
-                                                            <div class="col-md-12">
-                                                                <a href=""
-                                                                    class="btn btn-sm btn-outline-primary float-end"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#cita_modal"><i
-                                                                        class="fas fa-plus-circle"></i> Nuevo</a>
-                                                            </div>
-                                                            <div class="row col-12"></div>
                                                         </div>
                                                     </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button"
+                                                            class="btn btn-primary" onclick="guardarLaboratorio()">Guardar</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="tab-pane fade" id="citas" role="tabpanel"
+                                    aria-labelledby="attributions-tab">
+                                    <div class="col-md-12">
+                                        <a href="" class="btn btn-sm btn-outline-primary float-end"
+                                            data-bs-toggle="modal" data-bs-target="#cita_modal"><i
+                                                class="fas fa-plus-circle"></i> Nuevo</a>
+                                    </div>
+                                    <div class="row col-12"></div>
+                                </div>
                             </div>
                         </div>
-                        <script src="assets/vendor/jquery/jquery.min.js"></script>
-                        <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-                        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-                        <script src="assets/vendor/datatables/DataTables-1.10.25/js/jquery.dataTables.min.js"></script>
-                        <script src="assets/vendor/datatables/Buttons-2.4.2/js/dataTables.buttons.min.js"></script>
-                        <script
-                            src="assets/vendor/datatables/DataTables-1.10.25/js/dataTables.bootstrap5.min.js"></script>
-                        <script src="assets/vendor/datatables/Buttons-2.4.2/js/buttons.bootstrap5.js"></script>
-                        <script src="assets/vendor/datatables/pdfmake-0.2.7/pdfmake.js"></script>
-                        <script src="assets/vendor/datatables/pdfmake-0.2.7/vfs_fonts.js"></script>
-                        <script src="assets/vendor/datatables/Buttons-2.4.2/js/buttons.html5.min.js"></script>
-                        <script src="assets/js/paciente.js"></script>
-                        <script src="assets/js/menu.js"></script>
-                        <script>
-                            $(() => {
-                                sessionuserdata();
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="assets/vendor/datatables/DataTables-1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="assets/vendor/datatables/Buttons-2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="assets/vendor/datatables/DataTables-1.10.25/js/dataTables.bootstrap5.min.js"></script>
+    <script src="assets/vendor/datatables/Buttons-2.4.2/js/buttons.bootstrap5.js"></script>
+    <script src="assets/vendor/datatables/pdfmake-0.2.7/pdfmake.js"></script>
+    <script src="assets/vendor/datatables/pdfmake-0.2.7/vfs_fonts.js"></script>
+    <script src="assets/vendor/datatables/Buttons-2.4.2/js/buttons.html5.min.js"></script>
+    <script src="assets/js/paciente.js"></script>
+    <script src="assets/js/menu.js"></script>
+    <script>
+        $(() => {
+            sessionuserdata();
 
-                                const idpaciente = getIdPaciente();
-                                getPaciente(idpaciente);
-                                getTratamientoPaciente();
-                                selectCondiciones();
+            const idpaciente = getIdPaciente();
+            getPaciente(idpaciente);
+            getTratamientoPaciente();
+            selectCondiciones();
 
-                                $("#btn-guardarcondicion").on("click", function () {
-                                    guardarCondicion();
-                                });
-                                $("#btn-guardarmedicacion").on("click", () => {
-                                    guardarMedicacion();
-                                });
-                                $("#btn-guardarpaciente").on("click", function (evt) {
-                                    //evt.preventDefault();
-                                    guardarPaciente();
-                                });
-                                $("#btn-guardarNota").on("click", () => {
-                                    guardarNota();
-                                });
-                                $("#btn-guadarSignoVital").on("click", () => {
-                                    gaurdaSignoVital();
-                                });
-                                $("#btn-guardaractividades").on("click", () => {
-                                    guardarActividades();
-                                });
-                                $("#archivo_nota").on("change", () => {
-                                    //let archivos = $("#archivo_nota").get(0).files.length;
-                                    //document.querySelector("#archivo_text").innerHTML = `${archivos} de 5`;
-                                    guardarNota();
+            $("#btn-guardarcondicion").on("click", function () {
+                guardarCondicion();
+            });
+            $("#btn-guardarmedicacion").on("click", () => {
+                guardarMedicacion();
+            });
+            $("#btn-guardarpaciente").on("click", function (evt) {
+                //evt.preventDefault();
+                guardarPaciente();
+            });
+            $("#btn-guardarNota").on("click", () => {
+                guardarNota();
+            });
+            $("#btn-guadarSignoVital").on("click", () => {
+                gaurdaSignoVital();
+            });
+            $("#btn-guardaractividades").on("click", () => {
+                guardarActividades();
+            });
+            $("#archivo_nota").on("change", () => {
+                //let archivos = $("#archivo_nota").get(0).files.length;
+                //document.querySelector("#archivo_text").innerHTML = `${archivos} de 5`;
+                guardarNota();
 
-                                });
-                                // getActividades();
-                                getMedicacion();
+            });
+            // getActividades();
+            getMedicacion();
 
-                            });
-                        </script>
+        });
+    </script>
 </body>
 
 </html>

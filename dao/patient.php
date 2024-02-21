@@ -84,26 +84,25 @@ switch ($action) {
     case 22:
         putActividades();
         break;
+    case 23:
+        getLaboratorios();
+        break;
+    case 24:
+        putLaboratorio();
+        break;
+    case 25:
+        getCitas();
+        break;
+    case 26:
+        putCita();
+        break;
 }
 
-
-
+/**funciones para pacientes */
 function getAll()
 {
     $pacientes = R::findAll('paciente');
     echo json_encode(array_values($pacientes));
-}
-
-function getCondiciones()
-{
-    $condiciones = R::find('condiciones', 'paciente=?', [$_REQUEST['idpaciente']]);
-    echo json_encode(array_values($condiciones));
-}
-
-function getActives()
-{
-    $pacientes = R::find('paciente', 'status=1');
-    echo json_encode($pacientes);
 }
 
 function getPaciente()
@@ -112,31 +111,6 @@ function getPaciente()
     $files = glob("../expedientes/Expediente_medico-" . $paciente->id . "*");
     echo json_encode(["paciente" => $paciente, "expediente" => $files]);
 }
-
-function getMedicaciones()
-{
-    $medicaciones = R::getAll('SELECT  mm.nombre AS medicamento, m.dosis, m.unidad, m.frecuencia, m.dias, m.termina, m.id FROM medicacion m INNER JOIN materialmedico mm ON m.medicamento = mm.id WHERE m.paciente = ? AND m.status = ?', [$_REQUEST['paciente'], 1]);
-    echo json_encode(array_values($medicaciones));
-}
-
-function getMedicacion()
-{
-    $medicacion = R::getAll('SELECT m.id, mm.nombre AS medicamento, c.titulo AS condicion, m.dosis, m.unidad, m.via, m.frecuencia, m.termina, m.inicio, m.observacion, m.dias, m.horarios FROM medicacion m INNER JOIN materialmedico mm ON m.medicamento = mm.id INNER JOIN condiciones c ON m.condicion = c.id WHERE m.id = ?', [$_REQUEST["id"]]);
-    echo json_encode($medicacion);
-}
-
-function getNotas()
-{
-    $notas = R::find("notas", "patient = ?", [$_REQUEST["paciente"]]);
-    echo json_encode(array_values($notas));
-}
-
-function getActividades()
-{
-    $actividades = R::findOne('actividades', 'id = ?', [$_REQUEST["id"]]);
-    echo json_encode($actividades);
-}
-
 
 function putPaciente()
 {
@@ -160,6 +134,145 @@ function putPaciente()
     $status = move_uploaded_file($_FILES['expediente']['tmp_name'], $pathS);
     $files = glob("../expedientes/Expediente_medico-" . $id . "*");
     echo json_encode(["paciente" => $paciente, "upload" => $status, "archivos" => $files]);
+}
+/**fin pacientes */
+
+
+/**Funciones para condiciones medicas */
+function getCondiciones()
+{
+    $condiciones = R::find('condiciones', 'paciente=?', [$_REQUEST['idpaciente']]);
+    echo json_encode(array_values($condiciones));
+}
+
+function putCondicion()
+{
+    $condicion = R::findOne('condiciones', "id=?", [$_REQUEST['idcondicion']]);
+    if ($condicion == null) {
+        $condicion = R::dispense('condiciones');
+    }
+    $condicion->paciente = $_REQUEST['idpaciente'];
+    $condicion->titulo = $_REQUEST['titulo'];
+    $condicion->descripcion = $_REQUEST['descripcion'];
+    $condicion->fecha = $_REQUEST['fecha'];
+    $id = R::store($condicion);
+    echo json_encode($condicion);
+}
+
+function putPacienteConditions()
+{
+    $pacienteconditions = R::dispense('condiciones');
+    $pacienteconditions->paciente = $_REQUEST['paciente'];
+    $pacienteconditions->titulo = $_REQUEST['titulo'];
+    $pacienteconditions->descripcion = $_REQUEST['descripcion'];
+    $id = R::store($pacienteconditions);
+    echo json_encode($pacienteconditions);
+}
+
+function getPacienteConditions()
+{
+    $pacienteconditions = R::find('condiciones', 'paciente=?', [$_REQUEST['paciente']]);
+    echo json_encode($pacienteconditions);
+}
+
+/**Fin condiciones medicas */
+
+/**funciones para medicacion */
+function getMedicaciones()
+{
+    $medicaciones = R::getAll('SELECT  mm.nombre AS medicamento, m.dosis, m.unidad, m.frecuencia, m.dias, m.termina, m.id FROM medicacion m INNER JOIN materialmedico mm ON m.medicamento = mm.id WHERE m.paciente = ? AND m.status = ?', [$_REQUEST['paciente'], 1]);
+    echo json_encode(array_values($medicaciones));
+}
+
+function getMedicacion()
+{
+    $medicacion = R::getAll('SELECT m.id, mm.nombre AS medicamento, c.titulo AS condicion, m.dosis, m.unidad, m.via, m.frecuencia, m.termina, m.inicio, m.observacion, m.dias, m.horarios FROM medicacion m INNER JOIN materialmedico mm ON m.medicamento = mm.id INNER JOIN condiciones c ON m.condicion = c.id WHERE m.id = ?', [$_REQUEST["id"]]);
+    echo json_encode($medicacion);
+}
+
+function putMedicacion()
+{
+    $medicacion = R::findOne('medicacion', "id=?", [$_REQUEST['idmedicacion']]);
+    if ($medicacion == null) {
+        $medicacion = R::dispense('medicacion');
+    }
+    $medicamento = R::findOne('materialmedico', 'nombre=?', [$_REQUEST['medicamento']]);
+    $medicacion->paciente = $_REQUEST['paciente'];
+    $medicacion->medicamento = $medicamento->id;
+    $medicacion->condicion = $_REQUEST['condicion'];
+    $medicacion->dosis = $_REQUEST['dosis'];
+    $medicacion->frecuencia = $_REQUEST['frecuencia'];
+    if($_REQUEST['termina']){
+        $medicacion->termina = $_REQUEST['termina'];
+    }
+    if($_REQUEST['inicio']){
+        $medicacion->inicio = $_REQUEST['inicio'];
+    }
+    $medicacion->fecha = $_REQUEST['fecha'];
+    $medicacion->horarios = $_REQUEST['horarios'];
+    $medicacion->dias = $_REQUEST['dias'];
+    $medicacion->frecuencia = $_REQUEST['frecuencia'];
+    $medicacion->unidad = $_REQUEST['unidad'];
+    $medicacion->status = $_REQUEST["status"];
+    $id = R::store($medicacion);
+    echo json_encode($medicacion);
+}
+
+function actualisarStatusMedicacion()
+{
+    $medicacion = R::findOne('medicacion', 'id=?', [$_REQUEST['id']]);
+    $medicacion->status = $_REQUEST["status"];
+    $medicacion->causa = $_REQUEST["causa"];
+    $id = R::store($medicacion);
+    echo json_encode($medicacion);
+}
+
+function getInfoMedicacion()
+{
+    $condiciones = R::find('condiciones', 'paciente=?', [$_REQUEST['paciente']]);
+    $medicaciones = R::getAll('SELECT  mm.nombre AS medicamento, m.dosis, m.frecuencia, m.termina, m.id FROM medicacion m INNER JOIN materialmedico mm ON m.medicamento = mm.id WHERE m.paciente = ?', [$_REQUEST['paciente']]);
+    echo json_encode(["condiciones" => $condiciones, "medicacion" => $medicaciones]);
+}
+/**fin funciones medicacion */
+
+
+/**funciones para actividades */
+function getActives()
+{
+    $pacientes = R::find('paciente', 'status=1');
+    echo json_encode($pacientes);
+}
+
+function getActividades()
+{
+    $actividades = R::findOne('actividades', 'id = ?', [$_REQUEST["id"]]);
+    echo json_encode($actividades);
+}
+
+function putActividades()
+{
+    $actividad = R::findOne('actividades', "id=?", [$_REQUEST['idactividades']]);
+    if ($actividad == null) {
+        $actividad = R::dispense('actividades');
+    }
+    $actividad->id= $_REQUEST['idactividades'];
+    $actividad->nombre = $_REQUEST['nombre'];
+    $actividad->descripcion = $_REQUEST['descripcion'];
+    $actividad->inicia= $_REQUEST['inicia'];
+    $actividad->termina = $_REQUEST['termina'];
+    $actividad->horario = $_REQUEST['horario'];
+    $id = R::store($actividad);
+    echo json_encode($actividad);
+}
+/**fin actividades */
+
+
+
+/**funcioes para notas */
+function getNotas()
+{
+    $notas = R::find("notas", "patient = ?", [$_REQUEST["paciente"]]);
+    echo json_encode(array_values($notas));
 }
 
 function putNota()
@@ -204,75 +317,10 @@ function getNota()
     $thumbmails = glob("../expedientes/thumbnails/Nota_*-" . $nota->id . "*");
     echo json_encode(["nota" => $nota, "archivos" => ["url" => $files, "thumbnail" => $thumbmails]]);
 }
-
-function putMedicacion()
-{
-    $medicacion = R::findOne('medicacion', "id=?", [$_REQUEST['idmedicacion']]);
-    if ($medicacion == null) {
-        $medicacion = R::dispense('medicacion');
-    }
-    $medicamento = R::findOne('materialmedico', 'nombre=?', [$_REQUEST['medicamento']]);
-    $medicacion->paciente = $_REQUEST['paciente'];
-    $medicacion->medicamento = $medicamento->id;
-    $medicacion->condicion = $_REQUEST['condicion'];
-    $medicacion->dosis = $_REQUEST['dosis'];
-    $medicacion->frecuencia = $_REQUEST['frecuencia'];
-    if($_REQUEST['termina']){
-        $medicacion->termina = $_REQUEST['termina'];
-    }
-    if($_REQUEST['inicio']){
-        $medicacion->inicio = $_REQUEST['inicio'];
-    }
-    $medicacion->fecha = $_REQUEST['fecha'];
-    $medicacion->horarios = $_REQUEST['horarios'];
-    $medicacion->dias = $_REQUEST['dias'];
-    $medicacion->frecuencia = $_REQUEST['frecuencia'];
-    $medicacion->unidad = $_REQUEST['unidad'];
-    $medicacion->status = $_REQUEST["status"];
-    $id = R::store($medicacion);
-    echo json_encode($medicacion);
-}
-
-function putActividades()
-{
-    $actividad = R::findOne('actividades', "id=?", [$_REQUEST['idactividades']]);
-    if ($actividad == null) {
-        $actividad = R::dispense('actividades');
-    }
-    $actividad->id= $_REQUEST['idactividades'];
-    $actividad->nombre = $_REQUEST['nombre'];
-    $actividad->descripcion = $_REQUEST['descripcion'];
-    $actividad->inicia= $_REQUEST['inicia'];
-    $actividad->termina = $_REQUEST['termina'];
-    $actividad->horario = $_REQUEST['horario'];
-    $id = R::store($actividad);
-    echo json_encode($actividad);
-}
+/**fin notas */
 
 
-function actualisarStatusMedicacion()
-{
-    $medicacion = R::findOne('medicacion', 'id=?', [$_REQUEST['id']]);
-    $medicacion->status = $_REQUEST["status"];
-    $medicacion->causa = $_REQUEST["causa"];
-    $id = R::store($medicacion);
-    echo json_encode($medicacion);
-}
-
-function putCondicion()
-{
-    $condicion = R::findOne('condiciones', "id=?", [$_REQUEST['idcondicion']]);
-    if ($condicion == null) {
-        $condicion = R::dispense('condiciones');
-    }
-    $condicion->paciente = $_REQUEST['idpaciente'];
-    $condicion->titulo = $_REQUEST['titulo'];
-    $condicion->descripcion = $_REQUEST['descripcion'];
-    $condicion->fecha = $_REQUEST['fecha'];
-    $id = R::store($condicion);
-    echo json_encode($condicion);
-}
-
+/**funciones para tratamiento medico */
 function getTratamiento()
 {
     $medicacion = R::getAll("SELECT t.*, mm.nombre AS medicamento FROM tratamiento t INNER JOIN medicacion m ON t.medicacion = m.id INNER JOIN materialmedico mm ON m.medicamento = mm.id WHERE medicacion IN (SELECT id FROM medicacion WHERE paciente = ? AND status = 1)", [$_REQUEST['paciente']]);
@@ -311,16 +359,8 @@ function getTreatments()
     echo json_encode($tratamientos);
 }
 
-function putPacienteConditions()
-{
-    $pacienteconditions = R::dispense('condiciones');
-    $pacienteconditions->paciente = $_REQUEST['paciente'];
-    $pacienteconditions->titulo = $_REQUEST['titulo'];
-    $pacienteconditions->descripcion = $_REQUEST['descripcion'];
-    $id = R::store($pacienteconditions);
-    echo json_encode($pacienteconditions);
-}
 
+/**funciones medicalReport */
 function putMedicalReport()
 {
     $medicalreport = R::dispense('medicalreport');
@@ -343,24 +383,23 @@ function getMedicalReport()
     echo json_encode($medicalreport);
 }
 
-function getPacienteTask()
-{
-    $pacientetasks = R::find('pacientetask', 'paciente=? AND tasktype=?', [$_REQUEST['paciente'], $_REQUEST['tasktype']]);
-    echo json_encode($pacientetasks);
-}
-
-function getPacienteConditions()
-{
-    $pacienteconditions = R::find('condiciones', 'paciente=?', [$_REQUEST['paciente']]);
-    echo json_encode($pacienteconditions);
-}
-
 function removeMedicalReport()
 {
     $medicalreport = R::findOne('medicalpaciente', 'id=?', [$_REQUEST['id']]);
     R::trash($medicalreport);
     echo json_encode($medicalreport);
 }
+/**fin medicalReport */
+
+
+
+function getPacienteTask()
+{
+    $pacientetasks = R::find('pacientetask', 'paciente=? AND tasktype=?', [$_REQUEST['paciente'], $_REQUEST['tasktype']]);
+    echo json_encode($pacientetasks);
+}
+
+/**funciones para signos vitales */
 function getSignosVitales()
 {
     $signosVitales = R::find("signosvitales", "paciente = ? ", [$_REQUEST['paciente']]);
@@ -386,7 +425,49 @@ function putSignoVital()
     $id = R::store($signoVital);
     echo json_encode($signoVital);
 }
+/**fin signos vitales */
 
+/**funcines para laboratorios */
+function getLaboratorios()
+{
+    $laboratorios = R::find("laboratorios", "paciente = ?", [$_REQUEST["paciente"]]);
+    echo json_encode(R::exportAll($laboratorios));
+}
+
+function putLaboratorio()
+{
+    $laboratorio = R::dispense("laboratorios");
+    $laboratorio->paciente = $_REQUEST["paciente"];
+    $laboratorio->fechacaptura = $_REQUEST["fechacaptura"];
+    $laboratorio->descripcion = $_REQUEST["descripcion"];
+    $id = R::store($laboratorio);
+    $path = '../expedientes/Laboratorio_'.$id.".pdf";
+    $statusTemp = move_uploaded_file($_FILES['doc_laboratorio']['tmp_name'], $path);
+    echo json_encode(["laboratorio"=>$laboratorio, "archivo"=>$statusTemp]);
+}
+/** fin laboratorios*/
+
+/**funcines para citas */
+function getCitas()
+{
+    $citas = R::find("cita", "paciente = ?", [$_REQUEST["paciente"]]);
+    echo json_encode(R::exportAll($citas));
+}
+
+function putCita()
+{
+    $cita = R::dispense("cita");
+    $cita->paciente = $_REQUEST["paciente"];
+    $cita->fecha = $_REQUEST["fechacaptura"];
+    $cita->descripcion = $_REQUEST["descripcion"];
+    $id = R::store($cita);
+    // $path = '../expedientes/Laboratorio_'.$id.".pdf";
+    // $statusTemp = move_uploaded_file($_FILES['archivo_nota']['tmp_name'], $path);
+    echo json_encode($cita);
+}
+/** fin citas*/
+
+/**funciones comunes */
 function eliminarExpediente()
 {
     $id = $_REQUEST["id"];
@@ -482,12 +563,7 @@ function resizeIMG($thumbWidth, $sourceImg, $fileDir)
 
     return $status;
 }
-function getInfoMedicacion()
-{
-    $condiciones = R::find('condiciones', 'paciente=?', [$_REQUEST['paciente']]);
-    $medicaciones = R::getAll('SELECT  mm.nombre AS medicamento, m.dosis, m.frecuencia, m.termina, m.id FROM medicacion m INNER JOIN materialmedico mm ON m.medicamento = mm.id WHERE m.paciente = ?', [$_REQUEST['paciente']]);
-    echo json_encode(["condiciones" => $condiciones, "medicacion" => $medicaciones]);
-}
+
 
 function sessionStatus(){
     if(isset($_SESSION['usuario'])){
@@ -496,3 +572,4 @@ function sessionStatus(){
         return false;
     } 
 }
+/**fin funciones comunes */
