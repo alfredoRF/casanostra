@@ -57,15 +57,16 @@ function guardarPaciente() {
 }
 
 function getPaciente(id) {
-    // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
+    console.log("request server patient"+ new Date());
     const url = urlStar + "/dao/patient.php";
     const formData = new FormData();
     formData.append('action', '4');
     formData.append('id', id);
+    console.log("fetching server patient"+ new Date());
     fetch(url, { method: "post", body: formData })
         .then((response) => response.json())
         .then((myJson) => {
-            //console.log(myJson);
+            console.log("response server patient"+ new Date());
             let paciente = myJson.paciente
             $("#formidpaciente").val(paciente.id);
             $("#nombre").val(paciente.nombre);
@@ -360,7 +361,6 @@ function getNotas() {
 }
 
 function guardarNota() {
-    // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
     const url = urlStar + "/dao/patient.php";
     const form = document.querySelector("#form-nota");
     const required = validarFormulario(form);
@@ -382,36 +382,20 @@ function guardarNota() {
         fetch(url, { method: "post", body: formData })
             .then((response) => response.json())
             .then((res_nota) => {
+                console.log(res_nota);
                 swal.close();
-                //$('#notamodal').modal('hide');
                 resetform("form-nota");
-                if (res_nota.file_upload) {
-                    swal({
-                        title: 'Guardado',
-                        text: 'La nota fue guardada',
-                        icon: 'success',
-                        buttons: {
-                            cancel: false,
-                            confirm: 'Aceptar'
-                        }
-                    }).then(() => {
-                        getNota(res_nota.nota.id);
-                    });
-
-                } else {
-                    $("#id_nota").val("");
-
-                    swal({
-                        title: 'Guardado',
-                        text: 'La nota fue guardada',
-                        icon: 'success',
-                        buttons: {
-                            cancel: false,
-                            confirm: 'Aceptar'
-                        }
-                    });
-                }
-
+                swal({
+                    title: 'Guardado',
+                    text: 'La nota fue guardada',
+                    icon: 'success',
+                    buttons: {
+                        cancel: false,
+                        confirm: 'Aceptar'
+                    }
+                }).then(() => {
+                    getNota(res_nota.nota.id);
+                });
             }).catch(error => {
                 swal.close();
                 console.log(error);
@@ -617,31 +601,28 @@ function selectCondiciones() {
 }
 
 function getNota(id) {
-    // const url = "http://control.lacasanostra.com.mx/dao/patient.php";
     const url = urlStar + "/dao/patient.php";
-    // let idPaciente = getIdPaciente();
     const formData = new FormData();
     formData.append('id', id);
     formData.append('action', '16');
     fetch(url, { method: "post", body: formData })
         .then((response) => response.json())
         .then((res_nota) => {
+            console.log("getNota:",id,">>",res_nota);
             const nota = res_nota.nota;
-            const archivos = res_nota.archivos.url;
-            const thumbnail = res_nota.archivos.thumbnail;
+            const archivos = res_nota.archivos;
             $("#id_nota").val(nota.id);
             $("#nota").val(nota.nota);
             let panelArchivos = '<div class="row">';
-            document.querySelector("#archivo_text").innerHTML = `${archivos.length} de 5`;
+            document.querySelector("#archivo_text").innerHTML = `${archivos.length} de 4`;
             if (archivos.length > 0) {
                 archivos.forEach((archivo) => {
                     archivo = archivo.replace("..", "");
-                    let path = "http://control.lacasanostra.com.mx" + archivo;
-                    panelArchivos += `<div class="mb-3 col-2"><label><strong>${archivo.split("/")[2]}</strong> <a href="${path}" class="btn btn-primary"><i class="fas fa-file-download"></i></a></label></div>`;
+                    panelArchivos += `<div class="col-3"><img class="img-responsive" style="width:100%; height:auto;" src="${archivo}" onclick="verFotoThumbnail('${archivo}')" /></div>`;
                 });
             }
             panelArchivos += '</div>';
-            if (archivos.length == 5) {
+            if (archivos.length == 4) {
                 document.querySelector("#archivo_nota").disabled = true;
             } else {
                 document.querySelector("#archivo_nota").disabled = false;
@@ -651,15 +632,24 @@ function getNota(id) {
         });
 }
 
+function verFotoThumbnail(archivo){
+    $("#notamodal").modal('hide');
+    $('#fotothumbnailnota').attr('src',archivo);
+    $("#modal-foto-nota").modal('show');
+    console.log(archivo);
+}
+
 function prepararFormNota() {
     resetform('form-nota');
     $('#id_nota').val('');
     document.querySelector("#archivo_nota").disabled = false;
     document.querySelector("#archivos_nota").innerHTML = "";
 }
+
 function resetform(form) {
     $("#" + form)[0].reset();
 }
+
 function loadForm(data) {
     Object.keys(data).forEach(key => {
         // console.log(key, obj[key]);
@@ -740,7 +730,7 @@ function borrarExpediente() {
                     } else {
                         swal({
                             title: 'A ocurrido un error!',
-                            text: "Revise su conexión de internet e inténtelo nuevamente",
+                            text: "Revise su conexiÃ³n de internet e intÃ©ntelo nuevamente",
                             icon: 'error',
                             buttons: {
                                 cancel: false,
@@ -753,7 +743,7 @@ function borrarExpediente() {
 
                     swal({
                         title: 'A ocurrido un error!',
-                        text: "Revise su conexión de internet e inténtelo nuevamente",
+                        text: "Revise su conexiÃ³n de internet e intÃ©ntelo nuevamente",
                         icon: 'error',
                         buttons: {
                             cancel: false,
@@ -764,6 +754,69 @@ function borrarExpediente() {
         }
     });
 }
+
+function borrarFotoNota(archivo) {
+    swal({
+        title: "Eliminar foto nota",
+        text: "El evidencia fotografica sera borrada!!!",
+        icon: "warning",
+        buttons: ["Cancelar", "Borrar"],
+        dangerMode: true,
+    }).then((res) => {
+        if (res) {
+            const url = urlStar + "/dao/patient.php";
+            let idPaciente = getIdPaciente();
+            const formData = new FormData();
+            formData.append('archivo', archivo);
+            formData.append('action', 27);
+            fetch(url, { method: "post", body: formData })
+                .then((response) => response.json())
+                .then((myjson) => {
+                    console.log(myjson);
+                    if (myjson.status) {
+                        swal({
+                            title: 'Evidencia fotografica eliminada',
+                            icon: 'success',
+                            buttons: {
+                                cancel: false,
+                                confirm: 'Aceptar'
+                            }
+                        }).then((result) => {
+                            $("#modal-foto-nota").modal("hide");
+                            let idNota = $("#id_nota").val();
+                            getNota(idNota);
+                        });
+                    } else {
+                        swal({
+                            title: 'A ocurrido un error!',
+                            text: "intÃ©ntelo nuevamente",
+                            icon: 'error',
+                            buttons: {
+                                cancel: false,
+                                confirm: 'Aceptar'
+                            }
+                        }).then((result) => {
+                            $("#modal-foto-nota").modal("hide");
+                            let idNota = $("#id_nota").val();
+                            getNota(idNota);
+                        });
+                    }
+                })
+                .catch(error => {
+                    swal({
+                        title: 'A ocurrido un error!',
+                        text: "Revise su conexiÃ³n de internet e intÃ©ntelo nuevamente",
+                        icon: 'error',
+                        buttons: {
+                            cancel: false,
+                            confirm: 'Aceptar'
+                        }
+                    });
+                });
+        }
+    });
+}
+
 function darAplicacion(medicacion) {
     const formData = new FormData();
     formData.append('action', "15");
@@ -993,4 +1046,8 @@ function resetFormMedicacion() {
 
 }
 
-function getActividades() { }
+
+
+function getActividades() { 
+
+}

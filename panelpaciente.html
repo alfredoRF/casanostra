@@ -14,7 +14,6 @@
     <link href="assets/vendor/datatables/datatables.min.css" rel="stylesheet">
     <link href="assets/vendor/datatables/Buttons-2.4.2/css/buttons.bootstrap5.min.css" rel="stylesheet">
     <link href="assets/vendor/datatables/DataTables-1.10.25/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-
     <link href="assets/css/master.css" rel="stylesheet">
 </head>
 
@@ -100,12 +99,11 @@
                                         href="#signos_vitales" role="tab" aria-controls="signos_vitales"
                                         aria-selected="false" onclick="getSignosVitales()">Signos Vitales</a>
                                 </li>
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <a class="nav-link" id="actividades-tab" data-bs-toggle="tab" href="#actividades"
                                         role="tab" aria-controls="actividades" aria-selected="false"
                                         onclick="getActividades('p');">Actividades</a>
-                                </li>
-                                <!--     -->
+                                </li> -->
                                 <li class="nav-item">
                                     <a class="nav-link" id="laboratorios-tab" data-bs-toggle="tab" href="#laboratorios"
                                         role="tab" aria-controls="laboratorios" aria-selected="false"
@@ -411,32 +409,32 @@
                                                                     dia</label>
                                                                 <select id="veces" class="form-select"
                                                                     onchange="calcularHorario()">
-                                                                    <option value="" disabled selected>Veces al día...
+                                                                    <option value="" disabled selected>Veces al dÃ­a...
                                                                     </option>
-                                                                    <option value="1">Una vez al día</option>
-                                                                    <option value="2">2 veces al día</option>
-                                                                    <option value="3">3 veces al día</option>
-                                                                    <option value="4">4 veces al día</option>
-                                                                    <option value="5">5 veces al día</option>
-                                                                    <option value="6">6 veces al día</option>
-                                                                    <option value="7">7 veces al día</option>
-                                                                    <option value="8">8 veces al día</option>
-                                                                    <option value="9">9 veces al día</option>
-                                                                    <option value="10">10 veces al día</option>
-                                                                    <option value="11">11 veces al día</option>
-                                                                    <option value="12">12 veces al día</option>
-                                                                    <option value="13">13 veces al día</option>
-                                                                    <option value="14">14 veces al día</option>
-                                                                    <option value="15">15 veces al día</option>
-                                                                    <option value="16">16 veces al día</option>
-                                                                    <option value="17">17 veces al día</option>
-                                                                    <option value="18">18 veces al día</option>
-                                                                    <option value="19">19 veces al día</option>
-                                                                    <option value="20">20 veces al día</option>
-                                                                    <option value="21">21 veces al día</option>
-                                                                    <option value="22">22 veces al día</option>
-                                                                    <option value="23">23 veces al día</option>
-                                                                    <option value="24">24 veces al día</option>
+                                                                    <option value="1">Una vez al dÃ­a</option>
+                                                                    <option value="2">2 veces al dÃ­a</option>
+                                                                    <option value="3">3 veces al dÃ­a</option>
+                                                                    <option value="4">4 veces al dÃ­a</option>
+                                                                    <option value="5">5 veces al dÃ­a</option>
+                                                                    <option value="6">6 veces al dÃ­a</option>
+                                                                    <option value="7">7 veces al dÃ­a</option>
+                                                                    <option value="8">8 veces al dÃ­a</option>
+                                                                    <option value="9">9 veces al dÃ­a</option>
+                                                                    <option value="10">10 veces al dÃ­a</option>
+                                                                    <option value="11">11 veces al dÃ­a</option>
+                                                                    <option value="12">12 veces al dÃ­a</option>
+                                                                    <option value="13">13 veces al dÃ­a</option>
+                                                                    <option value="14">14 veces al dÃ­a</option>
+                                                                    <option value="15">15 veces al dÃ­a</option>
+                                                                    <option value="16">16 veces al dÃ­a</option>
+                                                                    <option value="17">17 veces al dÃ­a</option>
+                                                                    <option value="18">18 veces al dÃ­a</option>
+                                                                    <option value="19">19 veces al dÃ­a</option>
+                                                                    <option value="20">20 veces al dÃ­a</option>
+                                                                    <option value="21">21 veces al dÃ­a</option>
+                                                                    <option value="22">22 veces al dÃ­a</option>
+                                                                    <option value="23">23 veces al dÃ­a</option>
+                                                                    <option value="24">24 veces al dÃ­a</option>
                                                                 </select>
                                                             </div>
                                                             <div class="mb-3 col-6">
@@ -662,12 +660,10 @@
                                                     onsubmit="event.preventDefault();">
                                                     <input type="hidden" value="0" id="id_nota" name="id" />
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title">Nueva Nota</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body text-start">
-
                                                         <div class="mb-3">
                                                             <label for="nota" class="form-label">Nota</label>
                                                             <textarea rows="4" id="nota" name="nota"
@@ -675,8 +671,9 @@
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="archivo_nota" class="form-label">Archivos <span
-                                                                    id="archivo_text">0 de 5</span></label>
+                                                                    id="archivo_text">0 de 4</span></label>
                                                             <div id="archivos_nota"></div>
+                                                            <br/>
                                                             <input type="file" id="archivo_nota"
                                                                 accept=".jpeg, .jpg, .png" name="archivo_nota"
                                                                 class="form-control" />
@@ -687,6 +684,22 @@
                                                             class="btn btn-success">Aceptar</button>
                                                     </div>
                                                 </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal fade" id="modal-foto-nota" role="dialog" tabindex="-1">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button id="close-modal-foto-nota" type="button" class="btn-close"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <img id="fotothumbnailnota" src="" style="width: 100%;">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button id="borrarfotonota" type="button" class="btn btn-danger">Eliminar</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -717,8 +730,8 @@
                                         <table width="100%" class="table table-hover" id="tabla_signosVitales">
                                             <thead>
                                                 <tr>
-                                                    <th>Latidos por minuto (LPM)</th>
-                                                    <th>Respiraciones por minuto (RPM)</th>
+                                                    <th>LPM</th>
+                                                    <th>RPM</th>
                                                     <th>SYS</th>
                                                     <th>DIA</th>
                                                     <th>Temperatura</th>
@@ -866,7 +879,7 @@
                                         <table width="100%" class="table table-hover" id="tabla_laboratorios">
                                             <thead>
                                                 <tr>
-                                                    <th>Fecha de captura</th>
+                                                    <th>Fecha</th>
                                                     <th>Descripcion</th>
                                                     <th></th>
                                             </thead>
@@ -889,9 +902,10 @@
                                                         <div class="col-12">
                                                             <div class="row">
                                                                 <div class="col-6">
-                                                                    <label for="fechacaptura" class="form-label">Fecha
-                                                                        de captura</label>
-                                                                    <input type="datetime-local" name="fechacaptura"
+                                                                    <label for="fechacaptura" class="form-label">
+                                                                        Fecha
+                                                                    </label>
+                                                                    <input type="date" name="fechacaptura"
                                                                         id="fechacaptura" class="form-control" required>
 
                                                                 </div>
@@ -928,9 +942,9 @@
                                     aria-labelledby="attributions-tab">
                                     <div class="container">
                                         <div class="col-md-12">
-                                            <a href="" class="btn btn-sm btn-outline-primary float-end"
+                                            <!-- <a href="" class="btn btn-sm btn-outline-primary float-end"
                                                 data-bs-toggle="modal" data-bs-target="#cita_modal" onclick="resetform('form_cita')"><i
-                                                    class="fas fa-plus-circle"></i> Nuevo</a>
+                                                    class="fas fa-plus-circle"></i> Nuevo</a> -->
                                         </div>
                                         <div class="row col-12">
                                             <div id='calendar'></div>
@@ -1002,8 +1016,8 @@
 
     <script>
         $(() => {
+            console.log("LOADING PAGE"+ new Date());
             sessionuserdata();
-
             const idpaciente = getIdPaciente();
             getPaciente(idpaciente);
             getTratamientoPaciente();
@@ -1034,7 +1048,17 @@
                 guardarNota();
 
             });
-            // getActividades();
+
+            $("#close-modal-foto-nota").on("click",()=>{
+                $("#modal-foto-nota").modal("hide");
+                $("#notamodal").modal("show");
+                
+            });
+
+            $("#borrarfotonota").on("click",()=>{
+                borrarFotoNota($("#fotothumbnailnota").attr('src'));
+            });
+            
             getMedicacion();
 
         });
