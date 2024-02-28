@@ -288,8 +288,10 @@ function putNota(){
     $id = R::store($nota);
     $extention = explode('.', $_FILES['archivo_nota']['name']);
     $ruta = '../expedientes/Nota_' .$id."_" . time() .".". $extention[count($extention) - 1];
+    $rutaT = '../expedientes/thumbnail/Nota_' .$id."_" . time() .".". $extention[count($extention) - 1];
     $status = move_uploaded_file($_FILES['archivo_nota']['tmp_name'], $ruta);
-    echo json_encode(["nota" => $nota, "file_upload" => ["archivo" => $ruta, "status"=>$status]]);
+    $statusT = createThumbnail($ruta, $rutaT, 400);
+    echo json_encode(["nota" => $nota, "file_upload" => ["archivo" => $ruta, "status"=>$status, "status thumbnail"=>$statusT]]);
 }
 
 function getNota()
@@ -474,87 +476,131 @@ function borrarFotoNota()
 }
 
 
+/**rezice image */
+// Link image type to correct image loader and saver
+// - makes it easier to add additional types later on
+// - makes the function easier to read
+const IMAGE_HANDLERS = [
+    IMAGETYPE_JPEG => [
+        'load' => 'imagecreatefromjpeg',
+        'save' => 'imagejpeg',
+        'quality' => 100
+    ],
+    IMAGETYPE_PNG => [
+        'load' => 'imagecreatefrompng',
+        'save' => 'imagepng',
+        'quality' => 0
+    ],
+    IMAGETYPE_GIF => [
+        'load' => 'imagecreatefromgif',
+        'save' => 'imagegif'
+    ]
+];
+
 /**
- * Funcion para guardar imagen comprimida y thumbnail
+ * @param $src - a valid file location
+ * @param $dest - a valid file target
+ * @param $targetWidth - desired output width
+ * @param $targetHeight - desired output height or null
  */
-// function subirImagen(){
-//     // $servicio = $_REQUEST["servicio"];
-//     // $cantidad = count(glob("../../cabina/dist/img/fotos/".$servicio."*.jpg"));
-//     // $filename = $servicio."_".($cantidad+1);
-//     $fileDir = '../../cabina/dist/img/fotos/'.$filename.".jpg";
-//     $fileDirTumb = '../../cabina/dist/img/thumbnail/'.$filename.".jpg";
-//     $statusO = false; $statusT = false;
-//     $statusO = resizeIMG(800, $_FILES['file']['tmp_name'], $fileDir); //status de imagen original comprimida
-//     $statusT = resizeIMG(300, $_FILES['file']['tmp_name'], $fileDirTumb); //status de imagen thumbnail
-//     $cantidad = count(glob("../../cabina/dist/img/fotos/".$servicio."*.jpg"));
+function createThumbnail($src, $dest, $targetWidth, $targetHeight = null) {
 
-//     echo json_encode(["status"=>$statusO&&$statusT, "cantidad"=>$cantidad]);
+    // 1. Load the image from the given $src
+    // - see if the file actually exists
+    // - check if it's of a valid image type
+    // - load the image resource
 
-//   } resizer($_, $path, $rs)
-function resizer ($source, $destination, $size, $quality=null){
-    // $source - Original image file
-    // $destination - Resized image file name
-    // $size - Single number for percentage resize
-    //         Array of 2 numbers for fixed width + height
-    // $quality - Optional image quality. JPG & WEBP = 0 to 100, PNG = -1 to 9
-    
-      // (A) CHECKS
-      if (!file_exists($source)) { throw new Exception("Source image file not found"); }
-      $sExt = strtolower(pathinfo($source)["extension"]);
-      $dExt = strtolower(pathinfo($destination)["extension"]);
-      $allowed = ["bmp", "gif", "jpg", "jpeg", "png", "webp"];
-      if (!in_array($sExt, $allowed)) { throw new Exception("$sExt - Invalid image file type"); }
-      if (!in_array($dExt, $allowed)) { throw new Exception("$dExt - Invalid image file type"); }
-      if ($quality != null) {
-        if (in_array($dExt, ["jpg", "jpeg", "webp"]) && ($quality<0 || $quality>100)) { $quality = 70; }
-        if ($dExt == "png" && ($quality<-1 || $quality>9)) { $quality = -1; }
-        if (!in_array($dExt, ["png", "jpg", "jpeg", "webp"])) { $quality = null; }
-      }
-    
-      // (B) NEW IMAGE DIMENSIONS
-      if (is_array($size)) {
-        $new_width = $size[0];
-        $new_height = $size[1];
-      } else {
-        $dimensions = getimagesize($source);
-        $new_width = ceil(($size/100) * $dimensions[0]);
-        $new_height = ceil(($size/100) * $dimensions[1]);
-      }
-    
-      // (C) RESIZE
-    //   $fnCreate = "imagecreatefrom" . ($sExt=="jpg" ? "jpeg" : $sExt);
-    //   $original = $fnCreate($source);
-    //   $resized = imagescale($original, $new_width, $new_height, IMG_BICUBIC);
-      
-    //   // (D) OUTPUT & CLEAN UP
-    //   $fnOutput = "image" . ($dExt=="jpg" ? "jpeg" : $dExt);
-    //   if (is_numeric($quality)) {
-    //     $fnOutput($resized, $destination, $quality);
-    //   } else {
-    //     $fnOutput($resized, $destination);
-    //   }
-    //   imagedestroy($original);
-    //   imagedestroy($resized);
-    //   return $fnOutput;
-    return ["image"];
+    // get the type of the image
+    // we need the type to determine the correct loader
+    $type = exif_imagetype($src);
+
+    // if no valid type or no handler found -> exit
+    if (!$type || !IMAGE_HANDLERS[$type]) {
+        return null;
     }
-/**
- * Funcion para cambiar resolucion de imagen
- */
-function resizeIMG($thumbWidth, $sourceImg, $fileDir)
-{
-    $sourceImage = imagecreatefromjpeg($sourceImg);
-    $orgWidth = imagesx($sourceImage);
-    $orgHeight = imagesy($sourceImage);
-    $thumbHeight = floor($orgHeight * ($thumbWidth / $orgWidth));
-    $destImage = imagecreatetruecolor($thumbWidth, $thumbHeight);
-    imagecopyresampled($destImage, $sourceImage, 0, 0, 0, 0, $thumbWidth, $thumbHeight, $orgWidth, $orgHeight);
-    $status  = imagejpeg($destImage, $fileDir);
-    imagedestroy($sourceImage);
-    imagedestroy($destImage);
 
-    return $status;
+    // load the image with the correct loader
+    $image = call_user_func(IMAGE_HANDLERS[$type]['load'], $src);
+
+    // no image found at supplied location -> exit
+    if (!$image) {
+        return null;
+    }
+
+
+    // 2. Create a thumbnail and resize the loaded $image
+    // - get the image dimensions
+    // - define the output size appropriately
+    // - create a thumbnail based on that size
+    // - set alpha transparency for GIFs and PNGs
+    // - draw the final thumbnail
+
+    // get original image width and height
+    $width = imagesx($image);
+    $height = imagesy($image);
+
+    // maintain aspect ratio when no height set
+    if ($targetHeight == null) {
+
+        // get width to height ratio
+        $ratio = $width / $height;
+
+        // if is portrait
+        // use ratio to scale height to fit in square
+        if ($width > $height) {
+            $targetHeight = floor($targetWidth / $ratio);
+        }
+        // if is landscape
+        // use ratio to scale width to fit in square
+        else {
+            $targetHeight = $targetWidth;
+            $targetWidth = floor($targetWidth * $ratio);
+        }
+    }
+
+    // create duplicate image based on calculated target size
+    $thumbnail = imagecreatetruecolor($targetWidth, $targetHeight);
+
+    // set transparency options for GIFs and PNGs
+    if ($type == IMAGETYPE_GIF || $type == IMAGETYPE_PNG) {
+
+        // make image transparent
+        imagecolortransparent(
+            $thumbnail,
+            imagecolorallocate($thumbnail, 0, 0, 0)
+        );
+
+        // additional settings for PNGs
+        if ($type == IMAGETYPE_PNG) {
+            imagealphablending($thumbnail, false);
+            imagesavealpha($thumbnail, true);
+        }
+    }
+
+    // copy entire source image to duplicate image and resize
+    imagecopyresampled(
+        $thumbnail,
+        $image,
+        0, 0, 0, 0,
+        $targetWidth, $targetHeight,
+        $width, $height
+    );
+
+
+    // 3. Save the $thumbnail to disk
+    // - call the correct save method
+    // - set the correct quality level
+
+    // save the duplicate version of the image to disk
+    return call_user_func(
+        IMAGE_HANDLERS[$type]['save'],
+        $thumbnail,
+        $dest,
+        IMAGE_HANDLERS[$type]['quality']
+    );
 }
+
+/**fin rezice */
 
 
 function sessionStatus(){
