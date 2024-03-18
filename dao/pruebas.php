@@ -15,5 +15,6 @@ switch ($action) {
 
 function prueba()
 {
-   echo json_encode( ["path"=>scandir( "../expedientes/tmp" ) ]);
+//    echo json_encode( ["path"=>scandir( "../expedientes/tmp" ) ]);
+echo phpinfo();
 }
